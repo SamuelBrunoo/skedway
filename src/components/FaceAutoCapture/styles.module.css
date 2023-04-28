@@ -1,0 +1,276 @@
+.stepLeft {
+  flex: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.stepLeft svg {
+  position: absolute;
+  z-index: 0;
+}
+
+.green_degrade {
+  top: 0;
+  left: 28%;
+  transform: translate(0, -50px);
+}
+
+.stepLeftBackSquare {
+  width: 57%;
+  min-width: 357px;
+  height: 75%;
+  max-height: 452px;
+  z-index: 2;
+  transform: translate(7.9%, 3.22%);
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.videoCaptureArea {
+  position: relative;
+}
+
+.videoCaptureArea:has(.finalImgContainer) {
+  width: 100%;
+}
+
+.finalImgContainer {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 24px;
+}
+
+.finalImgContainer img {
+  width: auto;
+  height: 100%;
+}
+
+.videoCaptureArea::before {
+  content: '';
+  height: 100px;
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  bottom: -10px;
+  background-image: linear-gradient(90deg, rgba(206, 180, 239, 1), rgba(206, 180, 239, 0));
+  border-radius: 24px;
+}
+
+.videoCaptureArea x-dot-face-auto-capture div {
+  width: 100%;
+  max-width: 357px;
+  height: 100%;
+  max-height: 452px;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.videoCaptureArea::before,
+.finalImgContainer,
+.videoCaptureArea x-dot-face-auto-capture div,
+.videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) {
+  transform: translate(-38px, 35px);
+}
+
+.videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) {
+  transform: translateX(-50%);
+  top: 5px;
+}
+
+.videoCaptureArea x-dot-face-auto-capture div video {
+  width: auto;
+  height: 100%;
+}
+
+.videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) {
+  width: 100%;
+  margin: auto;
+  left: 0;
+}
+
+.videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) svg {
+  width: 90%;
+  height: 90%;
+  transform: translate(-50%, 5%);
+}
+
+.stepContent {
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  padding-bottom: 63px;
+}
+
+.backColors {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: -1;
+  width: 80%;
+  height: 484px;
+  top: 0;
+  left: 0;
+}
+
+.backColors div.grey {
+  background-color: #F2F2F2;
+  width: 100%;
+  height: 240px;
+}
+
+.backColors svg {
+  width: 100%;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 377px;
+  position: relative;
+  background-color: white;
+  border-radius: 24px;
+  padding: 38px 22px 38px 34px;
+}
+
+.box::before {
+  content: '';
+  border-radius: 24px;
+  width: 100px;
+  height: 100%;
+  background-color: #80DDB1;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: -12px;
+}
+
+.box h2 {
+  font-size: 24px;
+  margin: 0 auto 24px;
+}
+
+.box h2 span:nth-child(1) {
+  font-weight: normal;
+}
+
+.box h2 span:nth-child(2) {
+  font-family: "Libre Baskerville";
+  font-style: italic;
+  font-weight: normal;
+}
+
+.description {
+  font-size: 14px;
+  color: #3C484D;
+  width: 100%;
+  text-align: justify;
+}
+
+.box h3 {
+  font-weight: 600;
+  font-size: 14px;
+  margin: 24px 0;
+}
+
+.tipsList {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 17px;
+}
+
+.tipsList li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.tipsList li svg {
+  width: 21px;
+  height: 21px;
+}
+
+.tipsList li span {
+  font-size: 14px;
+  color: #67767E;
+  text-align: left;
+  flex: 1;
+}
+
+.skewedFace {
+  transform: rotate(-75.8deg);
+}
+
+
+@media (max-height:812px) {
+  .backColors {
+    max-height: 78%;
+  }
+
+  .stepContent {
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    padding-bottom: 53px;
+  }
+}
+
+@media (max-height:722px) {
+  .description {
+    font-size: 14px;
+  }
+
+  .box {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .box h3 {
+    margin:22px 0;
+  }
+
+  .tipsList {
+    gap: 14px;
+  }
+}
+
+@media (max-height:650px) {
+  .backColors {
+    max-height: 80%;
+  }
+
+  .description,
+  .tipsList li span {
+    font-size: 12px;
+  }
+
+  .stepContent {
+    flex: 4;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+    flex-direction: column;
+    padding-top: 28px;
+    padding-bottom: 20px;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, .15);
+    z-index: 5;
+  }
+}

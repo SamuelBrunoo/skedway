@@ -1,0 +1,8 @@
+#
+Dockerfile
+.dockerignore
+.gitignore
+
+# docker run --rm -p 3000:3000 -v $(pwd)/src:/app/src:ro test_image/centos
+node_modules
+build

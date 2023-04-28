@@ -1,0 +1,38 @@
+.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  margin: 0 auto;
+  padding: 0.625em 1em;
+  background: #3C484D;
+  color: white;
+  border: 0;
+  cursor: pointer;
+  font-family: "Manrope", "Lato", Arial, sans-serif;
+  font-weight: 600;
+  margin: 0.5rem;
+  gap:12px;
+}
+
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  margin: 0 auto;
+  padding: 0.625em 1em;
+  background: #FFF;
+  color: #3C484D;
+  border: 0;
+  cursor: pointer;
+  font-family: "Manrope", "Lato", Arial, sans-serif;
+  font-weight: 600;
+  margin: 0.5rem;
+}
+
+.primary[disabled] {
+  background-color: lightgrey;
+  color: gray;
+  cursor: not-allowed;
+}

@@ -1,0 +1,20 @@
+.faceZone {
+  width: 138px;
+  height: 138px;
+  border-radius: 33px;
+  top:50%;
+  left: 57px;
+  transform: translateY(10px);
+  color: #274743;
+  background-color: white;
+  display: grid;
+  place-items: center;
+  position: absolute;
+  z-index: 6;
+}
+
+.faceZoneIcon {
+  width: 85px;
+  height: 85px;
+  position: relative;
+}
