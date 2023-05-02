@@ -31,6 +31,8 @@
   max-width: 100%;
 }
 
+
+
 .header {
   height: 100px;
   display: grid;
@@ -39,6 +41,8 @@
   width: 100%;
   margin-bottom: 30px;
 }
+
+
 
 .main {
   flex: 1;
@@ -111,6 +115,8 @@
   transform: translateX(40px) translateY(50px);
 }
 
+
+
 .stepContent {
   flex: 4;
   display: flex;
@@ -156,12 +162,15 @@
   cursor: pointer;
 }
 
+
+
 .footer {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 24px;
   padding-bottom: 21px;
+  margin-top: 30px;
 }
 
 .footer a {
@@ -169,7 +178,6 @@
   color: #999999;
   font-family: 'Manrope';
   font-size: 16px;
-  margin-top: 30px;
   cursor: pointer;
 }
 
@@ -180,6 +188,140 @@
 .footer a:nth-child(2) {
   font-weight: 500;
 }
+
+
+/* Mobile medias */
+
+/* iPhone 14 Pro -> width:400px */
+@media (max-width:420px) {
+  .header {
+    height: 64px;
+  }
+
+  .header svg {
+    width: 158px;
+  }
+
+  .main {
+    flex: 1;
+    flex-direction: column;
+    width: calc(100% - 54px);
+    border-radius: 16px;
+    max-height: unset;
+    margin: 0 auto;
+    padding: 0;
+    gap: 20px;
+  }
+
+
+  .stepLeft {
+    flex: unset;
+    position: relative;
+    overflow: visible;
+    padding: 14px;
+  }
+
+  .stepLeft svg {
+    position: absolute;
+    z-index: 3;
+  }
+
+  .green_degrade {
+    width: 262px;
+    top: 57%;
+    left: -28%;
+    transform: translate(0, -50%);
+  }
+
+  .purple_degrade {
+    width: 262px;
+    bottom: -14%;
+    right: -15%;
+  }
+
+  .stepLeftBackSquare {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    aspect-ratio: 1.24/1;
+    border-radius: 16px;
+    z-index: 1;
+    padding-top: 18px;
+    position: relative;
+  }
+
+  .stepLeftBackSquare h1 {
+    font-size: 18px;
+  }
+
+  .stepLeftBackSquare h1 span:nth-child(2) {
+    color: #000;
+  }
+
+  .stepLeft img {
+    border-radius: 30px;
+    width: 50vw;
+    max-width: 80%;
+    top: 28px;
+    transform: translateX(40px) translateY(23%);
+    position: absolute;
+  }
+
+
+  .stepContent {
+    z-index: unset;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    gap: 32px;
+  }
+
+  .texts {
+    margin: 0 14px;
+  }
+
+  .description,
+  .subDescription {
+    font-size: 12px;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .description {
+    padding: 0 27px;
+  }
+
+  .subDescription {
+    padding: 0 40px;
+  }
+
+  .buttonsArea {
+    gap: 16px;
+    font-size: 14px;
+    flex-direction: column-reverse;
+  }
+
+
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 21px;
+    margin-top: 18px;
+  }
+  
+  .footer a {
+    font-size: 16px;
+  }
+
+}
+
+
+/* Desktop's height medias */
 
 @media (max-height:812px) {
   .header {

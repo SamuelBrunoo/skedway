@@ -1,8 +1,9 @@
 .faceZone {
   width: 138px;
   height: 138px;
+  aspect-ratio: 1/1;
   border-radius: 33px;
-  top:50%;
+  top: 50%;
   left: 57px;
   transform: translateY(10px);
   color: #274743;
@@ -17,4 +18,24 @@
   width: 85px;
   height: 85px;
   position: relative;
+}
+
+
+/* Mobile medias */
+
+/* iPhone 14 Pro -> width:400px */
+@media (max-width:420px) {
+  .faceZone {
+    width: 74px;
+    height: 74px;
+    border-radius: 18px;
+    top: 60%;
+    left: 57px;
+    transform: translateY(10px);
+  }
+
+  .faceZoneIcon {
+    width: 45px;
+    height: 45px;
+  }
 }
