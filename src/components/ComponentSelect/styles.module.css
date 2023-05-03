@@ -21,10 +21,36 @@
 }
 
 
-/* Mobile medias */
 
-/* iPhone 14 Pro -> width:400px */
-@media (max-width:420px) {
+@media (max-width:1140px) {
+  .faceZone {
+    width: 22.5%;
+    border-radius: 24%;
+    height: auto;
+    aspect-ratio: 1/1;
+    left: 11%;
+    top: 50%;
+    transform: translateY(40%);
+  }
+
+  .faceZoneIcon {
+    width: 64%;
+    height: auto;
+    aspect-ratio: 1/1;
+  }
+}
+
+@media all and (max-width:840px) and (min-width:601px) {
+  .faceZone {
+    width: 20%;
+    top: 50%;
+    left: 15%;
+    transform: translateY(30%);
+  }
+}
+
+/* 430px */
+/* @media (max-width:600px) {
   .faceZone {
     width: 74px;
     height: 74px;
@@ -38,4 +64,4 @@
     width: 45px;
     height: 45px;
   }
-}
+} */
