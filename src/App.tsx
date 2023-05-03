@@ -22,7 +22,7 @@ function App() {
   };
 
   const handleError = useCallback((error: Error) => {
-    alert(error);
+    alert(error.message);
   }, []);
 
   const handleBackClick = () => {

@@ -313,7 +313,7 @@
     padding-bottom: 21px;
     margin-top: 18px;
   }
-  
+
   .footer a {
     font-size: 16px;
   }
@@ -323,13 +323,13 @@
 
 /* Desktop's height medias */
 
-@media (max-height:812px) {
+@media (max-height:812px) AND (max-width>1140px) {
   .header {
     height: 80px;
   }
 }
 
-@media (max-height:650px) {
+@media (max-height:650px) AND (max-width>1140px) {
   .stepLeftBackSquare {
     top: 23px;
     right: 20px;

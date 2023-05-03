@@ -11,15 +11,9 @@ import { useState } from "react";
 import styles from "../../styles/index.module.css";
 import localStyles from "./styles.module.css";
 import buttonStyles from "../../styles/button.module.css";
-import FaceCamera from "../FaceCamera";
-import FaceUi from "../FaceUi";
-import { ReactComponent as GreenDegrade } from "../../assets/degrades/green_degrade.svg";
-import { ReactComponent as OrangeDegrade } from "../../assets/degrades/orange_degrade.svg";
-import { ReactComponent as Lamp } from "../../assets/icons/lamp.svg";
-import { ReactComponent as Face } from "../../assets/icons/face.svg";
-import { ReactComponent as Block } from "../../assets/icons/block.svg";
-import { ReactComponent as FaceSkewed } from "../../assets/icons/face_skewed.svg";
 import { ReactComponent as Arrow } from "../../assets/icons/Arrow_right_1.svg";
+import Stepleft from "./subcomponents/stepLeft";
+import StepContent from "./subcomponents/stepContent";
 
 interface Props {
   onPhotoTaken: FaceCallback;
@@ -29,16 +23,19 @@ interface Props {
 }
 
 function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [photoInfo, setPhotoInfo] = useState<null | { image: Blob, data: FaceComponentData }>(null)
+  const [captionOnMobile, setCaptionOnMobile] = useState<boolean>(false)
 
   const handlePhotoTaken = (image: Blob, data: FaceComponentData) => {
-    setIsButtonDisabled(false);
     onPhotoTaken(image, data);
   };
 
   const handleNextStep = () => {
-    if (photoUrl) nextStep();
+    if (window.document.body.clientWidth > 420) {
+      if (photoUrl) nextStep();
+    } else {
+      if (captionOnMobile && photoUrl) nextStep()
+      else setCaptionOnMobile(true)
+    }
   }
 
   const handleContinueDetection = () => {
@@ -47,79 +44,49 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
       ControlEventInstruction.CONTINUE_DETECTION
     );
 
-    setIsButtonDisabled(true);
   };
+
+
   return (
-
-
     <main className={styles.main}>
-      <div className={localStyles.stepLeft}>
-        <GreenDegrade width={485} height={225} className={localStyles.green_degrade} />
-        <div className={`${styles.stepLeftBackSquare} ${localStyles.stepLeftBackSquare}`}>
-          <div className={localStyles.videoCaptureArea}>
-            {!photoUrl &&
-              <>
-                <FaceCamera
-                  imageType="png"
-                  cameraFacing="user"
-                  onPhotoTaken={handlePhotoTaken}
-                  onError={onError}
-                />
-                <FaceUi />
-              </>
-            }
-            {photoUrl &&
-              <div className={localStyles.finalImgContainer}>
-                <img src={photoUrl} alt="" loading="lazy" />
-              </div>
-            }
+      {window.document.body.clientWidth > 420 &&
+        <>
+          <Stepleft
+            handlePhotoTaken={onPhotoTaken}
+            onError={onError}
+            photoUrl={photoUrl}
+          />
+
+          <StepContent handleNextStep={handleNextStep} />
+        </>
+      }
+
+      {window.document.body.clientWidth <= 420 && captionOnMobile &&
+        <>
+          <Stepleft
+            handlePhotoTaken={onPhotoTaken}
+            onError={onError}
+            photoUrl={photoUrl}
+          />
+          <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
+            <div className={styles.buttonsArea}>
+              <button className={`${buttonStyles.secondary} ${localStyles.cancelButton}`} onClick={() => null}>
+                Cancelar
+              </button>
+              <button className={buttonStyles.primary} onClick={handleNextStep}>
+                <span>PRÓXIMO</span>
+                <Arrow width={24} />
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
-        <div className={localStyles.backColors}>
-          <div className={localStyles.grey} />
-          <OrangeDegrade />
-        </div>
-        <div className={localStyles.box}>
-          <h2>
-            <span>Reconhecimento </span>
-            <span>facial</span>
-          </h2>
-          <p className={localStyles.description}>
-            Mais praticidade na passagem dos acessos. Essa foto será utilizada para a sua identificação no terminal e será tratada como um documento.
-          </p>
-          <h3>Dicas para uma boa foto</h3>
-          <ul className={localStyles.tipsList}>
-            <li>
-              <Lamp />
-              <span>Encontre um local claro.</span>
-            </li>
-            <li>
-              <Face />
-              <span>Certifique-se que seu rosto esteja iluminado.</span>
-            </li>
-            <li>
-              <Block />
-              <span>Não use óculos de sol, bonés, mascaras ou qualquer acessório que cubra o rosto.</span>
-            </li>
-            <li>
-              <FaceSkewed className={localStyles.skewedFace} />
-              <span>Não faça poses nem caretas ao bater a foto.</span>
-            </li>
-          </ul>
-        </div>
-        <div className={styles.buttonsArea}>
-          <button className={buttonStyles.secondary} onClick={() => null}>
-            Mais tarde
-          </button>
-          <button className={buttonStyles.primary} onClick={handleNextStep}>
-            <span>PRÓXIMO</span>
-            <Arrow width={24} />
-          </button>
-        </div>
-      </div>
-    </main>
+        </>
+      }
+
+      {window.document.body.clientWidth <= 420 && !captionOnMobile &&
+        <StepContent handleNextStep={handleNextStep} />
+      }
+
+    </main >
   );
 }
 

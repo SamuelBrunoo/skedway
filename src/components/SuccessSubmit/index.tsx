@@ -36,7 +36,7 @@ function SuccessSubmit() {
           </p>
         </div>
         <div className={styles.buttonsArea}>
-          <button className={button.primary} onClick={() => null}>
+          <button className={button.secondary} onClick={() => null}>
             <span>FECHAR</span>
           </button>
         </div>

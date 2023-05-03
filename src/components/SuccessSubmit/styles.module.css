@@ -50,16 +50,12 @@
   font-size: 34px;
   text-align: center;
   margin: 51px auto 21px;
-}
-
-.stepLeft h1 span:nth-child(1) {
   font-weight: normal;
 }
 
 .stepLeft h1 span:nth-child(2) {
   font-family: "Libre Baskerville";
   font-style: italic;
-  font-weight: normal;
   color: #FA9233;
 }
 
@@ -68,6 +64,8 @@
   color: #3C484D;
   max-width: 348px;
 }
+
+
 
 .stepContent {
   flex: 4;
@@ -115,4 +113,102 @@
   .purple_degrade {
     bottom: -20%;
   }
+}
+
+
+/* Mobile medias */
+
+/* iPhone 14 Pro -> width:400px */
+@media (max-width:420px) {
+
+  .main {
+    flex: 1;
+    flex-direction: column;
+    width: calc(100% - 54px);
+    border-radius: 16px;
+    max-height: unset;
+    margin: 0 auto;
+    padding: 0;
+    gap: 20px;
+  }
+
+
+  .stepLeft {
+    overflow: visible;
+    padding: 27px 14px;
+  }
+
+  .faceZone {
+    padding: 9px;
+    border-radius: 12px;
+  }
+
+  .faceZone svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .stepLeft h1 {
+    font-size: 24px;
+    margin: 19px auto;
+  }
+
+  .confirmationMessage {
+    font-size: 14px;
+    max-width: 100%;
+    margin: 0 30px;
+  }
+
+  .stepLeft svg {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .faceZone svg {
+    position: relative;
+  }
+
+  .green_degrade {
+    width: 67vw;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+  }
+
+  .purple_degrade {
+    width: 74vw;
+    left: 50%;
+    bottom: -80%;
+    transform: translate(-45%, -40%);
+  }
+
+
+  .stepContent {
+    flex: unset;
+    gap: 3vh;
+    box-shadow: none;
+    z-index: unset;
+    overflow: visible;
+    padding: 14px;
+  }
+
+  .stepContent::after {
+    display: none;
+  }
+
+  .box {
+    background-color: #F2F2F2;
+    border-radius: 16px;
+    padding: 24px 24px 35px;
+    width: 100%;
+    z-index: 6;
+  }
+
+  .instructions {
+    width: 100%;
+    text-align: justify;
+    font-size: 14px;
+    color: #3C484D;
+  }
+
 }

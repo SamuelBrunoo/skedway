@@ -36,9 +36,14 @@ function ComponentSelect({ setStep }: Props) {
       <div className={styles.stepContent}>
         <div className={styles.texts}>
           <p className={styles.description}>
-            Em breve será utilizado o reconhecimento facial para a validação da passagem nos terminais de acesso. Cadastre a sua foto de segurança!
-            <br />
-            Ela é confidencial e não será compartilhada.
+            {window.document.body.clientWidth > 420 &&
+              `Em breve será utilizado o reconhecimento facial para a validação da passagem nos terminais de acesso. Cadastre a sua foto de segurança!
+              <br />
+              Ela é confidencial e não será compartilhada.`
+            }
+            {window.document.body.clientWidth <= 420 &&
+              `Cadastre sua foto de segurança e utilize o reconhecimento facial para a validação da passagem e outros recursos do sistema.`
+            }
           </p>
           <p className={styles.subDescription}>
             Ao clicar em continuar, você concorda com o armazenamento seguro deste dado pela Skedway para fins de segurança.
