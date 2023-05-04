@@ -6,6 +6,8 @@ import styles from "./styles/index.module.css";
 import { Step } from "./types";
 import { ReactComponent as Logo } from "./assets/icons/Lockup_Logo.svg";
 import SuccessSubmit from "./components/SuccessSubmit";
+import ErrorComponent from "./components/ErrorComponent";
+import LoadingComponent from "./components/Loading";
 
 function App() {
   const [step, setStep] = useState<Step>(Step.SELECT_COMPONENT);
@@ -53,7 +55,8 @@ function App() {
       <header className={styles.header}>
         <Logo width={238} />
       </header>
-      {renderStep(step)}
+      {/* {renderStep(step)} */}
+      <LoadingComponent />
       <footer className={styles.footer}>
         <a href="/">Privacy Policy</a>
         <a href="/">Term of user</a>
