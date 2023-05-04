@@ -118,8 +118,97 @@
 
 /* Mobile medias */
 
-/* iPhone 14 Pro -> width:400px */
-@media (max-width:420px) {
+@media (max-width:840px) {
+
+
+  .stepContent {
+    flex: unset;
+    gap: 3vh;
+    box-shadow: none;
+    overflow: visible;
+    padding: 14px;
+  }
+}
+
+@media all and (max-width:840px) and (min-width:601px) {
+
+  .main {
+    flex: unset;
+    padding: 0;
+    gap: 0;
+  }
+
+  .stepLeft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 27px 47px 60px;
+  }
+
+  .leftContent {
+    gap: 37px;
+  }
+
+  .leftContent h1 {
+    font-size: 34px;
+    text-align: center;
+    margin: 0;
+    font-weight: normal;
+  }
+
+  .faceZone {
+    padding: 2vw;
+  }
+
+  .faceZone svg {
+    width: 10vw;
+    height: 10vw;
+    position: relative;
+  }
+
+  .green_degrade {
+    top: 0;
+    margin: 0 auto;
+    transform: translateY(-25%);
+  }
+
+  .purple_degrade {
+    bottom: -26%;
+    margin: 0 auto;
+  }
+
+
+
+  .stepContent {
+    gap: 3vh;
+    z-index: 5;
+    padding: 10px 28px 14px;
+  }
+
+  .stepContent::after {
+    display: none;
+  }
+
+  .box {
+    background-color: #F2F2F2;
+    border-radius: 18px;
+    padding: 40px 25px;
+    min-width: 370px;
+    width: 100%;
+    max-width: 580px;
+    z-index: 6;
+  }
+
+  .instructions {
+    width: 100%;
+    text-align: justify;
+    font-size: 18px;
+    color: #3C484D;
+  }
+}
+
+/* 430px */
+@media (max-width:600px) {
 
   .main {
     flex: 1;

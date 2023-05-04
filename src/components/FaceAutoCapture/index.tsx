@@ -48,7 +48,8 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
 
 
   return (
-    <main className={`${styles.main} ${localStyles.main}`}>
+    <main className={`${styles.main} ${localStyles.main} ${window.document.body.clientWidth <= 840 && captionOnMobile ? 'showingPhoto' : ''
+      }`}>
       {window.document.body.clientWidth > 840 &&
         <>
           <Stepleft

@@ -8,7 +8,7 @@ import { ReactComponent as FaceZoneIcon } from "../../assets/icons/facezone.svg"
 
 function SuccessSubmit() {
   return (
-    <main className={styles.main}>
+    <main className={`${styles.main} ${localStyles.main}`}>
       <div className={localStyles.stepLeft}>
         <GreenDegrade width={390} height={150} className={localStyles.green_degrade} />
         <PurpleDegrade width={534} height={197} className={localStyles.purple_degrade} />
