@@ -30,7 +30,7 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
   };
 
   const handleNextStep = () => {
-    if (window.document.body.clientWidth > 420) {
+    if (window.document.body.clientWidth > 840) {
       if (photoUrl) nextStep();
     } else {
       if (captionOnMobile && photoUrl) nextStep()
@@ -48,8 +48,8 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
 
 
   return (
-    <main className={styles.main}>
-      {window.document.body.clientWidth > 420 &&
+    <main className={`${styles.main} ${localStyles.main}`}>
+      {window.document.body.clientWidth > 840 &&
         <>
           <Stepleft
             handlePhotoTaken={onPhotoTaken}
@@ -61,7 +61,7 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
         </>
       }
 
-      {window.document.body.clientWidth <= 420 && captionOnMobile &&
+      {window.document.body.clientWidth <= 840 && captionOnMobile &&
         <>
           <Stepleft
             handlePhotoTaken={onPhotoTaken}
@@ -69,7 +69,7 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
             photoUrl={photoUrl}
           />
           <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
-            <div className={styles.buttonsArea}>
+            <div className={`${styles.buttonsArea} ${localStyles.buttonsArea}`}>
               <button className={`${buttonStyles.secondary} ${localStyles.cancelButton}`} onClick={() => null}>
                 Cancelar
               </button>
@@ -82,7 +82,7 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
         </>
       }
 
-      {window.document.body.clientWidth <= 420 && !captionOnMobile &&
+      {window.document.body.clientWidth <= 840 && !captionOnMobile &&
         <StepContent handleNextStep={handleNextStep} />
       }
 

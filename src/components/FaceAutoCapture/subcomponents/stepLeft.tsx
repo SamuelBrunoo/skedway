@@ -15,10 +15,12 @@ interface Props {
 const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
   return (
     <div className={localStyles.stepLeft}>
-      <h1>
-        <span>Reconhecimento </span>
-        <span>facial</span>
-      </h1>
+      {window.document.body.clientWidth <= 840 &&
+        <h1>
+          <span>Reconhecimento </span>
+          <span>facial</span>
+        </h1>
+      }
       <GreenDegrade width={485} height={225} className={localStyles.green_degrade} />
       <div className={`${styles.stepLeftBackSquare} ${localStyles.stepLeftBackSquare}`}>
         <div className={localStyles.videoCaptureArea}>

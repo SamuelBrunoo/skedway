@@ -25,14 +25,14 @@ const StepContent = ({ handleNextStep }: Props) => {
           <span>facial</span>
         </h2>
         <p className={localStyles.description}>
-          {window.document.body.clientWidth > 420 &&
+          {window.document.body.clientWidth > 840 &&
             `Mais praticidade na passagem dos acessos. Essa foto será utilizada para a sua identificação no terminal e será tratada como um documento.`
           }
-          {window.document.body.clientWidth <= 420 &&
+          {window.document.body.clientWidth <= 840 &&
             `Siga as orientações abaixo e garanta uma boa foto.`
           }
         </p>
-        {window.document.body.clientWidth > 420 &&
+        {window.document.body.clientWidth > 840 &&
           <h3>Dicas para uma boa foto</h3>
         }
         <ul className={localStyles.tipsList}>
@@ -53,7 +53,7 @@ const StepContent = ({ handleNextStep }: Props) => {
             <span>Não faça poses nem caretas ao bater a foto.</span>
           </li>
         </ul>
-        {window.document.body.clientWidth <= 420 &&
+        {window.document.body.clientWidth <= 840 &&
           <p className={localStyles.reminderMessage}>
             Lembrando que essa é uma foto de segurança, não para as mídias sociais.
           </p>

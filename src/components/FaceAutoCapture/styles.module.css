@@ -33,6 +33,7 @@
 
 .videoCaptureArea {
   position: relative;
+  width: 100%;
 }
 
 .videoCaptureArea:has(.finalImgContainer) {
@@ -105,12 +106,17 @@
   transform: translate(-50%, 5%);
 }
 
+.videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) div {
+  background: none;
+}
+
+
 
 
 .stepContent {
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 80px;
   position: relative;
   padding-bottom: 63px;
 }
@@ -254,46 +260,244 @@
   }
 }
 
-@media (max-height:650px) {
-  .backColors {
-    max-height: 80%;
-  }
+@media all and (max-height: 650px),
+(max-width > 1140px) {
 
-  .description,
-  .tipsList li span {
-    font-size: 12px;
+  .backColors {
+    height: 85%;
+    max-height: unset;
   }
 
   .stepContent {
-    flex: 4;
-    display: flex;
-    justify-content: flex-end;
-    gap: 30px;
-    flex-direction: column;
-    padding-top: 28px;
+    padding-top: 20px;
     padding-bottom: 20px;
-    box-shadow: 0 0 16px 0 rgba(0, 0, 0, .15);
-    z-index: 5;
+  }
+
+  .box {
+    padding: 14px 20px 34px 30px;
+  }
+
+  .box h2 {
+    margin-bottom: 12px;
+  }
+
+  .box h3 {
+    margin: 18px 0;
+  }
+
+  .tipsList {
+    gap: 10px;
   }
 }
 
 
+
 /* Mobile medias */
 
-/* iPhone 14 Pro -> width:400px */
-@media (max-width:420px) {
-
-  .main {
-    flex: 1;
-    flex-direction: column;
-    width: calc(100% - 54px);
-    border-radius: 16px;
-    max-height: unset;
-    margin: 0 auto;
-    padding: 0;
-    gap: 20px;
+@media (max-width:840px) {
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 21px;
+    margin-top: 18px;
   }
 
+  .footer a {
+    font-size: 16px;
+  }
+}
+
+@media all and (max-width:840px) and (min-width:601px) {
+
+  .main {
+    flex: unset;
+    width: fit-content;
+    max-width: 600px;
+    border-radius: 16px;
+    max-height: unset;
+    height: fit-content;
+    margin: 0 6vw;
+    padding: 0;
+  }
+
+  .stepLeft {
+    flex: unset;
+    position: relative;
+    overflow: visible;
+    flex-direction: column;
+    padding: 34px 14px;
+  }
+
+  .stepLeft h1 {
+    font-size: 28px;
+    font-weight: normal;
+  }
+
+  .stepLeft h1 span:nth-child(2) {
+    font-family: 'Libre Baskerville';
+    font-style: italic;
+    color: #000;
+  }
+
+  .stepLeft svg {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .green_degrade {
+    width: 485px;
+    top: -10%;
+    transform: translate(0%, 0%);
+  }
+
+  .stepLeftBackSquare {
+    top: 20px;
+    width: 100%;
+    aspect-ratio: 1/1.26;
+    border-radius: 16px;
+    z-index: 1;
+    padding: 0;
+    position: relative;
+    transform: translate(13%, 3.22%);
+
+    height: 100%;
+    max-height: 50vh;
+  }
+
+  .videoCaptureArea:has(.finalImgContainer) {
+    width: calc(100% - 56px);
+    height: 100%;
+  }
+
+  .videoCaptureArea {
+    max-width: auto;
+    aspect-ratio: 1/1.26;
+  }
+
+  .videoCaptureArea x-dot-face-auto-capture div {
+    width: 100%;
+    max-width: 75vw;
+    height: 100%;
+    max-height: unset;
+  }
+
+  .finalImgContainer {
+    width: 100%;
+    max-width: 78vw;
+    height: 100%;
+    justify-content: center;
+    border-radius: 24px;
+    position: relative;
+  }
+
+  .videoCaptureArea::before {
+    bottom: -10px;
+  }
+
+  .videoCaptureArea::before,
+  .finalImgContainer,
+  .videoCaptureArea x-dot-face-auto-capture div,
+  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) {
+    transform: translate(-8vw, 48px);
+  }
+
+  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) div {
+    font-size: 16px;
+  }
+
+  .finalImgContainer img {
+    width: auto;
+    height: 100%;
+    border-radius: 20px;
+    position: absolute;
+    transform: translate(0%, 0%);
+  }
+
+  .cancelButton {
+    font-size: 14px;
+  }
+
+
+
+
+  .stepContent {
+    z-index: unset;
+    box-shadow: none;
+    padding: 22px 40px 60px;
+    gap: 80px;
+  }
+
+  .stepContent:has(div.cancelBtnArea) {
+    gap: 37px;
+  }
+
+  .backColors {
+    max-height: 84%;
+  }
+
+  .box {
+    max-width: unset;
+    padding: 22px 24px 40px;
+  }
+
+  .box::before {
+    right: -12px;
+  }
+
+  .box h2 {
+    font-size: 30px;
+    margin: 16px auto 24px;
+  }
+
+  .description {
+    margin-bottom: 24px;
+  }
+
+  .description,
+  .tipsList li span {
+    font-size: 18px;
+  }
+
+  .reminderMessage {
+    margin-top: 26px;
+    width: 100%;
+    font-size: 16px;
+    text-align: left;
+  }
+
+  .tipsList {
+    gap: 16px;
+  }
+
+  .tipsList li svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .buttonsArea button {
+    font-size: 16px;
+  }
+}
+
+@media all and (max-width:600px),
+(orientation:landscape) {
+
+  .videoCaptureArea {
+    width: 100%;
+  }
+
+  .videoCaptureArea::before,
+  .finalImgContainer,
+  .videoCaptureArea x-dot-face-auto-capture div,
+  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) {
+    transform: translate(-32px, 31px);
+  }
+}
+
+/* 430px */
+@media (max-width:600px) {
 
   .stepLeft {
     flex: unset;
@@ -339,7 +543,6 @@
     padding: 0;
     position: relative;
     transform: translate(11%, 3.22%);
-    /* transform: translate(7.5vw, 3.22%); for smaller devices */
   }
 
   .videoCaptureArea:has(.finalImgContainer) {
@@ -348,6 +551,7 @@
   }
 
   .videoCaptureArea {
+    width: unset;
     max-height: calc(100% - 31px);
   }
 
@@ -361,15 +565,14 @@
   }
 
   .videoCaptureArea::before {
-    bottom:-6px;
+    bottom: -6px;
   }
-  
+
   .videoCaptureArea::before,
   .finalImgContainer,
   .videoCaptureArea x-dot-face-auto-capture div,
   .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) {
-    /* transform: translate(-21%, 31px); for smaller devices */
-    transform: translate(-16vw, 31px);
+    transform: translate(-18vw, 31px);
   }
 
   .finalImgContainer img {
@@ -386,6 +589,7 @@
 
 
 
+
   .stepContent {
     z-index: unset;
     box-shadow: none;
@@ -395,11 +599,23 @@
   }
 
   .stepContent:has(div.cancelBtnArea) {
-    gap:37px;
+    gap: 37px;
+  }
+
+  .backColors {
+    max-height: 78%;
+  }
+
+  .box {
+    padding: 22px 24px 40px;
   }
 
   .box::before {
     right: -4px;
+  }
+
+  .box h2 {
+    font-size: 20px;
   }
 
   .description,
@@ -407,23 +623,55 @@
     margin: 16px 0;
     color: #000;
     width: 100%;
+    font-size: 14px;
   }
 
   .description {
     margin: 0 0 24px;
   }
 
+}
+
+@media (max-width:400px) {
+
   .description,
-  .tipsList,
+  .tipsList li span,
   .reminderMessage {
     font-size: 12px;
     text-align: left;
     max-width: 100%;
   }
+}
+
+@media (max-width:330px) {
+  .stepContent {
+    z-index: unset;
+    box-shadow: none;
+    padding: 14px;
+    margin: 0;
+    gap: 40px;
+  }
+
+  .backColors {
+    max-height: 80%;
+  }
+
+  .box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 377px;
+    position: relative;
+    background-color: white;
+    border-radius: 24px;
+    padding: 24px 14px 14px 14px;
+  }
+
+  .box h2 {
+    font-size: 18px;
+  }
 
   .description {
     padding: 0;
-    width: 100%;
   }
-
 }
