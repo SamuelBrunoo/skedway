@@ -1,13 +1,12 @@
+import texts from "./_lang";
 import type { FaceCallback } from "@innovatrics/dot-face-auto-capture";
 import { useCallback, useState } from "react";
 import ComponentSelect from "./components/ComponentSelect";
 import FaceAutoCapture from "./components/FaceAutoCapture";
+import SuccessSubmit from "./components/SuccessSubmit";
 import styles from "./styles/index.module.css";
 import { Step } from "./types";
 import { ReactComponent as Logo } from "./assets/icons/Lockup_Logo.svg";
-import SuccessSubmit from "./components/SuccessSubmit";
-import ErrorComponent from "./components/ErrorComponent";
-import LoadingComponent from "./components/Loading";
 
 function App() {
   const [step, setStep] = useState<Step>(Step.SELECT_COMPONENT);
@@ -55,11 +54,10 @@ function App() {
       <header className={styles.header}>
         <Logo width={238} />
       </header>
-      {/* {renderStep(step)} */}
-      <LoadingComponent />
+      {renderStep(step)}
       <footer className={styles.footer}>
-        <a href="/">Privacy Policy</a>
-        <a href="/">Term of user</a>
+        <a href="/">{texts.footer.register.privacy}</a>
+        <a href="/">{texts.footer.register.terms}</a>
       </footer>
     </div>
   );

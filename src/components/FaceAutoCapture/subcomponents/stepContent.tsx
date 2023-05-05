@@ -1,3 +1,4 @@
+import texts from "../../../_lang";
 import styles from "../../../styles/index.module.css";
 import localStyles from ".././styles.module.css";
 import buttonStyles from "../../../styles/button.module.css";
@@ -21,50 +22,50 @@ const StepContent = ({ handleNextStep }: Props) => {
       </div>
       <div className={localStyles.box}>
         <h2>
-          <span>Reconhecimento </span>
-          <span>facial</span>
+          <span>{texts.other.systemTitle.spanOne} </span>
+          <span>{texts.other.systemTitle.spanTwo}</span>
         </h2>
         <p className={localStyles.description}>
           {window.document.body.clientWidth > 840 &&
-            `Mais praticidade na passagem dos acessos. Essa foto será utilizada para a sua identificação no terminal e será tratada como um documento.`
+            texts.stepTwo.description.others
           }
           {window.document.body.clientWidth <= 840 &&
-            `Siga as orientações abaixo e garanta uma boa foto.`
+            texts.stepTwo.description.mobile
           }
         </p>
         {window.document.body.clientWidth > 840 &&
-          <h3>Dicas para uma boa foto</h3>
+          <h3>{texts.stepTwo.tipsTitle}</h3>
         }
         <ul className={localStyles.tipsList}>
           <li>
             <Lamp />
-            <span>Encontre um local claro.</span>
+            <span>{texts.stepTwo.tips.one}</span>
           </li>
           <li>
             <Face />
-            <span>Certifique-se que seu rosto esteja iluminado.</span>
+            <span>{texts.stepTwo.tips.two}</span>
           </li>
           <li>
             <Block />
-            <span>Não use óculos de sol, bonés, mascaras ou qualquer acessório que cubra o rosto.</span>
+            <span>{texts.stepTwo.tips.three}</span>
           </li>
           <li>
             <FaceSkewed className={localStyles.skewedFace} />
-            <span>Não faça poses nem caretas ao bater a foto.</span>
+            <span>{texts.stepTwo.tips.four}</span>
           </li>
         </ul>
         {window.document.body.clientWidth <= 840 &&
           <p className={localStyles.reminderMessage}>
-            Lembrando que essa é uma foto de segurança, não para as mídias sociais.
+            {texts.stepTwo.mobileReminder}
           </p>
         }
       </div>
       <div className={styles.buttonsArea}>
         <button className={buttonStyles.secondary} onClick={() => null}>
-          Mais tarde
+          {texts.other.buttons.later}
         </button>
         <button className={buttonStyles.primary} onClick={handleNextStep}>
-          <span>PRÓXIMO</span>
+          <span>{texts.other.buttons.next.toUpperCase()}</span>
           <Arrow width={24} />
         </button>
       </div>

@@ -1,3 +1,4 @@
+import texts from "../../_lang";
 import { Step } from "../../types";
 import button from "../../styles/button.module.css";
 import styles from "../../styles/index.module.css";
@@ -22,8 +23,8 @@ function ComponentSelect({ setStep }: Props) {
       <div className={styles.stepLeft}>
         <div className={styles.stepLeftBackSquare}>
           <h1>
-            <span>Reconhecimento </span>
-            <span>facial</span>
+            <span>{texts.other.systemTitle.spanOne} </span>
+            <span>{texts.other.systemTitle.spanTwo}</span>
           </h1>
         </div>
         <div className={localStyles.faceZone}>
@@ -38,31 +39,31 @@ function ComponentSelect({ setStep }: Props) {
           <p className={styles.description}>
             {window.document.body.clientWidth > 600 &&
               <>
-                Em breve será utilizado o reconhecimento facial para a validação da passagem nos terminais de acesso. Cadastre a sua foto de segurança!
+                {texts.stepOne.serviceDesc.others.one}
                 <br />
-                Ela é confidencial e não será compartilhada.
+                {texts.stepOne.serviceDesc.others.two}
               </>
             }
             {window.document.body.clientWidth <= 600 &&
               <>
-                Cadastre sua foto de segurança e utilize o 
+                {texts.stepOne.serviceDesc.mobile.one}
                 <br />
-                reconhecimento facial para a validação da 
+                {texts.stepOne.serviceDesc.mobile.two}
                 <br />
-                passagem e outros recursos do sistema.
+                {texts.stepOne.serviceDesc.mobile.three}
               </>
             }
           </p>
           <p className={styles.subDescription}>
-            Ao clicar em continuar, você concorda com o armazenamento seguro deste dado pela Skedway para fins de segurança.
+            {texts.stepOne.serviceSubDes}
           </p>
         </div>
         <div className={styles.buttonsArea}>
           <button className={button.secondary} onClick={() => null}>
-            Fechar
+            {texts.other.buttons.close}
           </button>
           <button className={button.primary} onClick={handleFaceClick}>
-            <span>PRÓXIMO</span>
+            <span>{texts.other.buttons.next.toUpperCase()}</span>
             <Arrow width={24} />
           </button>
         </div>

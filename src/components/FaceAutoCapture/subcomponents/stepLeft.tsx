@@ -1,3 +1,4 @@
+import texts from "../../../_lang"
 import { FaceComponentData } from "@innovatrics/dot-face-auto-capture/.";
 import styles from "../../../styles/index.module.css";
 import localStyles from "../styles.module.css";
@@ -17,8 +18,8 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
     <div className={localStyles.stepLeft}>
       {window.document.body.clientWidth <= 840 &&
         <h1>
-          <span>Reconhecimento </span>
-          <span>facial</span>
+          <span>{texts.other.systemTitle.spanOne} </span>
+          <span>{texts.other.systemTitle.spanTwo}</span>
         </h1>
       }
       <GreenDegrade width={485} height={225} className={localStyles.green_degrade} />

@@ -1,3 +1,4 @@
+import texts from "../../_lang"
 import type {
   FaceCallback,
   FaceComponentData,
@@ -72,10 +73,10 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
           <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
             <div className={`${styles.buttonsArea} ${localStyles.buttonsArea}`}>
               <button className={`${buttonStyles.secondary} ${localStyles.cancelButton}`} onClick={() => null}>
-                Cancelar
+                {texts.other.buttons.close}
               </button>
               <button className={buttonStyles.primary} onClick={handleNextStep}>
-                <span>PRÓXIMO</span>
+                <span>{texts.other.buttons.next.toUpperCase()}</span>
                 <Arrow width={24} />
               </button>
             </div>
