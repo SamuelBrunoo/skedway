@@ -1,24 +1,24 @@
-import React from "react"
-import styles from "../../styles/index.module.css"
+import { ErrorTypes } from "../../types/error"
 import localStyles from "./styles.module.css"
 import { ReactComponent as PersonOffIcon } from "../../assets/icons/person_off.svg"
 import { ReactComponent as WarningIcon } from "../../assets/icons/error.svg"
 import { ReactComponent as CameraDeniedIcon } from "../../assets/icons/no_camera.svg"
+import { errors } from "../../consts/errors"
 
 
 interface Props {
-  type: 'access-denied' | 'generic' | 'camera-denied';
-  description: string;
-  instructions: string;
+  type: ErrorTypes;
 }
 
-function ErrorComponent({ type, description, instructions }: Props) {
+function ErrorComponent({ type }: Props) {
 
   const typeIconrelation = {
-    'access-denied': <PersonOffIcon />,
-    'generic': <WarningIcon />,
-    'camera-denied': <CameraDeniedIcon />
+    accessDenied: <PersonOffIcon />,
+    generic: <WarningIcon />,
+    cameraDenied: <CameraDeniedIcon />
   }
+
+  const error = errors[type]
 
   const icon = typeIconrelation[type]
 
@@ -30,11 +30,11 @@ function ErrorComponent({ type, description, instructions }: Props) {
       <div className={localStyles.errorInfo}>
         <h1>Oops!</h1>
         <h2 className={localStyles.errorDescription}>
-          {description}
+          {error.description}
         </h2>
       </div>
       <p className={localStyles.errorInstructions}>
-        {instructions}
+        {error.instructions}
       </p>
       <button className={localStyles.refreshBtn}>Refresh</button>
     </main>

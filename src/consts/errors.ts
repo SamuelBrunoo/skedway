@@ -1,17 +1,16 @@
-export const error = [
-  {
-    type: "access-denied",
-    description: "Usuário não autorizado",
-    instructions: "If the failure persists, please contact our support."
+import texts from "../_lang/"
+
+export const errors = {
+  accessDenied: {
+    description: texts.other.errors.accessDenied.description,
+    instructions: texts.other.errors.accessDenied.instructions,
   },
-  {
-    type: "generic",
-    description: "Foi encontrado um erro",
-    instructions: "Se o erro persistir, por gentileza contate nosso suporte"
+  generic: {
+    description: texts.other.errors.generic.description,
+    instructions: texts.other.errors.generic.instructions,
   },
-  {
-    type: "camera-denied",
-    description: "Acesso a câmera negado",
-    instructions: "Permita que seu navegador tenha acesso a câmera para registrar sua face."
-  }
-]
+  cameraDenied: {
+    description: texts.other.errors.cameraDenied.description,
+    instructions: texts.other.errors.cameraDenied.instructions,
+  },
+}

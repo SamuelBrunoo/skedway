@@ -64,15 +64,15 @@ const other = {
     loading: 'Carregando. Por favor, espere.',
   },
   errors: {
-    "access-denied": {
+    accessDenied: {
       description: "Usuário não autorizado",
       instructions: "Se o erro persistir, por gentileza contate nosso suporte."
     },
-    "generic": {
+    generic: {
       description: "Foi encontrado um erro",
       instructions: "Se o erro persistir, por gentileza contate nosso suporte"
     },
-    "camera-denied": {
+    cameraDenied: {
       description: "Acesso a câmera negado",
       instructions: "Permita que seu navegador tenha acesso a câmera para registrar sua face."
     }

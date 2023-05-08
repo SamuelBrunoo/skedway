@@ -75,7 +75,7 @@ const other = {
     loading: 'Loading. Please wait.',
   },
   errors: {
-    "access-denied": {
+    accessDenied: {
       description: "Unauthorized user",
       instructions: "If the error persists, please contact our support."
     },
@@ -83,7 +83,7 @@ const other = {
       description: "An error was found",
       instructions: "If the error persists, please contact our support."
     },
-    "camera-denied": {
+    cameraDenied: {
       description: "Camera access denied",
       instructions: "Allow your browser access to the camera to record your face."
     }

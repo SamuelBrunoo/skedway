@@ -21,14 +21,11 @@ interface Props {
   onError: (error: Error) => void;
   photoUrl: undefined | string;
   nextStep: () => void;
+  lateronFn: () => void;
 }
 
-function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
+function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn }: Props) {
   const [captionOnMobile, setCaptionOnMobile] = useState<boolean>(false)
-
-  const handlePhotoTaken = (image: Blob, data: FaceComponentData) => {
-    onPhotoTaken(image, data);
-  };
 
   const handleNextStep = () => {
     if (window.document.body.clientWidth > 840) {
@@ -59,7 +56,7 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
             photoUrl={photoUrl}
           />
 
-          <StepContent handleNextStep={handleNextStep} />
+          <StepContent handleNextStep={handleNextStep} lateronFn={lateronFn} />
         </>
       }
 
@@ -72,7 +69,7 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
           />
           <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
             <div className={`${styles.buttonsArea} ${localStyles.buttonsArea}`}>
-              <button className={`${buttonStyles.secondary} ${localStyles.cancelButton}`} onClick={() => null}>
+              <button className={`${buttonStyles.secondary} ${localStyles.cancelButton}`} onClick={lateronFn}>
                 {texts.other.buttons.close}
               </button>
               <button className={buttonStyles.primary} onClick={handleNextStep}>
@@ -85,7 +82,7 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep }: Props) {
       }
 
       {window.document.body.clientWidth <= 840 && !captionOnMobile &&
-        <StepContent handleNextStep={handleNextStep} />
+        <StepContent handleNextStep={handleNextStep} lateronFn={lateronFn} />
       }
 
     </main >

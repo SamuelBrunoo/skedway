@@ -64,7 +64,7 @@ const other = {
     loading: 'Cargando. Por favor espere.',
   },
   errors: {
-    "access-denied": {
+    accessDenied: {
       description: "Usuario no autorizado",
       instructions: "Si el error persiste, póngase en contacto con nuestro soporte."
     },
@@ -72,7 +72,7 @@ const other = {
       description: "Se encontró un error",
       instructions: "Si el error persiste, póngase en contacto con nuestro soporte."
     },
-    "camera-denied": {
+    cameraDenied: {
       description: "Acceso a la cámara denegado.",
       instructions: "Permita que su navegador acceda a la cámara para grabar su rostro."
     }

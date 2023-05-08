@@ -11,9 +11,10 @@ import { ReactComponent as Arrow } from "../../../assets/icons/Arrow_right_1.svg
 
 interface Props {
   handleNextStep: () => void;
+  lateronFn: () => void;
 }
 
-const StepContent = ({ handleNextStep }: Props) => {
+const StepContent = ({ handleNextStep, lateronFn }: Props) => {
   return (
     <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
       <div className={localStyles.backColors}>
@@ -61,7 +62,7 @@ const StepContent = ({ handleNextStep }: Props) => {
         }
       </div>
       <div className={styles.buttonsArea}>
-        <button className={buttonStyles.secondary} onClick={() => null}>
+        <button className={buttonStyles.secondary} onClick={lateronFn}>
           {texts.other.buttons.later}
         </button>
         <button className={buttonStyles.primary} onClick={handleNextStep}>
