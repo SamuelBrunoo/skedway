@@ -1,3 +1,5 @@
+@import url("../../styles/base.module.css");
+
 .stepLeft {
   flex: 5;
   display: grid;
@@ -47,7 +49,7 @@
 }
 
 .stepLeft h1 {
-  font-size: 34px;
+  font-size: var(--title-medium);
   text-align: center;
   margin: 51px auto 21px;
   font-weight: normal;
@@ -56,12 +58,12 @@
 .stepLeft h1 span:nth-child(2) {
   font-family: "Libre Baskerville";
   font-style: italic;
-  color: #FA9233;
+  color: var(--color-orange);
 }
 
 .confirmationMessage {
-  font-size: 20px;
-  color: #3C484D;
+  font-size: var(--text-bigger);
+  color: var(--text-grey);
   max-width: 348px;
 }
 
@@ -74,7 +76,7 @@
   align-items: center;
   gap: 3vh;
   flex-direction: column;
-  box-shadow: 0 0 16px 0 rgba(0, 0, 0, .15);
+  box-shadow: var(--right-section-shadow);
   z-index: 5;
   overflow: hidden;
   position: relative;
@@ -88,13 +90,13 @@
   left: 38%;
   width: 325px;
   height: 154px;
-  background-image: linear-gradient(90deg, rgba(206, 180, 239, 1), rgba(206, 180, 239, 0));
+  background-image: var(--gradient-purple);
   transform: translate(-28%, -35%);
   z-index: 0;
 }
 
 .box {
-  background-color: #F2F2F2;
+  background-color: var(--color-lightwhite);
   border-radius: 18px;
   padding: 90px 28px 60px;
   width: 370px;
@@ -104,8 +106,8 @@
 .instructions {
   width: 100%;
   text-align: justify;
-  font-size: 14px;
-  color: #3C484D;
+  font-size: var(--text-medium);
+  color: var(--text-grey);
 }
 
 
@@ -150,7 +152,7 @@
   }
 
   .leftContent h1 {
-    font-size: 34px;
+    font-size: var(--title-medium);
     text-align: center;
     margin: 0;
     font-weight: normal;
@@ -190,7 +192,7 @@
   }
 
   .box {
-    background-color: #F2F2F2;
+    background-color: var(--color-lightwhite);
     border-radius: 18px;
     padding: 40px 25px;
     min-width: 370px;
@@ -202,8 +204,8 @@
   .instructions {
     width: 100%;
     text-align: justify;
-    font-size: 18px;
-    color: #3C484D;
+    font-size: var(--text-big);
+    color: var(--text-grey);
   }
 }
 
@@ -238,12 +240,12 @@
   }
 
   .stepLeft h1 {
-    font-size: 24px;
+    font-size: var(--title-smaller);
     margin: 19px auto;
   }
 
   .confirmationMessage {
-    font-size: 14px;
+    font-size: var(--text-medium);
     max-width: 100%;
     margin: 0 30px;
   }
@@ -286,7 +288,7 @@
   }
 
   .box {
-    background-color: #F2F2F2;
+    background-color: var(--color-lightwhite);
     border-radius: 16px;
     padding: 24px 24px 35px;
     width: 100%;
@@ -296,8 +298,8 @@
   .instructions {
     width: 100%;
     text-align: justify;
-    font-size: 14px;
-    color: #3C484D;
+    font-size: var(--text-medium);
+    color: var(--text-grey);
   }
 
 }

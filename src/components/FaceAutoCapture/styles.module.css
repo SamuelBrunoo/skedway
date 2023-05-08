@@ -1,3 +1,5 @@
+@import url("../../styles/base.module.css");
+
 .stepLeft {
   flex: 5;
   display: flex;
@@ -118,7 +120,7 @@
   align-items: center;
   gap: 80px;
   position: relative;
-  padding-bottom: 63px;
+  padding-bottom: 64px;
 }
 
 .backColors {
@@ -134,7 +136,7 @@
 }
 
 .backColors div.grey {
-  background-color: #F2F2F2;
+  background-color: var(--color-lightwhite);
   width: 100%;
   height: 240px;
 }
@@ -167,7 +169,7 @@
 }
 
 .box h2 {
-  font-size: 24px;
+  font-size: var(--title-smaller);
   margin: 0 auto 24px;
 }
 
@@ -182,15 +184,15 @@
 }
 
 .description {
-  font-size: 14px;
-  color: #3C484D;
+  font-size: var(--text-medium);
+  color: var(--text-grey);
   width: 100%;
   text-align: justify;
 }
 
 .box h3 {
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--text-medium);
   margin: 24px 0;
 }
 
@@ -216,8 +218,8 @@
 }
 
 .tipsList li span {
-  font-size: 14px;
-  color: #67767E;
+  font-size: var(--text-medium);
+  color: var(--text-lightgrey);
   text-align: left;
   flex: 1;
 }
@@ -243,7 +245,7 @@
 
 @media (max-height:722px) {
   .description {
-    font-size: 14px;
+    font-size: var(--text-medium);
   }
 
   .box {
@@ -305,7 +307,7 @@
   }
 
   .footer a {
-    font-size: 16px;
+    font-size: var(--text-small-big);
   }
 }
 
@@ -320,7 +322,7 @@
     height: fit-content;
     padding: 0 64px;
     margin: 0 10vw;
-    gap:120px;
+    gap: 120px;
   }
 
   .stepLeft {
@@ -332,7 +334,7 @@
   }
 
   .stepLeft h1 {
-    font-size: 28px;
+    font-size: var(--title-small);
     font-weight: normal;
   }
 
@@ -352,7 +354,7 @@
     top: -10%;
     transform: translate(0%, 0%);
   }
-  
+
   .stepLeftBackSquare {
     top: 20px;
     aspect-ratio: 1/1.30;
@@ -362,7 +364,7 @@
     height: 100%;
     max-height: 50vh;
   }
-  
+
   .videoCaptureArea x-dot-face-auto-capture div {
     width: 100%;
     max-width: 75vw;
@@ -382,7 +384,7 @@
   }
 
   .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) div {
-    font-size: 20px;
+    font-size: var(--text-bigger);
   }
 
   .finalImgContainer img {
@@ -394,7 +396,7 @@
   }
 
   .cancelButton {
-    font-size: 14px;
+    font-size: var(--text-medium);
   }
 
 
@@ -425,7 +427,7 @@
   }
 
   .box h2 {
-    font-size: 30px;
+    font-size: var(--title-small-medium);
     margin: 16px auto 24px;
   }
 
@@ -435,13 +437,13 @@
 
   .description,
   .tipsList li span {
-    font-size: 18px;
+    font-size: var(--text-big);
   }
 
   .reminderMessage {
     margin-top: 26px;
     width: 100%;
-    font-size: 16px;
+    font-size: var(--text-small-big);
     text-align: left;
   }
 
@@ -455,7 +457,7 @@
   }
 
   .buttonsArea button {
-    font-size: 16px;
+    font-size: var(--text-small-big);
   }
 }
 
@@ -486,7 +488,7 @@
   }
 
   .stepLeft h1 {
-    font-size: 18px;
+    font-size: var(--text-big);
     font-weight: normal;
   }
 
@@ -562,7 +564,7 @@
   }
 
   .cancelButton {
-    font-size: 14px;
+    font-size: var(--text-medium);
   }
 
 
@@ -593,7 +595,7 @@
   }
 
   .box h2 {
-    font-size: 20px;
+    font-size: var(--text-bigger);
   }
 
   .description,
@@ -601,7 +603,7 @@
     margin: 16px 0;
     color: #000;
     width: 100%;
-    font-size: 14px;
+    font-size: var(--text-medium);
   }
 
   .description {
@@ -615,7 +617,7 @@
   .description,
   .tipsList li span,
   .reminderMessage {
-    font-size: 12px;
+    font-size: var(--text-small);
     text-align: left;
     max-width: 100%;
   }
@@ -646,7 +648,7 @@
   }
 
   .box h2 {
-    font-size: 18px;
+    font-size: var(--text-big);
   }
 
   .description {

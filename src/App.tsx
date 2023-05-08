@@ -54,7 +54,8 @@ function App() {
       <header className={styles.header}>
         <Logo width={238} />
       </header>
-      {renderStep(step)}
+      {/* {renderStep(step)} */}
+      <SuccessSubmit />
       <footer className={styles.footer}>
         <a href="/">{texts.footer.register.privacy}</a>
         <a href="/">{texts.footer.register.terms}</a>

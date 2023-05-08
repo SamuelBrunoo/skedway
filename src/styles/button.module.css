@@ -1,3 +1,5 @@
+@import url("./base.module.css");
+
 .primary {
   display: inline-flex;
   align-items: center;
@@ -5,7 +7,7 @@
   border-radius: 40px;
   margin: 0 auto;
   padding: 0.625em 1em;
-  background: #3C484D;
+  background: var(--text-grey);
   color: white;
   border: 0;
   cursor: pointer;
@@ -23,7 +25,7 @@
   margin: 0 auto;
   padding: 0.625em 1em;
   background: #FFF;
-  color: #3C484D;
+  color: var(--text-grey);
   border: 0;
   cursor: pointer;
   font-family: "Manrope", "Lato", Arial, sans-serif;
