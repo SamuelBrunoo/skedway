@@ -1,8 +1,4 @@
 import texts from "../../_lang"
-import type {
-  FaceCallback,
-  FaceComponentData,
-} from "@innovatrics/dot-face-auto-capture";
 import {
   dispatchControlEvent,
   FaceCustomEvent,
@@ -15,9 +11,12 @@ import buttonStyles from "../../styles/button.module.css";
 import { ReactComponent as Arrow } from "../../assets/icons/Arrow_right_1.svg";
 import Stepleft from "./subcomponents/stepLeft";
 import StepContent from "./subcomponents/stepContent";
+import LoadingComponent from "../Loading";
+import api from "../../Api";
+import { ErrorTypes } from "../../types/error";
 
 interface Props {
-  onPhotoTaken: FaceCallback;
+  onPhotoTaken: <T>(image: Blob, data: T) => void;
   onError: (error: Error) => void;
   photoUrl: undefined | string;
   nextStep: () => void;
@@ -26,12 +25,31 @@ interface Props {
 
 function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn }: Props) {
   const [captionOnMobile, setCaptionOnMobile] = useState<boolean>(false)
+  const [sendingPhoto, setSendingPhoto] = useState(false)
+  const [photoData, setPhotoData] = useState<null | Blob>(null)
+  const [error, setError] = useState<null | ErrorTypes>(null)
 
-  const handleNextStep = () => {
+  const handlePhotoData = <T,>(image: Blob, data: T) => {
+    onPhotoTaken(image, data)
+    setPhotoData(image)
+  }
+
+  const handleNextStep = async () => {
     if (window.document.body.clientWidth > 840) {
-      if (photoUrl) nextStep();
+      if (photoUrl && photoData) {
+        setSendingPhoto(true)
+        const res = await api.sendPhoto(photoData)
+        setSendingPhoto(true)
+        if (res.success) {
+          nextStep()
+        } else {
+          setError("accessDenied")
+        }
+      }
     } else {
-      if (captionOnMobile && photoUrl) nextStep()
+      if (captionOnMobile && photoUrl) {
+        nextStep()
+      }
       else setCaptionOnMobile(true)
     }
   }
@@ -45,13 +63,13 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn 
   };
 
 
-  return (
+  return !sendingPhoto ? (
     <main className={`${styles.main} ${localStyles.main} ${window.document.body.clientWidth <= 840 && captionOnMobile ? 'showingPhoto' : ''
       }`}>
       {window.document.body.clientWidth > 840 &&
         <>
           <Stepleft
-            handlePhotoTaken={onPhotoTaken}
+            handlePhotoTaken={handlePhotoData}
             onError={onError}
             photoUrl={photoUrl}
           />
@@ -86,6 +104,8 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn 
       }
 
     </main >
+  ) : (
+    <LoadingComponent />
   );
 }
 

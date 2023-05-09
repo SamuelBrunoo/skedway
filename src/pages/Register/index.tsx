@@ -18,7 +18,7 @@ function RegisterPage() {
     setPhotoUrl(imageUrl);
   };
 
-  const handleFaceCapturePhotoTaken: FaceCallback = (image, data) => {
+  const handleFaceCapturePhotoTaken = (image: Blob, data: any) => {
     handlePhotoTaken(image, data);
   };
 
