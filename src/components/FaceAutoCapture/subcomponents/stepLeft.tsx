@@ -52,6 +52,15 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
                     text: texts.other.cameraLabels.waiting
                   }
                 }}
+                theme={{
+                  colors: {
+                    placeholderColor: 'white',
+                    instructionTextColor: 'white',
+                    instructionColor: 'transparent',
+                    instructionColorSuccess: 'green',
+                    placeholderColorSuccess: 'green'
+                  }
+                }}
               />
             </>
           }
