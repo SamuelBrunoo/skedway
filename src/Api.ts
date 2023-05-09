@@ -1,9 +1,7 @@
-import dotenv from "dotenv"
 import axios, { Axios } from "axios"
 
-dotenv.config()
 
-axios.defaults.baseURL = process.env.BASE_API_URL
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL
 
 const api = {
   ping: async () => {

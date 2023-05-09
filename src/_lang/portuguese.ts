@@ -61,7 +61,16 @@ const other = {
     refresh: 'Atualizar'
   },
   cameraLabels: {
+    candidate_selection: 'Mantenha a posição...',
+    face_too_close: 'Afaste-se',
+    face_too_far: 'Aproxime-se',
+    face_centering: 'Centralize seu rosto',
+    face_not_present: 'Posicione seu rosto no círculo',
+    sharpness_too_low: 'Vire seu rosto contra a luz',
+    brightness_too_low: 'Vire seu rosto contra a luz',
+    brightness_too_high: 'Menos luz necessária',
     loading: 'Carregando. Por favor, espere.',
+    waiting: 'Aguardando câmera'
   },
   errors: {
     accessDenied: {

@@ -1,7 +1,6 @@
 import portuguese from './portuguese.ts'
 import english from './english.ts'
 import spanish from "./spanish.ts"
-import { TextsInterface } from '../types/texts.lang.ts'
 
 const langs = {
   pt: portuguese,
@@ -11,4 +10,4 @@ const langs = {
 
 const currentLanguage: 'pt' | 'en' | 'es' = 'pt'
 
-export default langs[currentLanguage] as TextsInterface
+export default langs[currentLanguage]

@@ -33,7 +33,26 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
                 onPhotoTaken={handlePhotoTaken}
                 onError={onError}
               />
-              <FaceUi />
+              <FaceUi
+                instructions={{
+                  brightness_too_high: texts.other.cameraLabels.brightness_too_high,
+                  brightness_too_low: texts.other.cameraLabels.brightness_too_low,
+                  candidate_selection: texts.other.cameraLabels.candidate_selection,
+                  face_centering: texts.other.cameraLabels.face_centering,
+                  face_not_present: texts.other.cameraLabels.face_not_present,
+                  face_too_close: texts.other.cameraLabels.face_too_close,
+                  face_too_far: texts.other.cameraLabels.face_too_far,
+                  sharpness_too_low: texts.other.cameraLabels.sharpness_too_low
+                }}
+                appStateInstructions={{
+                  loading: {
+                    text: texts.other.cameraLabels.loading
+                  },
+                  waiting: {
+                    text: texts.other.cameraLabels.waiting
+                  }
+                }}
+              />
             </>
           }
           {photoUrl &&
