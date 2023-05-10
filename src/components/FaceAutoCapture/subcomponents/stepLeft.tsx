@@ -5,6 +5,7 @@ import localStyles from "../styles.module.css";
 import FaceCamera from "../../_faceReconComponents/FaceCamera";
 import FaceUi from "../../_faceReconComponents/FaceUi";
 import { ReactComponent as GreenDegrade } from "../../../assets/degrades/green_degrade.svg";
+import { useEffect, useRef } from "react";
 
 
 interface Props {
@@ -14,6 +15,20 @@ interface Props {
 }
 
 const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
+
+  const videoareaRef = useRef(null)
+
+  useEffect(() => {
+    const el = videoareaRef.current
+    if (el) {
+      const changeOpacity = () => {
+        (el as HTMLElement).classList.toggle('notShowing')
+      }
+      setTimeout(changeOpacity, 3000)
+    }
+  }, [])
+
+
   return (
     <div className={localStyles.stepLeft}>
       {window.document.body.clientWidth <= 840 &&
@@ -24,7 +39,7 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
       }
       <GreenDegrade width={485} height={225} className={localStyles.green_degrade} />
       <div className={`${styles.stepLeftBackSquare} ${localStyles.stepLeftBackSquare}`}>
-        <div className={localStyles.videoCaptureArea}>
+        <div className={`${localStyles.videoCaptureArea} notShowing`} ref={videoareaRef}>
           {!photoUrl &&
             <>
               <FaceCamera
@@ -46,10 +61,12 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
                 }}
                 appStateInstructions={{
                   loading: {
-                    text: texts.other.cameraLabels.loading
+                    text: texts.other.cameraLabels.loading,
+                    visible: false
                   },
                   waiting: {
-                    text: texts.other.cameraLabels.waiting
+                    text: texts.other.cameraLabels.waiting,
+                    visible: false
                   }
                 }}
                 theme={{

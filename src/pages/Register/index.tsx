@@ -1,5 +1,4 @@
 import texts from "../../_lang";
-import type { FaceCallback } from "@innovatrics/dot-face-auto-capture";
 import { useCallback, useState } from "react";
 import ComponentSelect from "../../components/ComponentSelect";
 import FaceAutoCapture from "../../components/FaceAutoCapture";
