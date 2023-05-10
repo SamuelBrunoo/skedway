@@ -1,9 +1,4 @@
 import texts from "../../_lang"
-import {
-  dispatchControlEvent,
-  FaceCustomEvent,
-  ControlEventInstruction,
-} from "@innovatrics/dot-face-auto-capture/events";
 import { useState } from "react";
 import styles from "../../styles/index.module.css";
 import localStyles from "./styles.module.css";
@@ -21,12 +16,14 @@ interface Props {
   photoUrl: undefined | string;
   nextStep: () => void;
   lateronFn: () => void;
+  handleContinueDetection: () => void;
 }
 
-function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn }: Props) {
+function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn, handleContinueDetection }: Props) {
   const [captionOnMobile, setCaptionOnMobile] = useState<boolean>(false)
   const [sendingPhoto, setSendingPhoto] = useState(false)
   const [photoData, setPhotoData] = useState<null | Blob>(null)
+  const [reloadCount, setReloadCount] = useState<number>(0)
   const [error, setError] = useState<null | ErrorTypes>(null)
 
   const handlePhotoData = <T,>(image: Blob, data: T) => {
@@ -54,12 +51,10 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn 
     }
   }
 
-  const handleContinueDetection = () => {
-    dispatchControlEvent(
-      FaceCustomEvent.CONTROL,
-      ControlEventInstruction.CONTINUE_DETECTION
-    );
-
+  const handleTakeAnother = () => {
+    handleContinueDetection()
+    setPhotoData(null)
+    setReloadCount(Number(reloadCount) + 1)
   };
 
 
@@ -72,9 +67,15 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn 
             handlePhotoTaken={handlePhotoData}
             onError={onError}
             photoUrl={photoUrl}
+            reloadCount={reloadCount}
           />
 
-          <StepContent handleNextStep={handleNextStep} lateronFn={lateronFn} />
+          <StepContent
+            handleNextStep={handleNextStep}
+            lateronFn={lateronFn}
+            isAlreadyTaked={photoUrl !== undefined}
+            handleTakeAnother={handleTakeAnother}
+          />
         </>
       }
 
@@ -84,11 +85,15 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn 
             handlePhotoTaken={onPhotoTaken}
             onError={onError}
             photoUrl={photoUrl}
+            reloadCount={reloadCount}
           />
           <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
             <div className={`${styles.buttonsArea} ${localStyles.buttonsArea}`}>
-              <button className={`${buttonStyles.secondary} ${localStyles.cancelButton}`} onClick={lateronFn}>
-                {texts.other.buttons.close}
+              <button
+                className={`${buttonStyles.secondary} ${localStyles.cancelButton}`}
+                onClick={handleTakeAnother}
+              >
+                {texts.other.buttons.take_another}
               </button>
               <button className={buttonStyles.primary} onClick={handleNextStep}>
                 <span>{texts.other.buttons.next.toUpperCase()}</span>

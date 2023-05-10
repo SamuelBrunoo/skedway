@@ -12,9 +12,11 @@ import { ReactComponent as Arrow } from "../../../assets/icons/Arrow_right_1.svg
 interface Props {
   handleNextStep: () => void;
   lateronFn: () => void;
+  isAlreadyTaked?: boolean;
+  handleTakeAnother?: () => void;
 }
 
-const StepContent = ({ handleNextStep, lateronFn }: Props) => {
+const StepContent = ({ handleNextStep, lateronFn, isAlreadyTaked, handleTakeAnother }: Props) => {
   return (
     <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
       <div className={localStyles.backColors}>
@@ -62,9 +64,16 @@ const StepContent = ({ handleNextStep, lateronFn }: Props) => {
         }
       </div>
       <div className={styles.buttonsArea}>
-        <button className={buttonStyles.secondary} onClick={lateronFn}>
-          {texts.other.buttons.later}
-        </button>
+        {isAlreadyTaked !== undefined && isAlreadyTaked === false &&
+          <button className={buttonStyles.secondary} onClick={lateronFn}>
+            {texts.other.buttons.later}
+          </button>
+        }
+        {isAlreadyTaked &&
+          <button className={buttonStyles.secondary} onClick={handleTakeAnother}>
+            {texts.other.buttons.take_another}
+          </button>
+        }
         <button className={buttonStyles.primary} onClick={handleNextStep}>
           <span>{texts.other.buttons.next.toUpperCase()}</span>
           <Arrow width={24} />

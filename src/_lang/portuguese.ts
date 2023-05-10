@@ -58,7 +58,8 @@ const other = {
     close: 'Fechar',
     later: 'Mais tarde',
     next: 'Próximo',
-    refresh: 'Atualizar'
+    refresh: 'Atualizar',
+    take_another: 'Tirar outra foto'
   },
   cameraLabels: {
     candidate_selection: 'Mantenha a posição...',

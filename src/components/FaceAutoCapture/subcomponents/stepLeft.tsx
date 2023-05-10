@@ -13,9 +13,10 @@ interface Props {
   photoUrl: undefined | string;
   handlePhotoTaken: (image: Blob, data: FaceComponentData) => void;
   onError: (error: Error) => void;
+  reloadCount: number;
 }
 
-const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
+const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount }: Props) => {
 
   const videoareaRef = useRef(null)
   const [showingLoading, setShowingLoading] = useState(true)
@@ -26,12 +27,15 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
       const changeOpacity = () => {
         (el as HTMLElement).classList.toggle('notShowing')
       }
+      setShowingLoading(true)
+      changeOpacity()
+
       setTimeout(() => {
         setShowingLoading(false)
         changeOpacity()
       }, 3000)
     }
-  }, [])
+  }, [reloadCount])
 
 
   return (

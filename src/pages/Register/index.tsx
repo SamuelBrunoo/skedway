@@ -6,6 +6,7 @@ import SuccessSubmit from "../../components/SuccessSubmit";
 import styles from "../../styles/index.module.css";
 import { Step } from "../../types";
 import { ReactComponent as Logo } from "../../assets/icons/Lockup_Logo.svg";
+import { ControlEventInstruction, FaceCustomEvent, dispatchControlEvent } from "@innovatrics/dot-face-auto-capture/events";
 
 function RegisterPage() {
   const [step, setStep] = useState<Step>(Step.SELECT_COMPONENT);
@@ -30,6 +31,14 @@ function RegisterPage() {
     setStep(Step.SELECT_COMPONENT);
   };
 
+  const handleContinueDetection = () => {
+    dispatchControlEvent(
+      FaceCustomEvent.CONTROL,
+      ControlEventInstruction.CONTINUE_DETECTION
+    );
+    setPhotoUrl(undefined);
+  }
+
   const renderStep = (currentStep: Step) => {
     switch (currentStep) {
       case Step.FACE_CAPTURE:
@@ -40,6 +49,7 @@ function RegisterPage() {
             photoUrl={photoUrl}
             nextStep={() => setSuccededSubmit(true)}
             lateronFn={handleBackClick}
+            handleContinueDetection={handleContinueDetection}
           />
         ) : (
           <SuccessSubmit />
