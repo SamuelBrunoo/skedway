@@ -76,6 +76,15 @@
   opacity: 1;
 }
 
+.loadingArea {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+}
+
 .videoCaptureArea x-dot-face-auto-capture div {
   width: 100%;
   max-width: 75vw;
@@ -91,7 +100,8 @@
 .videoCaptureArea::before,
 .finalImgContainer,
 .videoCaptureArea x-dot-face-auto-capture div,
-.videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) {
+.videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1),
+.videoCaptureArea .loadingArea {
   transform: translate(-32px, 29px);
 }
 
@@ -495,7 +505,8 @@
   .videoCaptureArea::before,
   .finalImgContainer,
   .videoCaptureArea x-dot-face-auto-capture div,
-  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) {
+  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1),
+  .videoCaptureArea .loadingArea {
     transform: translate(-32px, 31px);
   }
 }
@@ -556,17 +567,17 @@
   .videoCaptureArea {
     width: unset;
     max-height: calc(100% - 31px);
-  }  
+  }
 
   .videoCaptureArea x-dot-face-auto-capture {
     overflow: hidden;
   }
-  
+
   .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) {
     top: 20px;
     height: fit-content;
   }
-  
+
   .videoCaptureArea x-dot-face-auto-capture div video {
     min-width: 120%;
     min-height: 140%;
@@ -588,7 +599,8 @@
   .videoCaptureArea::before,
   .finalImgContainer,
   .videoCaptureArea x-dot-face-auto-capture div,
-  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) {
+  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1),
+  .videoCaptureArea .loadingArea {
     transform: translate(-13vw, 31px);
   }
 

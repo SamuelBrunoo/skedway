@@ -5,7 +5,8 @@ import localStyles from "../styles.module.css";
 import FaceCamera from "../../_faceReconComponents/FaceCamera";
 import FaceUi from "../../_faceReconComponents/FaceUi";
 import { ReactComponent as GreenDegrade } from "../../../assets/degrades/green_degrade.svg";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import LoadingComponent from "../../Loading";
 
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
 const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
 
   const videoareaRef = useRef(null)
+  const [showingLoading, setShowingLoading] = useState(true)
 
   useEffect(() => {
     const el = videoareaRef.current
@@ -24,7 +26,10 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
       const changeOpacity = () => {
         (el as HTMLElement).classList.toggle('notShowing')
       }
-      setTimeout(changeOpacity, 3000)
+      setTimeout(() => {
+        setShowingLoading(false)
+        changeOpacity()
+      }, 3000)
     }
   }, [])
 
@@ -79,6 +84,12 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError }: Props) => {
                   }
                 }}
               />
+
+              {showingLoading &&
+                <div className={localStyles.loadingArea}>
+                  <LoadingComponent />
+                </div>
+              }
             </>
           }
           {photoUrl &&
