@@ -14,9 +14,10 @@ interface Props {
   lateronFn: () => void;
   isAlreadyTaked?: boolean;
   handleTakeAnother?: () => void;
+  theresAnError?: boolean;
 }
 
-const StepContent = ({ handleNextStep, lateronFn, isAlreadyTaked, handleTakeAnother }: Props) => {
+const StepContent = ({ handleNextStep, lateronFn, isAlreadyTaked, handleTakeAnother, theresAnError }: Props) => {
   return (
     <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
       <div className={localStyles.backColors}>
@@ -64,12 +65,17 @@ const StepContent = ({ handleNextStep, lateronFn, isAlreadyTaked, handleTakeAnot
         }
       </div>
       <div className={styles.buttonsArea}>
-        {isAlreadyTaked !== undefined && isAlreadyTaked === false &&
+        {isAlreadyTaked !== undefined && isAlreadyTaked === false && !theresAnError &&
           <button className={buttonStyles.secondary} onClick={lateronFn}>
             {texts.other.buttons.later}
           </button>
         }
-        {isAlreadyTaked &&
+        {isAlreadyTaked === true &&
+          <button className={buttonStyles.secondary} onClick={handleTakeAnother}>
+            {texts.other.buttons.take_another}
+          </button>
+        }
+        {theresAnError === true &&
           <button className={buttonStyles.secondary} onClick={handleTakeAnother}>
             {texts.other.buttons.take_another}
           </button>

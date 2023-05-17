@@ -9,17 +9,18 @@ import StepContent from "./subcomponents/stepContent";
 import LoadingComponent from "../Loading";
 import api from "../../Api";
 import { ErrorTypes } from "../../types/error";
+import useApi from "../../Api";
 
 interface Props {
   onPhotoTaken: <T>(image: Blob, data: T) => void;
-  onError: (error: Error) => void;
   photoUrl: undefined | string;
-  nextStep: () => void;
+  nextStep: () => Promise<boolean>;
   lateronFn: () => void;
   handleContinueDetection: () => void;
+  deletePhotoUrl: () => void;
 }
 
-function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn, handleContinueDetection }: Props) {
+function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleContinueDetection, deletePhotoUrl }: Props) {
   const [captionOnMobile, setCaptionOnMobile] = useState<boolean>(false)
   const [sendingPhoto, setSendingPhoto] = useState(false)
   const [photoData, setPhotoData] = useState<null | Blob>(null)
@@ -35,13 +36,17 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn,
     if (window.document.body.clientWidth > 840) {
       if (photoUrl && photoData) {
         setSendingPhoto(true)
-        const res = await api.sendPhoto(photoData)
-        setSendingPhoto(true)
-        if (res.success) {
-          nextStep()
-        } else {
+        const send = await nextStep()
+        if (send === false) {
           setError("accessDenied")
+          setPhotoData(null)
+          deletePhotoUrl()
+          setSendingPhoto(false)
         }
+        // if (res) {
+        //   nextStep()
+        // } else {
+        // }
       }
     } else {
       if (captionOnMobile && photoUrl) {
@@ -52,8 +57,9 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn,
   }
 
   const handleTakeAnother = () => {
-    handleContinueDetection()
     setPhotoData(null)
+    setError(null)
+    handleContinueDetection()
     setReloadCount(Number(reloadCount) + 1)
   };
 
@@ -65,15 +71,17 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn,
         <>
           <Stepleft
             handlePhotoTaken={handlePhotoData}
-            onError={onError}
+            onError={() => setError("generic")}
             photoUrl={photoUrl}
             reloadCount={reloadCount}
+            error={error}
           />
 
           <StepContent
             handleNextStep={handleNextStep}
             lateronFn={lateronFn}
             isAlreadyTaked={photoUrl !== undefined}
+            theresAnError={error !== null}
             handleTakeAnother={handleTakeAnother}
           />
         </>
@@ -83,9 +91,10 @@ function FaceAutoCapture({ onPhotoTaken, onError, photoUrl, nextStep, lateronFn,
         <>
           <Stepleft
             handlePhotoTaken={onPhotoTaken}
-            onError={onError}
+            onError={() => setError("generic")}
             photoUrl={photoUrl}
             reloadCount={reloadCount}
+            error={error}
           />
           <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
             <div className={`${styles.buttonsArea} ${localStyles.buttonsArea}`}>

@@ -8,6 +8,7 @@ import { Step } from "../../types";
 import { ReactComponent as Logo } from "../../assets/icons/Lockup_Logo.svg";
 import { ControlEventInstruction, FaceCustomEvent, dispatchControlEvent } from "@innovatrics/dot-face-auto-capture/events";
 import useApi from "../../Api";
+import { Item as UserInfo } from "../../types/api";
 
 function RegisterPage() {
   const [step, setStep] = useState<Step>(Step.SELECT_COMPONENT);
@@ -16,21 +17,19 @@ function RegisterPage() {
   const [photoBlob, setPhotoBlob] = useState<Blob | null>(null)
   const [companyLogo, setCompanyLogo] =
     useState<string | FunctionComponent<SVGProps<SVGSVGElement> & { title?: string | undefined; }>>(Logo)
+  const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
 
   const Api = useApi()
 
   const handlePhotoTaken = <T,>(image: Blob, data: T) => {
     const imageUrl = URL.createObjectURL(image);
     setPhotoUrl(imageUrl);
+    setPhotoBlob(image)
   };
 
-  const handleFaceCapturePhotoTaken = (image: Blob, data: any) => {
+  const handleFaceCapturePhotoTaken = (image: Blob, data?: any) => {
     handlePhotoTaken(image, data);
   };
-
-  const handleError = useCallback((error: Error) => {
-    alert(error.message);
-  }, []);
 
   const handleBackClick = () => {
     setPhotoUrl(undefined);
@@ -45,13 +44,15 @@ function RegisterPage() {
     setPhotoUrl(undefined);
   }
 
-  const submitPhoto = async () => {
-    if (photoBlob) {
-      const sendPhoto = await Api.sendPhoto(photoBlob)
-      if (sendPhoto.status(200)) {
+  const submitPhoto = async (): Promise<boolean> => {
+    if (photoBlob && userInfo !== null) {
+      const sendPhoto = await Api.sendPhoto(userInfo.id, photoBlob)
+      if (sendPhoto && sendPhoto.status === 200) {
         setSuccededSubmit(true)
+        return true
       }
     }
+    return false
   }
 
   const renderStep = (currentStep: Step) => {
@@ -60,11 +61,11 @@ function RegisterPage() {
         return (!succededSubmit) ? (
           <FaceAutoCapture
             onPhotoTaken={handleFaceCapturePhotoTaken}
-            onError={handleError}
             photoUrl={photoUrl}
             nextStep={submitPhoto}
             lateronFn={handleBackClick}
             handleContinueDetection={handleContinueDetection}
+            deletePhotoUrl={() => setPhotoUrl(undefined)}
           />
         ) : (
           <SuccessSubmit />
@@ -76,8 +77,9 @@ function RegisterPage() {
 
   useEffect(() => {
     Api.getCompanyInfo().then(info => {
-      const logoSrc = info.items[0].pictureUrl
-      if (logoSrc) setCompanyLogo(logoSrc)
+      setUserInfo(info.items[0])
+      const logoSrc = info.items[0].pictureUrl.split('/')
+      if (!logoSrc.includes("undefineduser")) setCompanyLogo(logoSrc)
     })
   }, [])
 
@@ -94,8 +96,18 @@ function RegisterPage() {
       </header>
       {renderStep(step)}
       <footer className={styles.footer}>
-        <a href="/">{texts.footer.register.privacy}</a>
-        <a href="/">{texts.footer.register.terms}</a>
+        <a
+          href={`https://skedway.com/${texts.langPattern}/privacy`}
+          target="_blank"
+        >
+          {texts.footer.register.privacy}
+        </a>
+        <a
+          href={`https://skedway.com/${texts.langPattern}/terms`}
+          target="_blank"
+        >
+          {texts.footer.register.terms}
+        </a>
       </footer>
     </div>
   );

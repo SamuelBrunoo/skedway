@@ -51,6 +51,10 @@
   border-radius: 24px;
 }
 
+.finalImgContainer main {
+  background-color: white;
+}
+
 .finalImgContainer img {
   width: auto;
   height: 100%;

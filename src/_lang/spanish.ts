@@ -89,12 +89,15 @@ const other = {
   },
 }
 
+const langPattern = 'es-ES'
+
 const texts = {
   stepOne,
   stepTwo,
   stepThree,
   other,
   footer,
+  langPattern,
 }
 
 

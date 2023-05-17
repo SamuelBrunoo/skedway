@@ -7,6 +7,8 @@ import FaceUi from "../../_faceReconComponents/FaceUi";
 import { ReactComponent as GreenDegrade } from "../../../assets/degrades/green_degrade.svg";
 import { useEffect, useRef, useState } from "react";
 import LoadingComponent from "../../Loading";
+import { ErrorTypes } from "../../../types/error";
+import ErrorComponent from "../../ErrorComponent";
 
 
 interface Props {
@@ -14,9 +16,10 @@ interface Props {
   handlePhotoTaken: (image: Blob, data: FaceComponentData) => void;
   onError: (error: Error) => void;
   reloadCount: number;
+  error: null | ErrorTypes;
 }
 
-const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount }: Props) => {
+const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error }: Props) => {
 
   const videoareaRef = useRef(null)
   const [showingLoading, setShowingLoading] = useState(true)
@@ -49,7 +52,7 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount }: Props) =
       <GreenDegrade width={485} height={225} className={localStyles.green_degrade} />
       <div className={`${styles.stepLeftBackSquare} ${localStyles.stepLeftBackSquare}`}>
         <div className={`${localStyles.videoCaptureArea} notShowing`} ref={videoareaRef}>
-          {!photoUrl &&
+          {!photoUrl && error === null &&
             <>
               <FaceCamera
                 imageType="png"
@@ -99,6 +102,13 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount }: Props) =
           {photoUrl &&
             <div className={localStyles.finalImgContainer}>
               <img src={photoUrl} alt="" loading="lazy" />
+            </div>
+          }
+          {error !== null && !photoUrl &&
+            <div className={localStyles.finalImgContainer}>
+              <ErrorComponent
+                type={error}
+              />
             </div>
           }
         </div>

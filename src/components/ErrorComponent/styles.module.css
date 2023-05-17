@@ -15,11 +15,16 @@
 .icon {
   background-color: var(--dark-black);
   box-shadow: 0 2px 12px 0 rgba(30, 43, 45, .49);
+  min-width: fit-content;
   padding: 10px;
   border-radius: 50%;
   display: grid;
   place-items: center;
   color: white;
+}
+
+.icon svg {
+  position: relative;
 }
 
 .errorInfo {

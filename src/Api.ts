@@ -21,26 +21,23 @@ const useApi = () => {
           page: 1,
         }
       })
-      let data = req.data()
-      data = {
-        ...data,
-        items: {
-          ...data.items[0],
-          pictureUrl: `${baseUrl}/${data.items[0].pictureUrl}`
-        }
-      }
+      let data = req.data
       return data
     },
-    sendPhoto: async (photo: Blob) => {
-      const data = {
-        photo
+    sendPhoto: async (userId: number, photo: Blob) => {
+      const formData = new FormData()
+      formData.append('file', photo)
+
+      try {
+        const req = await axios.post(`/users/faces/${userId}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        return req
+      } catch (error) {
+        return false
       }
-      const req = await axios.post('/users/faces', data, {
-        params: {
-          userId: 123
-        }
-      })
-      return await req.data
     }
   })
 }

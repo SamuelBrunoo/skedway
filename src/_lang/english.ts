@@ -100,12 +100,15 @@ const other = {
   },
 }
 
+const langPattern = 'en-US'
+
 const texts = {
   stepOne,
   stepTwo,
   stepThree,
   other,
   footer,
+  langPattern,
 }
 
 

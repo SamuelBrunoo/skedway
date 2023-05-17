@@ -1,4 +1,4 @@
-export type GetCompanyInfo = {
+export type GetUserInfo = {
   items: Item[],
   meta: {
     totalItems: number;
@@ -15,7 +15,7 @@ export type GetCompanyInfo = {
   }
 }
 
-type Item = {
+export type Item = {
   id: number;
   companyId: number;
   name: string;
