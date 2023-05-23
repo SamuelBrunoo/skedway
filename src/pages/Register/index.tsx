@@ -8,7 +8,8 @@ import { Step } from "../../types";
 import { ReactComponent as Logo } from "../../assets/icons/Lockup_Logo.svg";
 import { ControlEventInstruction, FaceCustomEvent, dispatchControlEvent } from "@innovatrics/dot-face-auto-capture/events";
 import useApi from "../../Api";
-import { Item as UserInfo } from "../../types/api";
+import { GetUserInfo, Item as UserInfo } from "../../types/api/UserInfo";
+import { CompanyUserInfo } from "../../types/api/Company";
 
 function RegisterPage() {
   const [step, setStep] = useState<Step>(Step.SELECT_COMPONENT);
@@ -47,7 +48,7 @@ function RegisterPage() {
   const submitPhoto = async (): Promise<boolean> => {
     if (photoBlob && userInfo !== null) {
       const sendPhoto = await Api.sendPhoto(userInfo.id, photoBlob)
-      if (sendPhoto && sendPhoto.status === 200) {
+      if (sendPhoto) {
         setSuccededSubmit(true)
         return true
       }
@@ -76,10 +77,15 @@ function RegisterPage() {
   };
 
   useEffect(() => {
-    Api.getCompanyInfo().then(info => {
-      setUserInfo(info.items[0])
-      const logoSrc = info.items[0].pictureUrl.split('/')
-      if (!logoSrc.includes("undefineduser")) setCompanyLogo(logoSrc)
+    Api.getUserInfo().then((info: GetUserInfo | false) => {
+      if (info) {
+        setUserInfo(info.items[0])
+        Api.getCompanyUserInfo().then((data: CompanyUserInfo | false) => {
+          if (data) {
+            setCompanyLogo(data.company.logo)
+          }
+        })
+      }
     })
   }, [])
 
@@ -87,7 +93,7 @@ function RegisterPage() {
     <div className={styles.app}>
       <header className={styles.header}>
         {typeof (companyLogo) === "string" &&
-          <img src={companyLogo} alt="" />
+          <img src={companyLogo} alt="" width={238} />
         }
         {!(typeof (companyLogo) === "string") &&
           <Logo width={238} />

@@ -4,13 +4,15 @@ import { ReactComponent as PersonOffIcon } from "../../assets/icons/person_off.s
 import { ReactComponent as WarningIcon } from "../../assets/icons/error.svg"
 import { ReactComponent as CameraDeniedIcon } from "../../assets/icons/no_camera.svg"
 import { errors } from "../../consts/errors"
+import texts from "../../_lang"
 
 
 interface Props {
   type: ErrorTypes;
+  refreshAction: () => void;
 }
 
-function ErrorComponent({ type }: Props) {
+function ErrorComponent({ type, refreshAction }: Props) {
 
   const typeIconrelation = {
     accessDenied: <PersonOffIcon />,
@@ -36,7 +38,10 @@ function ErrorComponent({ type }: Props) {
       <p className={localStyles.errorInstructions}>
         {error.instructions}
       </p>
-      <button className={localStyles.refreshBtn}>Refresh</button>
+      <button
+        className={localStyles.refreshBtn}
+        onClick={refreshAction}
+      >{texts.other.buttons.refresh}</button>
     </main>
   )
 }

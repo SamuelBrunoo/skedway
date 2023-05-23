@@ -7,9 +7,7 @@ import { ReactComponent as Arrow } from "../../assets/icons/Arrow_right_1.svg";
 import Stepleft from "./subcomponents/stepLeft";
 import StepContent from "./subcomponents/stepContent";
 import LoadingComponent from "../Loading";
-import api from "../../Api";
 import { ErrorTypes } from "../../types/error";
-import useApi from "../../Api";
 
 interface Props {
   onPhotoTaken: <T>(image: Blob, data: T) => void;
@@ -43,14 +41,17 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
           deletePhotoUrl()
           setSendingPhoto(false)
         }
-        // if (res) {
-        //   nextStep()
-        // } else {
-        // }
       }
     } else {
       if (captionOnMobile && photoUrl) {
-        nextStep()
+        setSendingPhoto(true)
+        const send = await nextStep()
+        if (send === false) {
+          setError("accessDenied")
+          setPhotoData(null)
+          deletePhotoUrl()
+          setSendingPhoto(false)
+        }
       }
       else setCaptionOnMobile(true)
     }

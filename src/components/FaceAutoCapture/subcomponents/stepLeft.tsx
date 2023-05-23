@@ -108,6 +108,7 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error }: P
             <div className={localStyles.finalImgContainer}>
               <ErrorComponent
                 type={error}
+                refreshAction={() => window.document.location.href = window.document.location.href}
               />
             </div>
           }
