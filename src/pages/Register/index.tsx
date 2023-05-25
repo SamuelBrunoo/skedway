@@ -10,6 +10,8 @@ import { ControlEventInstruction, FaceCustomEvent, dispatchControlEvent } from "
 import useApi from "../../Api";
 import { GetUserInfo, Item as UserInfo } from "../../types/api/UserInfo";
 import { CompanyUserInfo } from "../../types/api/Company";
+import { SendPhotoType } from "../../types/api/SendPhoto";
+import { ErrorTypes } from "../../types/error";
 
 function RegisterPage() {
   const [step, setStep] = useState<Step>(Step.SELECT_COMPONENT);
@@ -45,15 +47,16 @@ function RegisterPage() {
     setPhotoUrl(undefined);
   }
 
-  const submitPhoto = async (): Promise<boolean> => {
+  const submitPhoto = async ():Promise<SendPhotoType> => {
     if (photoBlob && userInfo !== null) {
       const sendPhoto = await Api.sendPhoto(userInfo.id, photoBlob)
-      if (sendPhoto) {
+      if (sendPhoto.success) {
         setSuccededSubmit(true)
-        return true
+        return sendPhoto
       }
+      return sendPhoto
     }
-    return false
+    return { success: false, error: 'generic' as ErrorTypes }
   }
 
   const renderStep = (currentStep: Step) => {

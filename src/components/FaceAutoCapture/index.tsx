@@ -8,11 +8,12 @@ import Stepleft from "./subcomponents/stepLeft";
 import StepContent from "./subcomponents/stepContent";
 import LoadingComponent from "../Loading";
 import { ErrorTypes } from "../../types/error";
+import { SendPhotoType } from "../../types/api/SendPhoto";
 
 interface Props {
   onPhotoTaken: <T>(image: Blob, data: T) => void;
   photoUrl: undefined | string;
-  nextStep: () => Promise<boolean>;
+  nextStep: () => Promise<SendPhotoType>;
   lateronFn: () => void;
   handleContinueDetection: () => void;
   deletePhotoUrl: () => void;
@@ -35,8 +36,8 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
       if (photoUrl && photoData) {
         setSendingPhoto(true)
         const send = await nextStep()
-        if (send === false) {
-          setError("accessDenied")
+        if (send.success === false) {
+          setError(send.error)
           setPhotoData(null)
           deletePhotoUrl()
           setSendingPhoto(false)
@@ -46,8 +47,8 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
       if (captionOnMobile && photoUrl) {
         setSendingPhoto(true)
         const send = await nextStep()
-        if (send === false) {
-          setError("accessDenied")
+        if (send.success === false) {
+          setError(send.error)
           setPhotoData(null)
           deletePhotoUrl()
           setSendingPhoto(false)

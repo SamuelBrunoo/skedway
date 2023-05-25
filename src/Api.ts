@@ -1,4 +1,6 @@
 import a from "axios"
+import { ErrorTypes } from "./types/error"
+import { SendPhotoType } from "./types/api/SendPhoto"
 
 
 const useApi = () => {
@@ -40,7 +42,7 @@ const useApi = () => {
         return false
       }
     },
-    sendPhoto: async (userId: number, photo: Blob) => {
+    sendPhoto: async (userId: number, photo: Blob): Promise<SendPhotoType> => {
       const formData = new FormData()
       formData.append('face', photo)
 
@@ -51,12 +53,43 @@ const useApi = () => {
             "Authorization": devToken
           }
         })
-        return req
-      } catch (error) {
-        return false
+        return { success: true, ...req }
+      } catch (error: any) {
+        const errorStatus = error.response.status
+        return (errorStatus === 400) ?
+          { success: false, error: 'generic' as ErrorTypes } :
+          { success: false, error: 'accessDenied' as ErrorTypes }
       }
     }
   })
 }
 
 export default useApi
+
+
+/*
+      const formData = new FormData()
+      formData.append('face', photo)
+
+      let response: SendPhotoType = { success: false, error: 'generic' as ErrorTypes }
+
+      axios.post(`/users/faces/${userId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": devToken
+        }
+      }).then(res => {
+        response = { success: true, ...res }
+
+        return response
+      }).catch(error => {
+        const errorStatus = error.response.status
+
+        response = (errorStatus === 400) ?
+          { success: false, error: 'generic' as ErrorTypes } :
+          { success: false, error: 'accessDenied' as ErrorTypes }
+
+        return response
+      })
+    }
+*/
