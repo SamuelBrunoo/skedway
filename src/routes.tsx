@@ -13,8 +13,8 @@ const routes: RouteObject[] = [
     element: <Navigate to={'/face-wizard'} />
   },
   {
-    path:'*',
-    element:<ErrorPage />
+    path: '*',
+    element: <ErrorPage error={'generic'} />
   }
 ]
 

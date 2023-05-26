@@ -12,8 +12,11 @@ import { GetUserInfo, Item as UserInfo } from "../../types/api/UserInfo";
 import { CompanyUserInfo } from "../../types/api/Company";
 import { SendPhotoType } from "../../types/api/SendPhoto";
 import { ErrorTypes } from "../../types/error";
+import { useSearchParams } from "react-router-dom";
+import ErrorPage from "../ErrorPage";
 
 function RegisterPage() {
+  const [tokenError, setTokenError] = useState(false)
   const [step, setStep] = useState<Step>(Step.SELECT_COMPONENT);
   const [photoUrl, setPhotoUrl] = useState<string>();
   const [succededSubmit, setSuccededSubmit] = useState<boolean>(false);
@@ -22,7 +25,10 @@ function RegisterPage() {
     useState<string | FunctionComponent<SVGProps<SVGSVGElement> & { title?: string | undefined; }>>(Logo)
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
 
-  const Api = useApi()
+  const [searchParams] = useSearchParams()
+  const token = searchParams.get('token')
+
+  const Api = useApi({ token: token as string })
 
   const handlePhotoTaken = <T,>(image: Blob, data: T) => {
     const imageUrl = URL.createObjectURL(image);
@@ -89,19 +95,32 @@ function RegisterPage() {
   };
 
   useEffect(() => {
-    Api.getUserInfo().then((info: GetUserInfo | false) => {
-      if (info) {
-        setUserInfo(info.items[0])
-        Api.getCompanyUserInfo().then((data: CompanyUserInfo | false) => {
-          if (data) {
-            setCompanyLogo(data.company.logo)
+    if (!token) {
+      setTokenError(true)
+      return
+    } else {
+      Api.getUserInfo()
+        .then((info: GetUserInfo | false) => {
+          if (info) {
+            setUserInfo(info.items[0])
+            Api.getCompanyUserInfo()
+              .then((data: CompanyUserInfo | false) => {
+                if (data) {
+                  setCompanyLogo(data.company.logo)
+                }
+              })
+              .catch(() => {
+                setTokenError(true)
+                return
+              })
           }
         })
-      }
-    })
+    }
   }, [])
 
-  return (
+  return (tokenError) ? (
+    <ErrorPage error={'accessDenied'} />
+  ) : (
     <div className={styles.app}>
       <header className={styles.header}>
         {typeof (companyLogo) === "string" &&
@@ -127,7 +146,7 @@ function RegisterPage() {
           {texts.footer.register.terms}
         </a>
       </footer>
-    </div>
+    </div >
   );
 }
 

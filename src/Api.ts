@@ -1,12 +1,18 @@
 import a from "axios"
 import { ErrorTypes } from "./types/error"
 import { SendPhotoType } from "./types/api/SendPhoto"
+import { useState } from "react";
 
 
-const useApi = () => {
+type Props = {
+  token: string;
+}
+
+
+const useApi = ({ token }: Props) => {
 
   const baseUrl = process.env.REACT_APP_API_BASE_URL
-  const devToken = `Bearer ${process.env.REACT_APP_REQ_TOKEN}`
+  const [devToken, setDevToken] = useState(`Bearer ${token}`)
 
   const axios = a.create({
     baseURL: baseUrl,
