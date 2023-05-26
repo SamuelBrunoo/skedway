@@ -7,7 +7,11 @@ import { ReactComponent as PurpleDegrade } from "../../assets/degrades/purple_de
 import { ReactComponent as FaceZoneIcon } from "../../assets/icons/facezone.svg";
 
 
-function SuccessSubmit() {
+type Props = {
+  onFinish: () => void;
+}
+
+function SuccessSubmit({ onFinish }: Props) {
   return (
     <main className={`${styles.main} ${localStyles.main}`}>
       <div className={localStyles.stepLeft}>
@@ -46,7 +50,7 @@ function SuccessSubmit() {
           </p>
         </div>
         <div className={styles.buttonsArea}>
-          <button className={button.secondary} onClick={() => null}>
+          <button className={button.secondary} onClick={onFinish}>
             <span>{texts.other.buttons.close.toUpperCase()}</span>
           </button>
         </div>

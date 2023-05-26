@@ -47,7 +47,7 @@ function RegisterPage() {
     setPhotoUrl(undefined);
   }
 
-  const submitPhoto = async ():Promise<SendPhotoType> => {
+  const submitPhoto = async (): Promise<SendPhotoType> => {
     if (photoBlob && userInfo !== null) {
       const sendPhoto = await Api.sendPhoto(userInfo.id, photoBlob)
       if (sendPhoto.success) {
@@ -57,6 +57,13 @@ function RegisterPage() {
       return sendPhoto
     }
     return { success: false, error: 'generic' as ErrorTypes }
+  }
+
+  const handleFinish = () => {
+    setPhotoUrl(undefined);
+    setStep(Step.SELECT_COMPONENT);
+    setSuccededSubmit(false)
+    setPhotoBlob(null)
   }
 
   const renderStep = (currentStep: Step) => {
@@ -72,7 +79,9 @@ function RegisterPage() {
             deletePhotoUrl={() => setPhotoUrl(undefined)}
           />
         ) : (
-          <SuccessSubmit />
+          <SuccessSubmit
+            onFinish={handleFinish}
+          />
         );
       default:
         return <ComponentSelect setStep={setStep} />;
