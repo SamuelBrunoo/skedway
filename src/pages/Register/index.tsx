@@ -14,9 +14,11 @@ import { SendPhotoType } from "../../types/api/SendPhoto";
 import { ErrorTypes } from "../../types/error";
 import { useSearchParams } from "react-router-dom";
 import ErrorPage from "../ErrorPage";
+import { UserAndCompany } from "../../types/api/UserAndCompany";
+import LoadingComponent from "../../components/Loading";
 
 function RegisterPage() {
-  const [tokenError, setTokenError] = useState(false)
+  const [pageError, setPageError] = useState<'token' | 'generic' | null>(null)
   const [step, setStep] = useState<Step>(Step.SELECT_COMPONENT);
   const [photoUrl, setPhotoUrl] = useState<string>();
   const [succededSubmit, setSuccededSubmit] = useState<boolean>(false);
@@ -24,6 +26,7 @@ function RegisterPage() {
   const [companyLogo, setCompanyLogo] =
     useState<string | FunctionComponent<SVGProps<SVGSVGElement> & { title?: string | undefined; }>>(Logo)
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
+  const [loading, setLoading] = useState<boolean>(true)
 
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token')
@@ -96,30 +99,30 @@ function RegisterPage() {
 
   useEffect(() => {
     if (!token) {
-      setTokenError(true)
+      setPageError("token")
       return
     } else {
-      Api.getUserInfo()
-        .then((info: GetUserInfo | false) => {
-          if (info) {
-            setUserInfo(info.items[0])
-            Api.getCompanyUserInfo()
-              .then((data: CompanyUserInfo | false) => {
-                if (data) {
-                  setCompanyLogo(data.company.logo)
-                }
-              })
-              .catch(() => {
-                setTokenError(true)
-                return
-              })
+      setLoading(true)
+
+      Api.getUserAndCompanyInfo(token)
+        .then((info) => {
+          if (info.success) {
+            setCompanyLogo(info.all?.company.company.logo as string)
+            setUserInfo(info.all?.user.items[0] as UserInfo)
+            setLoading(false)
+          } else {
+            setPageError("token")
           }
         })
     }
   }, [])
 
-  return (tokenError) ? (
-    <ErrorPage error={'accessDenied'} />
+  return (pageError) ? (
+    <ErrorPage error={(pageError === "token") ? 'accessDenied' : 'generic'} />
+  ) : (loading) ? (
+    <div className={styles.loadingContainer}>
+      <LoadingComponent />
+    </div>
   ) : (
     <div className={styles.app}>
       <header className={styles.header}>
