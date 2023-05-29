@@ -7,6 +7,13 @@
   box-sizing: border-box;
 }
 
+.loadingContainer {
+  min-height: 80vh;
+  margin-top: 10vh;
+  display: flex;
+  justify-content: center;
+}
+
 .app {
   font-family: "Manrope", "Lato", "Montserrat", sans-serif;
   color: var(--color-grey);
@@ -262,7 +269,7 @@
     padding: 0;
     gap: 40px;
   }
-  
+
   .stepContent {
     z-index: unset;
     box-shadow: none;

@@ -2,6 +2,8 @@ import a from "axios"
 import { ErrorTypes } from "./types/error"
 import { SendPhotoType } from "./types/api/SendPhoto"
 import { useState } from "react";
+import { GetUserInfo } from "./types/api/UserInfo";
+import { CompanyUserInfo } from "./types/api/Company";
 
 
 type Props = {
@@ -46,6 +48,34 @@ const useApi = ({ token }: Props) => {
         return req.data
       } catch (error) {
         return false
+      }
+    },
+    getUserAndCompanyInfo: async (token: string) => {
+      try {
+        const user = await axios.get(`/users`, {
+          params: {
+            limit: 1,
+            page: 1,
+          }
+        })
+
+        const cmp = await axios.get(`/users/me/summary`, {
+          headers: {
+            "Authorization": token
+          }
+        })
+        return ({
+          success: true,
+          all: {
+            user: user.data as GetUserInfo,
+            company: cmp.data as CompanyUserInfo
+          }
+        })
+      } catch (error: any) {
+        const errorStatus = error.response.status
+        return (errorStatus === 400 || errorStatus === 500) ?
+          { success: false, error: 'generic' as ErrorTypes } :
+          { success: false, error: 'accessDenied' as ErrorTypes }
       }
     },
     sendPhoto: async (userId: number, photo: Blob): Promise<SendPhotoType> => {
