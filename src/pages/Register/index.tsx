@@ -1,19 +1,20 @@
+import { useState, useEffect } from "react";
 import texts from "../../_lang";
-import { FunctionComponent, SVGProps, useEffect, useState } from "react";
+import { UserInfo } from "../../types/api/UserInfo";
+import { SendPhotoType } from "../../types/api/SendPhoto";
+import { ErrorTypes } from "../../types/error";
+import { Step } from "../../types";
+import styles from "../../styles/index.module.css";
+import { ControlEventInstruction, FaceCustomEvent, dispatchControlEvent } from "@innovatrics/dot-face-auto-capture/events";
+import { useSearchParams } from "react-router-dom";
+import useApi from "../../Api";
+
+import { ReactComponent as Logo } from "../../assets/icons/Lockup_Logo.svg";
+import ErrorPage from "../ErrorPage";
+import LoadingComponent from "../../components/Loading";
 import ComponentSelect from "../../components/ComponentSelect";
 import FaceAutoCapture from "../../components/FaceAutoCapture";
 import SuccessSubmit from "../../components/SuccessSubmit";
-import styles from "../../styles/index.module.css";
-import { Step } from "../../types";
-import { ReactComponent as Logo } from "../../assets/icons/Lockup_Logo.svg";
-import { ControlEventInstruction, FaceCustomEvent, dispatchControlEvent } from "@innovatrics/dot-face-auto-capture/events";
-import useApi from "../../Api";
-import { Item as UserInfo } from "../../types/api/UserInfo";
-import { SendPhotoType } from "../../types/api/SendPhoto";
-import { ErrorTypes } from "../../types/error";
-import { useSearchParams } from "react-router-dom";
-import ErrorPage from "../ErrorPage";
-import LoadingComponent from "../../components/Loading";
 
 function RegisterPage() {
   const [pageError, setPageError] = useState<'token' | 'generic' | null>(null)
@@ -21,8 +22,6 @@ function RegisterPage() {
   const [photoUrl, setPhotoUrl] = useState<string>();
   const [succededSubmit, setSuccededSubmit] = useState<boolean>(false);
   const [photoBlob, setPhotoBlob] = useState<Blob | null>(null)
-  const [companyLogo, setCompanyLogo] =
-    useState<string | FunctionComponent<SVGProps<SVGSVGElement> & { title?: string | undefined; }>>(Logo)
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -102,14 +101,16 @@ function RegisterPage() {
     } else {
       setLoading(true)
 
-      Api.getUserAndCompanyInfo()
-        .then((info) => {
-          if (info.success) {
-            setCompanyLogo(info.all?.company.company.logo as string)
-            setUserInfo(info.all?.user.items[0] as UserInfo)
+      Api.getUserInfo()
+        .then((req) => {
+          if (req.success) {
+            const info = req.info
+
+            setUserInfo(info)
             setLoading(false)
           } else {
             setPageError("token")
+            setLoading(false)
           }
         })
     }
@@ -124,10 +125,10 @@ function RegisterPage() {
   ) : (
     <div className={styles.app}>
       <header className={styles.header}>
-        {typeof (companyLogo) === "string" &&
-          <img src={companyLogo} alt="" width={238} />
+        {typeof (userInfo?.company.logo) === "string" &&
+          <img src={userInfo?.company.logo} alt="" width={238} />
         }
-        {!(typeof (companyLogo) === "string") &&
+        {!(typeof (userInfo?.company.logo) === "string") &&
           <Logo width={238} />
         }
 

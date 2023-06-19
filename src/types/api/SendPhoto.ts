@@ -1,4 +1,4 @@
-import { AxiosResponse, AxiosResponseHeaders, InternalAxiosRequestConfig, RawAxiosResponseHeaders } from "axios";
+import { AxiosResponseHeaders, InternalAxiosRequestConfig, RawAxiosResponseHeaders } from "axios";
 import { ErrorTypes } from "../error";
 
 export type SendPhotoType = {

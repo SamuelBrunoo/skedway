@@ -1,29 +1,19 @@
-export type GetUserInfo = {
-  items: Item[],
-  meta: {
-    totalItems: number;
-    itemCount: number;
-    itemsPerPage: number;
-    totalPages: number;
-    currentPage: number;
-  },
-  links: {
-    first: string;
-    previous: string;
-    next: string;
-    last: string;
-  }
+import { ErrorTypes } from "../error";
+
+export type GetUserInfoRes = {
+  success: true;
+  info: UserInfo;
+} | {
+  success: false;
+  error: ErrorTypes;
 }
 
-export type Item = {
+export type UserInfo = {
   id: number;
-  companyId: number;
   name: string;
   email: string;
-  customUid: string;
-  pictureUrl: string;
-  pin: number;
-  removed: boolean;
-  createdDate: string;
-  updatedDate: string;
+  company: {
+    name: string;
+    logo: string | undefined;
+  }
 }
