@@ -14,12 +14,11 @@ type Props = {
 const useApi = ({ token }: Props) => {
 
   const baseUrl = process.env.REACT_APP_API_BASE_URL
-  const [devToken, setDevToken] = useState(`Bearer ${token}`)
 
   const axios = a.create({
     baseURL: baseUrl,
     headers: {
-      Authorization: `Bearer ${process.env.REACT_APP_AUTH_TOKEN}`,
+      Authorization: `Bearer ${token}`,
       Accept: "application/json"
     }
   })
@@ -40,17 +39,13 @@ const useApi = ({ token }: Props) => {
     },
     getCompanyUserInfo: async () => {
       try {
-        const req = await axios.get(`/users/me/summary`, {
-          headers: {
-            "Authorization": devToken
-          }
-        })
+        const req = await axios.get(`/users/me/summary`)
         return req.data
       } catch (error) {
         return false
       }
     },
-    getUserAndCompanyInfo: async (token: string) => {
+    getUserAndCompanyInfo: async () => {
       try {
         const user = await axios.get(`/users`, {
           params: {
@@ -59,11 +54,8 @@ const useApi = ({ token }: Props) => {
           }
         })
 
-        const cmp = await axios.get(`/users/me/summary`, {
-          headers: {
-            "Authorization": token
-          }
-        })
+        const cmp = await axios.get(`/users/me/summary`, )
+
         return ({
           success: true,
           all: {
@@ -75,7 +67,7 @@ const useApi = ({ token }: Props) => {
         const errorStatus = error.response.status
         return (errorStatus === 400 || errorStatus === 500) ?
           { success: false, error: 'generic' as ErrorTypes } :
-          { success: false, error: 'accessDenied' as ErrorTypes }
+          { success: false, error: 'accessDenied' as ErrorTypes, details: error.response }
       }
     },
     sendPhoto: async (userId: number, photo: Blob): Promise<SendPhotoType> => {
@@ -86,7 +78,6 @@ const useApi = ({ token }: Props) => {
         const req = await axios.post(`/users/faces/${userId}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Authorization": devToken
           }
         })
         return { success: true, ...req }
@@ -101,31 +92,3 @@ const useApi = ({ token }: Props) => {
 }
 
 export default useApi
-
-
-/*
-      const formData = new FormData()
-      formData.append('face', photo)
-
-      let response: SendPhotoType = { success: false, error: 'generic' as ErrorTypes }
-
-      axios.post(`/users/faces/${userId}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": devToken
-        }
-      }).then(res => {
-        response = { success: true, ...res }
-
-        return response
-      }).catch(error => {
-        const errorStatus = error.response.status
-
-        response = (errorStatus === 400) ?
-          { success: false, error: 'generic' as ErrorTypes } :
-          { success: false, error: 'accessDenied' as ErrorTypes }
-
-        return response
-      })
-    }
-*/
