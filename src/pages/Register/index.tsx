@@ -1,5 +1,5 @@
 import texts from "../../_lang";
-import { FunctionComponent, SVGProps, useCallback, useEffect, useState } from "react";
+import { FunctionComponent, SVGProps, useEffect, useState } from "react";
 import ComponentSelect from "../../components/ComponentSelect";
 import FaceAutoCapture from "../../components/FaceAutoCapture";
 import SuccessSubmit from "../../components/SuccessSubmit";
@@ -8,13 +8,11 @@ import { Step } from "../../types";
 import { ReactComponent as Logo } from "../../assets/icons/Lockup_Logo.svg";
 import { ControlEventInstruction, FaceCustomEvent, dispatchControlEvent } from "@innovatrics/dot-face-auto-capture/events";
 import useApi from "../../Api";
-import { GetUserInfo, Item as UserInfo } from "../../types/api/UserInfo";
-import { CompanyUserInfo } from "../../types/api/Company";
+import { Item as UserInfo } from "../../types/api/UserInfo";
 import { SendPhotoType } from "../../types/api/SendPhoto";
 import { ErrorTypes } from "../../types/error";
 import { useSearchParams } from "react-router-dom";
 import ErrorPage from "../ErrorPage";
-import { UserAndCompany } from "../../types/api/UserAndCompany";
 import LoadingComponent from "../../components/Loading";
 
 function RegisterPage() {
@@ -104,7 +102,7 @@ function RegisterPage() {
     } else {
       setLoading(true)
 
-      Api.getUserAndCompanyInfo(token)
+      Api.getUserAndCompanyInfo()
         .then((info) => {
           if (info.success) {
             setCompanyLogo(info.all?.company.company.logo as string)
@@ -115,7 +113,7 @@ function RegisterPage() {
           }
         })
     }
-  }, [])
+  }, [token])
 
   return (pageError) ? (
     <ErrorPage error={(pageError === "token") ? 'accessDenied' : 'generic'} />
