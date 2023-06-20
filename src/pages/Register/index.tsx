@@ -118,17 +118,17 @@ function RegisterPage() {
 
   return (pageError) ? (
     <ErrorPage error={(pageError === "token") ? 'accessDenied' : 'generic'} />
-  ) : (loading) ? (
+  ) : (loading || userInfo === null) ? (
     <div className={styles.loadingContainer}>
       <LoadingComponent />
     </div>
   ) : (
     <div className={styles.app}>
       <header className={styles.header}>
-        {typeof (userInfo?.company.logo) === "string" &&
-          <img src={userInfo?.company.logo} alt="" width={238} />
+        {typeof (userInfo.company.logo) === "string" &&
+          <img src={userInfo.company.logo} alt="" width={238} />
         }
-        {!(typeof (userInfo?.company.logo) === "string") &&
+        {!(typeof (userInfo.company.logo) === "string") &&
           <Logo width={238} />
         }
 
