@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import LoadingComponent from "../../Loading";
 import { ErrorTypes } from "../../../types/error";
 import ErrorComponent from "../../ErrorComponent";
+import path from "path";
 
 
 interface Props {
@@ -59,6 +60,7 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error }: P
                 cameraFacing="user"
                 onPhotoTaken={handlePhotoTaken}
                 onError={onError}
+                samWasmUrl={`${path.join(__dirname, '../public')}/sam.wasm`}
               />
               <FaceUi
                 instructions={{
