@@ -9,12 +9,12 @@ import { ControlEventInstruction, FaceCustomEvent, dispatchControlEvent } from "
 import { useSearchParams } from "react-router-dom";
 import useApi from "../../Api";
 
-import { ReactComponent as Logo } from "../../assets/icons/Lockup_Logo.svg";
 import ErrorPage from "../ErrorPage";
 import LoadingComponent from "../../components/Loading";
 import ComponentSelect from "../../components/ComponentSelect";
 import FaceAutoCapture from "../../components/FaceAutoCapture";
 import SuccessSubmit from "../../components/SuccessSubmit";
+import renderLogo from "../../consts/auxs/renderLogo";
 
 function RegisterPage() {
   const [pageError, setPageError] = useState<'token' | 'generic' | null>(null)
@@ -118,33 +118,21 @@ function RegisterPage() {
 
   return (pageError) ? (
     <ErrorPage error={(pageError === "token") ? 'accessDenied' : 'generic'} />
-  ) : (loading || userInfo === null) ? (
+  ) : (loading) ? (
     <div className={styles.loadingContainer}>
       <LoadingComponent />
     </div>
   ) : (
     <div className={styles.app}>
       <header className={styles.header}>
-        {typeof (userInfo.company.logo) === "string" &&
-          <img src={userInfo.company.logo} alt="" width={238} />
-        }
-        {!(typeof (userInfo.company.logo) === "string") &&
-          <Logo width={238} />
-        }
-
+        {userInfo && renderLogo(userInfo.company.logo)}
       </header>
       {renderStep(step)}
       <footer className={styles.footer}>
-        <a
-          href={`https://skedway.com/${texts.langPattern}/privacy`}
-          target="_blank"
-        >
+        <a href={`https://skedway.com/${texts.langPattern}/privacy`} target="_blank" >
           {texts.footer.register.privacy}
         </a>
-        <a
-          href={`https://skedway.com/${texts.langPattern}/terms`}
-          target="_blank"
-        >
+        <a href={`https://skedway.com/${texts.langPattern}/terms`} target="_blank" >
           {texts.footer.register.terms}
         </a>
       </footer>
