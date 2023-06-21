@@ -58,7 +58,10 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error }: P
                 imageType="png"
                 cameraFacing="user"
                 onPhotoTaken={handlePhotoTaken}
-                onError={onError}
+                onError={(e: Error) => {
+                  alert(e);
+                  onError(e);
+                }}
               />
               <FaceUi
                 instructions={{
