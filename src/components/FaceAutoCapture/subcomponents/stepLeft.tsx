@@ -39,8 +39,6 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error }: P
         changeOpacity()
       }, 3000)
     }
-
-    alert(`${process.env.PUBLIC_URL}/sam.wasm`)
   }, [reloadCount])
 
 
@@ -63,9 +61,8 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error }: P
                 onPhotoTaken={handlePhotoTaken}
                 onError={e => {
                   alert(e)
-                  onError(e)
                 }}
-                samWasmUrl={`${process.env.PUBLIC_URL}/sam.wasm`}
+                samWasmUrl={`/sam.wasm`}
               />
               <FaceUi
                 instructions={{
