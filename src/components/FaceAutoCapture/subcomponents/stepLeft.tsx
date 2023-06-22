@@ -39,6 +39,8 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error }: P
         changeOpacity()
       }, 3000)
     }
+
+    alert(`${process.env.PUBLIC_URL}/sam.wasm`)
   }, [reloadCount])
 
 
