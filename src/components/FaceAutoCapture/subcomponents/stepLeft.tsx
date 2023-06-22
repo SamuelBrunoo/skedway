@@ -60,7 +60,6 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error }: P
                 cameraFacing="user"
                 onPhotoTaken={handlePhotoTaken}
                 onError={e => {
-                  alert(e)
                 }}
                 samWasmUrl={`/sam.wasm`}
               />
