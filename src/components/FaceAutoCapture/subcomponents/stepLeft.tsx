@@ -63,7 +63,7 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error }: P
                   alert(e)
                   onError(e)
                 }}
-                samWasmUrl={`/sam.wasm`}
+                samWasmUrl={`${process.env.PUBLIC_URL}/sam.wasm`}
               />
               <FaceUi
                 instructions={{
