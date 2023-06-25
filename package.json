@@ -6,8 +6,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "serve": "react-scripts build && serve -s build --ssl-cert cert.crt --ssl-key key.key",
     "eject": "react-scripts eject",
-    "copy-sam": "cp ./node_modules/@innovatrics/dot-face-auto-capture/sam.wasm ./public",
+    "copy-sam": "cp ./node_modules/@innovatrics/dot-document-auto-capture/sam.wasm ./public",
     "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0",
     "lint:fix": "yarn lint --fix"
   },
