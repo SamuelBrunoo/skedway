@@ -1,5 +1,5 @@
 import texts from "../../_lang"
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styles from "../../styles/index.module.css";
 import localStyles from "./styles.module.css";
 import buttonStyles from "../../styles/button.module.css";
@@ -65,6 +65,10 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
     setReloadCount(Number(reloadCount) + 1)
   };
 
+  const handleError = (e: Error) => {
+    setError('generic')
+  }
+
 
   return !sendingPhoto ? (
     <main className={`${styles.main} ${localStyles.main} ${window.document.body.clientWidth <= 840 && captionOnMobile ? 'showingPhoto' : ''
@@ -73,7 +77,7 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
         <>
           <Stepleft
             handlePhotoTaken={handlePhotoData}
-            onError={() => setError("generic")}
+            onError={e => handleError(e)}
             photoUrl={photoUrl}
             reloadCount={reloadCount}
             error={error}
@@ -93,7 +97,7 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
         <>
           <Stepleft
             handlePhotoTaken={onPhotoTaken}
-            onError={() => setError("generic")}
+            onError={e => handleError(e)}
             photoUrl={photoUrl}
             reloadCount={reloadCount}
             error={error}
