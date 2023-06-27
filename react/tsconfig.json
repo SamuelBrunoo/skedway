@@ -19,9 +19,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "outDir": "../builds/react"
   },
   "include": [
     "src"
-  ]
+  ],
 }

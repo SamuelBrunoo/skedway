@@ -1,4 +1,4 @@
-import texts from "../_lang/"
+import texts from "../_lang"
 
 export const errors = {
   accessDenied: {
