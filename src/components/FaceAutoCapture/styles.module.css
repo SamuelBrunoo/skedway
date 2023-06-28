@@ -578,7 +578,7 @@
   }
 
   .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) {
-    top: 20px;
+    top: 0px;
     height: fit-content;
   }
 
