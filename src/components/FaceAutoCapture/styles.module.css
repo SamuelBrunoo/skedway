@@ -335,6 +335,16 @@
 /* Mobile medias */
 
 @media (max-width:840px) {
+  
+
+  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) {
+    top: 0px;
+    height: fit-content;
+    padding-top: 2px;
+    padding-bottom: 10px;
+    background-color: orange;
+  }
+  
   .footer {
     display: flex;
     justify-content: center;
@@ -575,11 +585,6 @@
 
   .videoCaptureArea x-dot-face-auto-capture {
     overflow: hidden;
-  }
-
-  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) {
-    top: 0px;
-    height: fit-content;
   }
 
   .videoCaptureArea x-dot-face-auto-capture div video {
