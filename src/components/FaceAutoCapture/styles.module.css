@@ -335,16 +335,20 @@
 /* Mobile medias */
 
 @media (max-width:840px) {
-  
+
 
   .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) {
+    z-index: 1000;
+  }
+
+  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) div {
     top: 0px;
     height: fit-content;
     padding-top: 2px;
     padding-bottom: 10px;
     background-color: orange;
   }
-  
+
   .footer {
     display: flex;
     justify-content: center;
