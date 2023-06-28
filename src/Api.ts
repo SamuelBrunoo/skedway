@@ -8,7 +8,6 @@ type Props = {
   token: string;
 }
 
-
 const useApi = ({ token }: Props) => {
 
   const baseUrl = process.env.REACT_APP_API_BASE_URL
