@@ -26,6 +26,10 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
   const [reloadCount, setReloadCount] = useState<number>(0)
   const [error, setError] = useState<null | ErrorTypes>(null)
 
+  function laterFunction() { }
+  function nextFunction() { }
+
+
   const handlePhotoData = <T,>(image: Blob, data: T) => {
     onPhotoTaken(image, data)
     setPhotoData(image)
@@ -65,9 +69,7 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
     setReloadCount(Number(reloadCount) + 1)
   };
 
-  const handleError = (e: Error) => {
-    setError('generic')
-  }
+  const handleError = (e: Error) => { setError('generic') }
 
 
   return !sendingPhoto ? (
@@ -84,8 +86,8 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
           />
 
           <StepContent
-            handleNextStep={handleNextStep}
-            lateronFn={lateronFn}
+            handleNextStep={() => { nextFunction(); handleNextStep() }}
+            lateronFn={() => { laterFunction(); lateronFn() }}
             isAlreadyTaked={photoUrl !== undefined}
             theresAnError={error !== null}
             handleTakeAnother={handleTakeAnother}
@@ -110,7 +112,7 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
               >
                 {texts.other.buttons.take_another}
               </button>
-              <button className={buttonStyles.primary} onClick={handleNextStep}>
+              <button className={buttonStyles.primary} onClick={() => { nextFunction(); handleNextStep() }}>
                 <span>{texts.other.buttons.next.toUpperCase()}</span>
                 <Arrow width={24} />
               </button>
@@ -120,7 +122,10 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
       }
 
       {window.document.body.clientWidth <= 840 && !captionOnMobile &&
-        <StepContent handleNextStep={handleNextStep} lateronFn={lateronFn} />
+        <StepContent
+          handleNextStep={() => { nextFunction(); handleNextStep() }}
+          lateronFn={() => { laterFunction(); lateronFn() }}
+        />
       }
 
     </main >
