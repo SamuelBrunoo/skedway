@@ -48,4 +48,10 @@
   .secondary {
     font-size: 16px;
   }
+
+  .primary:focus,
+  .secondary:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }

@@ -25,8 +25,12 @@ function RegisterPage() {
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
-  function laterFunction() { }
-  function nextFunction() { }
+  function laterFunction() {
+    alert("Função 'laterFunction'")
+  }
+  function nextFunction() {
+    alert("Função 'nextFunction'")
+  }
 
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token')
