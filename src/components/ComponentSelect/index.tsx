@@ -17,6 +17,11 @@ interface Props {
 
 function ComponentSelect({ setStep, laterFunction, nextFunction }: Props) {
 
+  const handleClose = () => {
+    laterFunction()
+    window.close()
+  }
+
   const handleFaceClick = () => {
     setStep(Step.FACE_CAPTURE);
     nextFunction()
@@ -63,7 +68,7 @@ function ComponentSelect({ setStep, laterFunction, nextFunction }: Props) {
           </p>
         </div>
         <div className={styles.buttonsArea}>
-          <button className={button.secondary} onClick={laterFunction}>
+          <button className={button.secondary} onClick={handleClose}>
             {texts.other.buttons.close}
           </button>
           <button className={button.primary} onClick={handleFaceClick}>
