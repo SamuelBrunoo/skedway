@@ -17,17 +17,16 @@ interface Props {
   lateronFn: () => void;
   handleContinueDetection: () => void;
   deletePhotoUrl: () => void;
+  laterFunction: () => void;
+  nextFunction: () => void;
 }
 
-function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleContinueDetection, deletePhotoUrl }: Props) {
+function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleContinueDetection, deletePhotoUrl, laterFunction, nextFunction }: Props) {
   const [captionOnMobile, setCaptionOnMobile] = useState<boolean>(false)
   const [sendingPhoto, setSendingPhoto] = useState(false)
   const [photoData, setPhotoData] = useState<null | Blob>(null)
   const [reloadCount, setReloadCount] = useState<number>(0)
   const [error, setError] = useState<null | ErrorTypes>(null)
-
-  function laterFunction() { }
-  function nextFunction() { }
 
 
   const handlePhotoData = <T,>(image: Blob, data: T) => {

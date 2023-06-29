@@ -25,6 +25,9 @@ function RegisterPage() {
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
+  function laterFunction() { }
+  function nextFunction() { }
+
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token')
 
@@ -83,6 +86,8 @@ function RegisterPage() {
             lateronFn={handleBackClick}
             handleContinueDetection={handleContinueDetection}
             deletePhotoUrl={() => setPhotoUrl(undefined)}
+            laterFunction={laterFunction}
+            nextFunction={nextFunction}
           />
         ) : (
           <SuccessSubmit
@@ -90,7 +95,11 @@ function RegisterPage() {
           />
         );
       default:
-        return <ComponentSelect setStep={setStep} />;
+        return <ComponentSelect
+          setStep={setStep}
+          laterFunction={laterFunction}
+          nextFunction={nextFunction}
+        />;
     }
   };
 
