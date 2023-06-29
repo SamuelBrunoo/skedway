@@ -10,7 +10,9 @@ type Props = {
 
 const useApi = ({ token }: Props) => {
 
-  const baseUrl = process.env.REACT_APP_API_BASE_URL
+  const baseUrl = process.env.NODE_ENV == "development" ?
+    process.env.REACT_APP_API_BASE_URL :
+    process.env.REACT_APP_PROD_API
 
   const axios = a.create({
     baseURL: baseUrl,
