@@ -145,6 +145,7 @@
 .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) svg {
   max-width: 75%;
   height: fit-content;
+  aspect-ratio: 1/1;
   border-radius: 100%;
   box-shadow: 0 0 0px 200px rgba(0, 0, 0, .6);
 }
@@ -334,6 +335,19 @@
 /* Mobile medias */
 
 @media (max-width:840px) {
+
+
+  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) {
+    z-index: 1000;
+  }
+
+  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) div {
+    top: 0px;
+    height: fit-content;
+    padding-top: 2px;
+    padding-bottom: 10px;
+  }
+
   .footer {
     display: flex;
     justify-content: center;
@@ -574,11 +588,6 @@
 
   .videoCaptureArea x-dot-face-auto-capture {
     overflow: hidden;
-  }
-
-  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) {
-    top: 20px;
-    height: fit-content;
   }
 
   .videoCaptureArea x-dot-face-auto-capture div video {

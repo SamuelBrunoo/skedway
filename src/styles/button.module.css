@@ -6,7 +6,7 @@
   justify-content: center;
   border-radius: 40px;
   margin: 0 auto;
-  padding: 0.625em 1em;
+  padding: 0.625em 1.6em;
   background: var(--text-grey);
   color: white;
   border: 0;
@@ -37,4 +37,21 @@
   background-color: lightgrey;
   color: gray;
   cursor: not-allowed;
+}
+
+@media (max-width:600px) {
+
+  .primary {
+    padding: 1em 2em;
+  }
+
+  .secondary {
+    font-size: 16px;
+  }
+
+  .primary:focus,
+  .secondary:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }

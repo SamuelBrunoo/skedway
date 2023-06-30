@@ -11,11 +11,20 @@ import { ReactComponent as Arrow } from "../../assets/icons/Arrow_right_1.svg";
 
 interface Props {
   setStep: (step: Step) => void;
+  laterFunction: () => void;
+  nextFunction: () => void;
 }
 
-function ComponentSelect({ setStep }: Props) {
+function ComponentSelect({ setStep, laterFunction, nextFunction }: Props) {
+
+  const handleClose = () => {
+    laterFunction()
+    window.close()
+  }
+
   const handleFaceClick = () => {
     setStep(Step.FACE_CAPTURE);
+    nextFunction()
   };
 
   return (
@@ -59,7 +68,7 @@ function ComponentSelect({ setStep }: Props) {
           </p>
         </div>
         <div className={styles.buttonsArea}>
-          <button className={button.secondary} onClick={() => null}>
+          <button className={button.secondary} onClick={handleClose}>
             {texts.other.buttons.close}
           </button>
           <button className={button.primary} onClick={handleFaceClick}>
