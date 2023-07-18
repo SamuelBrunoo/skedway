@@ -15,8 +15,8 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
         aspectRatio: .79,
         viewMode: 3,
         data: { y: 0 },
-        minCropBoxWidth: 357,
-        minCropBoxHeight: 450,
+        minCropBoxWidth: 321,
+        minCropBoxHeight: 418,
         ready() { fn() },
         cropBoxResizable: false,
         cropBoxMovable: false,
@@ -30,12 +30,14 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
       const cropped = c.getCroppedCanvas({
         maxHeight: 512,
         maxWidth: 512,
+        minHeight:418
       })
 
       let url = cropped.toDataURL("image/jpg")
       c.getCroppedCanvas({
         maxHeight: 512,
         maxWidth: 512,
+        minHeight:418
       }).toBlob(blob => {
 
         newUrl = url
