@@ -12,11 +12,11 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
 
     const c = new Cropper(el,
       {
-        aspectRatio: .79,
+        aspectRatio: 1,
         viewMode: 3,
         data: { y: 0 },
-        minCropBoxWidth: 321,
-        minCropBoxHeight: 418,
+        minCropBoxWidth: 512,
+        minCropBoxHeight: 512,
         ready() { fn() },
         cropBoxResizable: false,
         cropBoxMovable: false,
@@ -30,14 +30,16 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
       const cropped = c.getCroppedCanvas({
         maxHeight: 512,
         maxWidth: 512,
-        minHeight:418
+        minHeight: 512,
+        minWidth: 512
       })
 
       let url = cropped.toDataURL("image/jpg")
       c.getCroppedCanvas({
         maxHeight: 512,
         maxWidth: 512,
-        minHeight:418
+        minHeight: 512,
+        minWidth: 512
       }).toBlob(blob => {
 
         newUrl = url
