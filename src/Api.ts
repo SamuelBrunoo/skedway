@@ -2,6 +2,7 @@ import a from "axios"
 import { ErrorTypes } from "./types/error"
 import { SendPhotoType } from "./types/api/SendPhoto"
 import { GetUserInfoRes, UserInfo } from "./types/api/UserInfo"
+import { cropImage } from "./consts/auxs/cropImage"
 
 
 type Props = {
@@ -35,9 +36,12 @@ const useApi = ({ token }: Props) => {
           { success: false, error: 'accessDenied' as ErrorTypes }
       }
     },
-    sendPhoto: async (userId: number, photo: Blob): Promise<SendPhotoType> => {
+    sendPhoto: async (userId: number): Promise<SendPhotoType> => {
+
+      const { blob } = await cropImage()
+
       const formData = new FormData()
-      formData.append('face', photo)
+      formData.append('face', blob)
 
       try {
         const req = await axios.post(`/users/faces/${userId}`, formData, {

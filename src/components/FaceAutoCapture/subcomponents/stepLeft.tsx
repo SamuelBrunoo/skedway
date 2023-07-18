@@ -9,7 +9,6 @@ import { useEffect, useRef, useState } from "react";
 import LoadingComponent from "../../Loading";
 import { ErrorTypes } from "../../../types/error";
 import ErrorComponent from "../../ErrorComponent";
-import path from "path";
 
 
 interface Props {
@@ -18,9 +17,10 @@ interface Props {
   onError: (error: Error) => void;
   reloadCount: number;
   error: null | ErrorTypes;
+  previewImageRef: React.MutableRefObject<HTMLImageElement | null>;
 }
 
-const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error }: Props) => {
+const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error, previewImageRef }: Props) => {
 
   const videoareaRef = useRef(null)
   const [showingLoading, setShowingLoading] = useState(true)
@@ -100,11 +100,9 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error }: P
               }
             </>
           }
-          {photoUrl &&
-            <div className={localStyles.finalImgContainer}>
-              <img src={photoUrl} alt="" loading="lazy" />
-            </div>
-          }
+          <div className={localStyles.finalImgContainer} style={{ display: photoUrl ? "flex" : "none" }}>
+            <img src={photoUrl} alt="" loading="lazy" id="previewImage" ref={previewImageRef} />
+          </div>
           {error !== null && !photoUrl &&
             <div className={localStyles.finalImgContainer}>
               <ErrorComponent

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import texts from "../../_lang";
 import { UserInfo } from "../../types/api/UserInfo";
 import { SendPhotoType } from "../../types/api/SendPhoto";
@@ -19,17 +19,15 @@ import renderLogo from "../../consts/auxs/renderLogo";
 function RegisterPage() {
   const [pageError, setPageError] = useState<'token' | 'generic' | null>(null)
   const [step, setStep] = useState<Step>(Step.SELECT_COMPONENT);
-  const [photoUrl, setPhotoUrl] = useState<string>();
+  const [photoUrl, setPhotoUrl] = useState<string | undefined>();
   const [succededSubmit, setSuccededSubmit] = useState<boolean>(false);
   const [photoBlob, setPhotoBlob] = useState<Blob | null>(null)
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
   const [loading, setLoading] = useState<boolean>(true)
+  const previewImageRef = useRef<HTMLImageElement | null>(null)
 
   function laterFunction() {
     alert("Função 'laterFunction'")
-  }
-  function nextFunction() {
-    alert("Função 'nextFunction'")
   }
 
   const [searchParams] = useSearchParams()
@@ -38,8 +36,8 @@ function RegisterPage() {
   const Api = useApi({ token: token as string })
 
   const handlePhotoTaken = <T,>(image: Blob, data: T) => {
-    const imageUrl = URL.createObjectURL(image);
-    setPhotoUrl(imageUrl);
+    const imageUrl = URL.createObjectURL(image)
+    setPhotoUrl(imageUrl)
     setPhotoBlob(image)
   };
 
@@ -58,11 +56,14 @@ function RegisterPage() {
       ControlEventInstruction.CONTINUE_DETECTION
     );
     setPhotoUrl(undefined);
+
   }
 
   const submitPhoto = async (): Promise<SendPhotoType> => {
+
+
     if (photoBlob && userInfo !== null) {
-      const sendPhoto = await Api.sendPhoto(userInfo.id, photoBlob)
+      const sendPhoto = await Api.sendPhoto(userInfo.id)
       if (sendPhoto.success) {
         setSuccededSubmit(true)
         return sendPhoto
@@ -77,6 +78,8 @@ function RegisterPage() {
     setStep(Step.SELECT_COMPONENT);
     setSuccededSubmit(false)
     setPhotoBlob(null)
+
+    window.postMessage('backToApp', window.location.href)
   }
 
   const renderStep = (currentStep: Step) => {
@@ -91,7 +94,7 @@ function RegisterPage() {
             handleContinueDetection={handleContinueDetection}
             deletePhotoUrl={() => setPhotoUrl(undefined)}
             laterFunction={laterFunction}
-            nextFunction={nextFunction}
+            previewImageRef={previewImageRef}
           />
         ) : (
           <SuccessSubmit
@@ -102,7 +105,6 @@ function RegisterPage() {
         return <ComponentSelect
           setStep={setStep}
           laterFunction={laterFunction}
-          nextFunction={nextFunction}
         />;
     }
   };
