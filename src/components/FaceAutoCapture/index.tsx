@@ -1,5 +1,5 @@
 import texts from "../../_lang"
-import { useCallback, useRef, useState } from "react";
+import { useState } from "react";
 import styles from "../../styles/index.module.css";
 import localStyles from "./styles.module.css";
 import buttonStyles from "../../styles/button.module.css";
@@ -21,13 +21,12 @@ interface Props {
   previewImageRef: React.MutableRefObject<HTMLImageElement | null>;
 }
 
-function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleContinueDetection, deletePhotoUrl, laterFunction, previewImageRef }: Props) {
+function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleContinueDetection, deletePhotoUrl, previewImageRef }: Props) {
   const [captionOnMobile, setCaptionOnMobile] = useState<boolean>(false)
   const [sendingPhoto, setSendingPhoto] = useState(false)
   const [photoData, setPhotoData] = useState<null | Blob>(null)
   const [reloadCount, setReloadCount] = useState<number>(0)
   const [error, setError] = useState<null | ErrorTypes>(null)
-
 
   const handlePhotoData = <T,>(image: Blob, data: T) => {
     onPhotoTaken(image, data)
@@ -68,7 +67,9 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
     setReloadCount(Number(reloadCount) + 1)
   };
 
-  const handleError = (e: Error) => { setError('generic') }
+  const handleError = (e: Error) => {
+    setError('generic')
+  }
 
 
   return !sendingPhoto ? (
@@ -86,8 +87,8 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
           />
 
           <StepContent
-            handleNextStep={() => { handleNextStep() }}
-            lateronFn={() => { laterFunction(); lateronFn() }}
+            handleNextStep={handleNextStep}
+            lateronFn={lateronFn}
             isAlreadyTaked={photoUrl !== undefined}
             theresAnError={error !== null}
             handleTakeAnother={handleTakeAnother}
@@ -113,7 +114,7 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
               >
                 {texts.other.buttons.take_another}
               </button>
-              <button className={buttonStyles.primary} onClick={() => { handleNextStep() }}>
+              <button className={buttonStyles.primary} onClick={handleNextStep}>
                 <span>{texts.other.buttons.next.toUpperCase()}</span>
                 <Arrow width={24} />
               </button>
@@ -123,10 +124,7 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
       }
 
       {window.document.body.clientWidth <= 840 && !captionOnMobile &&
-        <StepContent
-          handleNextStep={() => { handleNextStep() }}
-          lateronFn={() => { laterFunction(); lateronFn() }}
-        />
+        <StepContent handleNextStep={handleNextStep} lateronFn={lateronFn} />
       }
 
     </main >

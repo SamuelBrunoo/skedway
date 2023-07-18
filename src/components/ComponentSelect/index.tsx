@@ -37,7 +37,7 @@ function ComponentSelect({ setStep, laterFunction }: Props) {
         <div className={localStyles.faceZone}>
           <FaceZoneIcon width={57} className={localStyles.faceZoneIcon} />
         </div>
-        <img src={StepOnePerson} alt="" />
+        <img src={StepOnePerson} alt="" loading="lazy" />
         <GreenDegrade width={485} className={styles.green_degrade} />
         <PurpleDegrade width={485} className={styles.purple_degrade} />
       </div>

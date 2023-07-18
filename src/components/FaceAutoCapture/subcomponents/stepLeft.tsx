@@ -59,7 +59,11 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error, pre
                 imageType="png"
                 cameraFacing="user"
                 onPhotoTaken={handlePhotoTaken}
-                onError={onError}
+                onError={(e: Error) => {
+                  alert(e);
+                  onError(e);
+                }}
+                samWasmUrl={`/sam.wasm`}
               />
               <FaceUi
                 instructions={{
