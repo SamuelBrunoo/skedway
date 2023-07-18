@@ -27,7 +27,7 @@ function RegisterPage() {
   const previewImageRef = useRef<HTMLImageElement | null>(null)
 
   function laterFunction() {
-    alert("Função 'laterFunction'")
+    window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');  
   }
 
   const [searchParams] = useSearchParams()

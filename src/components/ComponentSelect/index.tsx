@@ -18,7 +18,6 @@ function ComponentSelect({ setStep, laterFunction }: Props) {
 
   const handleClose = () => {
     laterFunction()
-    window.close()
   }
 
   const handleFaceClick = () => {
