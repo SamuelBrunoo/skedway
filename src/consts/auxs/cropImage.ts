@@ -1,5 +1,5 @@
 import Cropper from "cropperjs"
-import { isOnWeb } from "./getDeviceType";
+import { getDeviceType, isOnWeb } from "./getDeviceType";
 
 
 export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
@@ -8,6 +8,7 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
   return new Promise((resolve, reject) => {
     let newUrl = ''
     let newBlob: null | Blob = null
+    const os = getDeviceType()
 
     const baseSize = isOnWeb() ? 512 : 640
 
@@ -15,10 +16,10 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
 
     const c = new Cropper(el,
       {
-        aspectRatio: 1,
+        aspectRatio: os === 'iOS' ? 3 / 4 : 1,
         viewMode: 3,
         data: { y: 0 },
-        minCropBoxWidth: baseSize,
+        minCropBoxWidth: os === 'iOS' ? (baseSize / 4) * 3 : baseSize,
         minCropBoxHeight: baseSize,
         ready() { fn() },
         cropBoxResizable: false,
@@ -29,21 +30,22 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
       }
     )
 
-    const fn = () => {
-      const cropped = c.getCroppedCanvas({
-        maxHeight: baseSize,
-        maxWidth: baseSize,
-        minHeight: baseSize,
-        minWidth: baseSize
-      })
+    const canvasProps = os === 'iOS' ? {
+      maxHeight: baseSize,
+      minHeight: baseSize,
+      maxWidth: (baseSize / 4) * 3,
+      minWidth: (baseSize / 4) * 3
+    } : {
+      maxHeight: baseSize,
+      maxWidth: baseSize,
+      minHeight: baseSize,
+      minWidth: baseSize
+    }
 
-      let url = cropped.toDataURL("image/jpg")
-      c.getCroppedCanvas({
-        maxHeight: baseSize,
-        maxWidth: baseSize,
-        minHeight: baseSize,
-        minWidth: baseSize
-      }).toBlob(blob => {
+    const fn = () => {
+      const url = c.getCroppedCanvas(canvasProps).toDataURL("image/jpg")
+
+      c.getCroppedCanvas(canvasProps).toBlob(blob => {
 
         newUrl = url
         newBlob = blob

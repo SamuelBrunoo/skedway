@@ -1,6 +1,6 @@
 export const isOnWeb = () => getDeviceType() === 'Web'
 
-const getDeviceType = () => {
+export const getDeviceType = () => {
   const type = navigator.userAgent
 
   if (/android/i.test(type)) {

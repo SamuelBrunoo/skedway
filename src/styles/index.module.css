@@ -7,6 +7,11 @@
   box-sizing: border-box;
 }
 
+.cropper-wrap-box,
+.cropper-crop-box {
+  display: none;
+}
+
 .loadingContainer {
   min-height: 80vh;
   margin-top: 10vh;
