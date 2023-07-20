@@ -15,7 +15,6 @@ import ComponentSelect from "../../components/ComponentSelect";
 import FaceAutoCapture from "../../components/FaceAutoCapture";
 import SuccessSubmit from "../../components/SuccessSubmit";
 import renderLogo from "../../consts/auxs/renderLogo";
-import { cropImage } from "../../consts/auxs/cropImage";
 
 function RegisterPage() {
   const [pageError, setPageError] = useState<'token' | 'generic' | null>(null)
@@ -26,7 +25,6 @@ function RegisterPage() {
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const previewImageRef = useRef<HTMLImageElement | null>(null)
-  const [newPhotoUrl, setNewPhotoUrl] = useState<string>()
 
   function laterFunction() {
     window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');
@@ -41,14 +39,6 @@ function RegisterPage() {
     const imageUrl = URL.createObjectURL(image)
     setPhotoUrl(imageUrl)
     setPhotoBlob(image)
-
-    setTimeout(() => {
-      cropImage()
-        .then(newPhoto => {
-          setNewPhotoUrl(newPhoto.url)
-        })
-    }, 1000)
-
   };
 
   const handleFaceCapturePhotoTaken = (image: Blob, data?: any) => {
@@ -70,6 +60,7 @@ function RegisterPage() {
   }
 
   const submitPhoto = async (): Promise<SendPhotoType> => {
+
 
     if (photoBlob && userInfo !== null) {
       const sendPhoto = await Api.sendPhoto(userInfo.id)
@@ -104,7 +95,6 @@ function RegisterPage() {
             deletePhotoUrl={() => setPhotoUrl(undefined)}
             laterFunction={laterFunction}
             previewImageRef={previewImageRef}
-            newPhotoUrl={newPhotoUrl}
           />
         ) : (
           <SuccessSubmit
@@ -119,7 +109,7 @@ function RegisterPage() {
     }
   };
 
-  useEffect(() => { /*
+  useEffect(() => {
     if (!token) {
       setPageError("token")
       return
@@ -139,16 +129,15 @@ function RegisterPage() {
           }
         })
     }
-    */
   }, [token])
 
-  return (/*pageError) ? (
+  return (pageError) ? (
     <ErrorPage error={(pageError === "token") ? 'accessDenied' : 'generic'} />
   ) : (loading) ? (
     <div className={styles.loadingContainer}>
       <LoadingComponent />
     </div>
-  ) : ( */
+  ) : (
     <div className={styles.app}>
       <header className={styles.header}>
         {userInfo && renderLogo(userInfo.company.logo)}
