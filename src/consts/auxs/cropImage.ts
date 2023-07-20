@@ -41,10 +41,10 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
     }
 
     const fn = () => {
-      const url = c.getCroppedCanvas(os === "Web" ? canvasProps : {})
+      const url = c.getCroppedCanvas(os === "Mobile" ? {} : canvasProps)
         .toDataURL("image/jpg")
 
-      c.getCroppedCanvas(os === "Web" ? canvasProps : {})
+      c.getCroppedCanvas(os === "Mobile" ? {} : canvasProps)
         .toBlob(blob => {
           resolve({ url, blob: blob as Blob })
         })

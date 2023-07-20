@@ -11,5 +11,9 @@ export const getDeviceType = () => {
     return "iOS";
   }
 
+  if (/mobile|Mobile|iPhone|iPod|iPad|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk\-Accelerated|hpwOS|webOS|Fennec|Minimo|Opera Mobi|Opera Mini|Blazer|Dolfin|Dolphin|Skyfire|Zune/.test(type)) {
+    return "Mobile";
+  }
+
   return "Web";
 }
