@@ -1,5 +1,5 @@
 import Cropper from "cropperjs"
-import { getDeviceType, isOnWeb } from "./getDeviceType";
+import { getDeviceType } from "./getDeviceType";
 
 
 export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
@@ -8,17 +8,17 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
   return new Promise((resolve, reject) => {
     const os = getDeviceType()
 
-    const baseSize = os === 'Web' ? 512 : 640
+    const baseSize = os === 'Mobile' ? 640 : 640
 
     const el = document.getElementById("previewImage") as HTMLImageElement
 
     const c = new Cropper(el,
       {
-        aspectRatio: os === 'Web' ? 1 : undefined,
+        aspectRatio: os === 'Mobile' ? 3 / 4 : 3 / 4,
         viewMode: 3,
         data: { y: 0 },
-        minCropBoxWidth: os === 'Web' ? baseSize : (baseSize / 4) * 3,
-        minCropBoxHeight: baseSize,
+        minCropBoxWidth: os === 'Mobile' ? (baseSize / 4) * 3 : baseSize,
+        minCropBoxHeight: os === "Mobile" ? baseSize : (baseSize / 3) * 4,
         ready() { fn() },
         cropBoxResizable: false,
         cropBoxMovable: false,
@@ -28,26 +28,17 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
       }
     )
 
-    const canvasProps = os !== 'Web' ? {
+    const canvasProps = (os === 'Mobile') ? {
       maxHeight: baseSize,
       minHeight: baseSize,
       maxWidth: (baseSize / 4) * 3,
       minWidth: (baseSize / 4) * 3
-    } : {
-      maxHeight: baseSize,
-      maxWidth: baseSize,
-      minHeight: baseSize,
-      minWidth: baseSize
-    }
+    } : {}
 
     const fn = () => {
-      const url = c.getCroppedCanvas(os === "Mobile" ? {} : canvasProps)
-        .toDataURL("image/jpg")
+      const url = c.getCroppedCanvas(canvasProps).toDataURL("image/jpg")
 
-      c.getCroppedCanvas(os === "Mobile" ? {} : canvasProps)
-        .toBlob(blob => {
-          resolve({ url, blob: blob as Blob })
-        })
+      c.getCroppedCanvas(canvasProps).toBlob(blob => { resolve({ url, blob: blob as Blob }) })
 
     }
   })
