@@ -43,8 +43,14 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
     }
 
     const fn = () => {
-      const url = c.getCroppedCanvas(canvasProps).toDataURL("image/jpg")
-      c.getCroppedCanvas(canvasProps).toBlob(blob => {
+      const url = c.getCroppedCanvas(os === "Web" ? canvasProps : {
+        minHeight: 640,
+        maxHeight: 640
+      }).toDataURL("image/jpg")
+      c.getCroppedCanvas(os === "Web" ? canvasProps : {
+        minHeight: 640,
+        maxHeight: 640
+      }).toBlob(blob => {
 
         const anchor = window.document.createElement('a');
         anchor.href = window.URL.createObjectURL(blob as Blob);
