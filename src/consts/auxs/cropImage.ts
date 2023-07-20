@@ -6,8 +6,6 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
 
 
   return new Promise((resolve, reject) => {
-    let newUrl = ''
-    let newBlob: null | Blob = null
     const os = getDeviceType()
 
     const baseSize = os === 'Web' ? 512 : 640
@@ -51,15 +49,8 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
         minHeight: 640,
         maxHeight: 640
       }).toBlob(blob => {
-
-        const anchor = window.document.createElement('a');
-        anchor.href = window.URL.createObjectURL(blob as Blob);
-        anchor.download = 'cropped.jpg';
-        anchor.click();
-        window.URL.revokeObjectURL(anchor.href);
-
-        // resolve({ url, blob: blob as Blob })
-      }, "image/jpeg", 1)
+        resolve({ url, blob: blob as Blob })
+      })
 
     }
   })
