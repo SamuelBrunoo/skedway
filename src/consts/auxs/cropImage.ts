@@ -14,7 +14,7 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
 
     const c = new Cropper(el,
       {
-        aspectRatio: os === 'Web' ? 1 : 3 / 4,
+        aspectRatio: os === 'Web' ? 1 : undefined,
         viewMode: 3,
         data: { y: 0 },
         minCropBoxWidth: os === 'Web' ? baseSize : (baseSize / 4) * 3,
@@ -41,16 +41,13 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
     }
 
     const fn = () => {
-      const url = c.getCroppedCanvas(os === "Web" ? canvasProps : {
-        minHeight: 640,
-        maxHeight: 640
-      }).toDataURL("image/jpg")
-      c.getCroppedCanvas(os === "Web" ? canvasProps : {
-        minHeight: 640,
-        maxHeight: 640
-      }).toBlob(blob => {
-        resolve({ url, blob: blob as Blob })
-      })
+      const url = c.getCroppedCanvas(os === "Web" ? canvasProps : {})
+        .toDataURL("image/jpg")
+
+      c.getCroppedCanvas(os === "Web" ? canvasProps : {})
+        .toBlob(blob => {
+          resolve({ url, blob: blob as Blob })
+        })
 
     }
   })
