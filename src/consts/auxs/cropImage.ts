@@ -10,16 +10,16 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
     let newBlob: null | Blob = null
     const os = getDeviceType()
 
-    const baseSize = isOnWeb() ? 512 : 640
+    const baseSize = os === 'Web' ? 512 : 640
 
     const el = document.getElementById("previewImage") as HTMLImageElement
 
     const c = new Cropper(el,
       {
-        aspectRatio: os === 'iOS' ? 3 / 4 : 1,
+        aspectRatio: os === 'Web' ? 1 : 3 / 4,
         viewMode: 3,
         data: { y: 0 },
-        minCropBoxWidth: os === 'iOS' ? (baseSize / 4) * 3 : baseSize,
+        minCropBoxWidth: os === 'Web' ? baseSize : (baseSize / 4) * 3,
         minCropBoxHeight: baseSize,
         ready() { fn() },
         cropBoxResizable: false,
@@ -30,7 +30,7 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
       }
     )
 
-    const canvasProps = os === 'iOS' ? {
+    const canvasProps = os !== 'Web' ? {
       maxHeight: baseSize,
       minHeight: baseSize,
       maxWidth: (baseSize / 4) * 3,
@@ -44,17 +44,16 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
 
     const fn = () => {
       const url = c.getCroppedCanvas(canvasProps).toDataURL("image/jpg")
-
       c.getCroppedCanvas(canvasProps).toBlob(blob => {
 
-        newUrl = url
-        newBlob = blob
+        const anchor = window.document.createElement('a');
+        anchor.href = window.URL.createObjectURL(blob as Blob);
+        anchor.download = 'cropped.jpg';
+        anchor.click();
+        window.URL.revokeObjectURL(anchor.href);
 
-        resolve({
-          url: newUrl,
-          blob: newBlob as Blob
-        })
-      })
+        // resolve({ url, blob: blob as Blob })
+      }, "image/jpeg", 1)
 
     }
   })

@@ -19,9 +19,10 @@ interface Props {
   deletePhotoUrl: () => void;
   laterFunction: () => void;
   previewImageRef: React.MutableRefObject<HTMLImageElement | null>;
+  newPhotoUrl: string | undefined;
 }
 
-function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleContinueDetection, deletePhotoUrl, previewImageRef }: Props) {
+function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleContinueDetection, deletePhotoUrl, previewImageRef, newPhotoUrl }: Props) {
   const [captionOnMobile, setCaptionOnMobile] = useState<boolean>(false)
   const [sendingPhoto, setSendingPhoto] = useState(false)
   const [photoData, setPhotoData] = useState<null | Blob>(null)
@@ -98,14 +99,16 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
 
       {window.document.body.clientWidth <= 840 && captionOnMobile &&
         <>
-          <Stepleft
-            handlePhotoTaken={onPhotoTaken}
-            onError={e => handleError(e)}
-            photoUrl={photoUrl}
-            reloadCount={reloadCount}
-            error={error}
-            previewImageRef={previewImageRef}
-          />
+          {newPhotoUrl ? <img src={newPhotoUrl} alt="" /> :
+            <Stepleft
+              handlePhotoTaken={onPhotoTaken}
+              onError={e => handleError(e)}
+              photoUrl={photoUrl}
+              reloadCount={reloadCount}
+              error={error}
+              previewImageRef={previewImageRef}
+            />
+          }
           <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
             <div className={`${styles.buttonsArea} ${localStyles.buttonsArea}`}>
               <button
