@@ -60,9 +60,6 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error, pre
                 cameraFacing="user"
                 onPhotoTaken={handlePhotoTaken}
                 onError={onError}
-                thresholds={{
-                  minFaceSizeRatio: 3 / 4
-                }}
               />
               <FaceUi
                 instructions={{
