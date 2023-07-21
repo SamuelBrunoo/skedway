@@ -62,7 +62,7 @@ function RegisterPage() {
   const submitPhoto = async (): Promise<SendPhotoType> => {
 
     if (photoBlob && userInfo !== null) {
-      const sendPhoto = await Api.sendPhoto(userInfo.id)
+      const sendPhoto = await Api.sendPhoto(userInfo.id, photoBlob)
       if (sendPhoto.success) {
         setSuccededSubmit(true)
         return sendPhoto
