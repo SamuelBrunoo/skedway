@@ -2,6 +2,7 @@ import a from "axios"
 import { ErrorTypes } from "./types/error"
 import { SendPhotoType } from "./types/api/SendPhoto"
 import { GetUserInfoRes, UserInfo } from "./types/api/UserInfo"
+import { getCroppedImage } from "./consts/auxs/getCroppedImage"
 
 
 type Props = {
@@ -37,8 +38,10 @@ const useApi = ({ token }: Props) => {
     },
     sendPhoto: async (userId: number, photoBlob: Blob): Promise<SendPhotoType> => {
 
+      const cropped = await getCroppedImage(photoBlob)
+
       const formData = new FormData()
-      formData.append('face', photoBlob)
+      formData.append('face', cropped.blob)
 
       try {
         const req = await axios.post(`/users/faces/${userId}`, formData, {

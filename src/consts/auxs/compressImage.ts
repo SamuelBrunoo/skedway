@@ -24,9 +24,7 @@ export const compressImage = (blob: Blob): Promise<{ url: string; blob: Blob; }>
         const newImgUrl = context?.canvas.toDataURL("image/webp", 90) as string
         let newImgBlob = await fetch(newImgUrl).then(r => r.blob())
 
-        document.body.innerHTML = `<img src="${newImgUrl}" style="max-width:100%;" />`
-
-        // resolve({ url: newImgUrl, blob: newImgBlob })
+        resolve({ url: newImgUrl, blob: newImgBlob })
       }
     }
   })

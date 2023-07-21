@@ -15,7 +15,6 @@ import ComponentSelect from "../../components/ComponentSelect";
 import FaceAutoCapture from "../../components/FaceAutoCapture";
 import SuccessSubmit from "../../components/SuccessSubmit";
 import renderLogo from "../../consts/auxs/renderLogo";
-import { compressImage } from "../../consts/auxs/compressImage";
 
 function RegisterPage() {
   const [pageError, setPageError] = useState<'token' | 'generic' | null>(null)
@@ -40,8 +39,6 @@ function RegisterPage() {
     const imageUrl = URL.createObjectURL(image)
     setPhotoUrl(imageUrl)
     setPhotoBlob(image)
-
-    setTimeout(async () => await compressImage(image), 800)
   };
 
   const handleFaceCapturePhotoTaken = (image: Blob, data?: any) => {
@@ -111,7 +108,7 @@ function RegisterPage() {
     }
   };
 
-  useEffect(() => {/*
+  useEffect(() => {
     if (!token) {
       setPageError("token")
       return
@@ -130,16 +127,16 @@ function RegisterPage() {
             setLoading(false)
           }
         })
-    }*/
+    }
   }, [token])
 
-  return (/*pageError) ? (
+  return (pageError) ? (
     <ErrorPage error={(pageError === "token") ? 'accessDenied' : 'generic'} />
   ) : (loading) ? (
     <div className={styles.loadingContainer}>
       <LoadingComponent />
     </div>
-  ) : (*/
+  ) : (
     <div className={styles.app}>
       <header className={styles.header}>
         {userInfo && renderLogo(userInfo.company.logo)}
