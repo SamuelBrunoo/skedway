@@ -38,10 +38,10 @@ const useApi = ({ token }: Props) => {
     },
     sendPhoto: async (userId: number, photoBlob: Blob): Promise<SendPhotoType> => {
 
-      const cropped = await getCroppedImage(photoBlob)
+      const { blob } = await getCroppedImage(photoBlob)
 
       const formData = new FormData()
-      formData.append('face', cropped.blob)
+      formData.append('face', blob)
 
       try {
         const req = await axios.post(`/users/faces/${userId}`, formData, {
