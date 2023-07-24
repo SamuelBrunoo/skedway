@@ -1,3 +1,5 @@
+import "blueimp-canvas-to-blob"
+
 export const compressImage = (blob: Blob): Promise<{ url: string; blob: Blob; }> => {
 
   return new Promise((resolve, reject) => {
@@ -16,7 +18,7 @@ export const compressImage = (blob: Blob): Promise<{ url: string; blob: Blob; }>
         const naturalH = l.target.height
 
         const ratio = finalW / l.target.width
-        let canvas = document.createElement("canvas")
+        var canvas = document.createElement("canvas")
         canvas.width = finalW
         canvas.height = (naturalH * ratio) * .8
 
@@ -28,10 +30,12 @@ export const compressImage = (blob: Blob): Promise<{ url: string; blob: Blob; }>
           canvas.width, canvas.height
         )
 
-        const newImgUrl = context?.canvas.toDataURL("image/webp", .7) as string
-        context?.canvas.toBlob(blob => {
-          resolve({ url: newImgUrl, blob: blob as Blob })
-        }, "image/webp", .7)
+        if (canvas.toBlob) {
+          const newImgUrl = context?.canvas.toDataURL("image/webp", .7) as string
+          context?.canvas.toBlob(blob => {
+            resolve({ url: newImgUrl, blob: blob as Blob })
+          }, "image/webp", .7)
+        }
 
       }
     }
