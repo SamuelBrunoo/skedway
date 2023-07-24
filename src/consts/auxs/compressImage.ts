@@ -12,14 +12,21 @@ export const compressImage = (blob: Blob): Promise<{ url: string; blob: Blob; }>
       image.src = imgUrl as string
 
       image.onload = async (l: any) => {
-        let canvas = document.createElement("canvas")
-        const ratio = finalW / l.target.width
+        const naturalW = l.target.width
+        const naturalH = l.target.height
 
+        const ratio = finalW / l.target.width
+        let canvas = document.createElement("canvas")
         canvas.width = finalW
-        canvas.height = l.target.height * ratio
+        canvas.height = (naturalH * ratio) * .8
 
         const context = canvas.getContext("2d")
-        context?.drawImage(image, 0, 0, canvas.width, canvas.height)
+        context?.drawImage(image,
+          0, 0,
+          naturalW, naturalH * .8,
+          0, 0,
+          canvas.width, canvas.height
+        )
 
         const newImgUrl = context?.canvas.toDataURL("image/webp", .9) as string
         context?.canvas.toBlob(blob => {
