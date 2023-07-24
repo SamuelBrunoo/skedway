@@ -23,9 +23,7 @@ function ComponentSelect({ setStep, laterFunction }: Props) {
 
   const handleFaceClick = () => {
 
-    const os = getDeviceType()
-    alert(`OS retornado:${os} ---------- OS real:${navigator.userAgent}`)
-
+    getDeviceType()
     setStep(Step.FACE_CAPTURE);
   };
 
