@@ -8,6 +8,7 @@ import { ReactComponent as FaceZoneIcon } from "../../assets/icons/facezone.svg"
 import { ReactComponent as GreenDegrade } from "../../assets/degrades/green_degrade.svg";
 import { ReactComponent as PurpleDegrade } from "../../assets/degrades/purple_degrade.svg";
 import { ReactComponent as Arrow } from "../../assets/icons/Arrow_right_1.svg";
+import { getDeviceType } from "../../consts/auxs/getDeviceType";
 
 interface Props {
   setStep: (step: Step) => void;
@@ -21,6 +22,10 @@ function ComponentSelect({ setStep, laterFunction }: Props) {
   }
 
   const handleFaceClick = () => {
+
+    const os = getDeviceType()
+    alert(`OS retornado:${os} ---------- OS real:${navigator.userAgent}`)
+
     setStep(Step.FACE_CAPTURE);
   };
 

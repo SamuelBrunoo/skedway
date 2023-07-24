@@ -21,10 +21,10 @@ export const compressImage = (blob: Blob): Promise<{ url: string; blob: Blob; }>
         const context = canvas.getContext("2d")
         context?.drawImage(image, 0, 0, canvas.width, canvas.height)
 
-        const newImgUrl = context?.canvas.toDataURL("image/webp", 90) as string
+        const newImgUrl = context?.canvas.toDataURL("image/webp", .9) as string
         context?.canvas.toBlob(blob => {
           resolve({ url: newImgUrl, blob: blob as Blob })
-        }, "image/webp", 70)
+        }, "image/webp", .7)
 
       }
     }
