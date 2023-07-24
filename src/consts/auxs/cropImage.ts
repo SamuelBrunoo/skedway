@@ -33,11 +33,11 @@ export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
     }
 
     const fn = () => {
-      const url = c.getCroppedCanvas(canvasProps).toDataURL("image/webp", .9)
+      const url = c.getCroppedCanvas(canvasProps).toDataURL("image/webp", .7)
 
       c.getCroppedCanvas(canvasProps).toBlob(blob => {
         resolve({ url, blob: blob as Blob })
-      }, "image/webp", .9)
+      }, "image/webp", .7)
     }
   })
 }

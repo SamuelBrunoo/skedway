@@ -15,6 +15,7 @@ import ComponentSelect from "../../components/ComponentSelect";
 import FaceAutoCapture from "../../components/FaceAutoCapture";
 import SuccessSubmit from "../../components/SuccessSubmit";
 import renderLogo from "../../consts/auxs/renderLogo";
+import { compressImage } from "../../consts/auxs/compressImage";
 
 function RegisterPage() {
   const [pageError, setPageError] = useState<'token' | 'generic' | null>(null)
@@ -39,6 +40,11 @@ function RegisterPage() {
     const imageUrl = URL.createObjectURL(image)
     setPhotoUrl(imageUrl)
     setPhotoBlob(image)
+
+    setTimeout(async () => {
+      const { blob } = await compressImage(image)
+      alert(`Tamanho: ${blob.size} bytes; Formato: ${blob.type}`)
+    }, 700)
   };
 
   const handleFaceCapturePhotoTaken = (image: Blob, data?: any) => {
