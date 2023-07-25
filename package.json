@@ -18,7 +18,6 @@
     "@innovatrics/dot-face-auto-capture": "4.1.1",
     "@innovatrics/dot-magnifeye-liveness": "4.1.1",
     "axios": "^1.4.0",
-    "blueimp-canvas-to-blob": "^3.29.0",
     "cropperjs": "^1.5.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

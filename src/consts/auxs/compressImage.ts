@@ -1,5 +1,3 @@
-import "blueimp-canvas-to-blob"
-
 export const compressImage = (blob: Blob): Promise<{ url: string; blob: Blob; }> => {
 
   return new Promise((resolve, reject) => {
@@ -18,6 +16,31 @@ export const compressImage = (blob: Blob): Promise<{ url: string; blob: Blob; }>
         const naturalH = l.target.height
 
         const ratio = finalW / l.target.width
+
+        if (!HTMLCanvasElement.prototype.toBlob) {
+          Object.defineProperty(HTMLCanvasElement,
+            "toBlob",
+            {
+              value: function (callback: any, type: string, quality: number) {
+                let canvas = this;
+                setTimeout(function () {
+
+                  let binStr = atob(canvas.toDataURL(type, quality).split(',')[1]),
+                    len = binStr.length,
+                    arr = new Uint8Array(len);
+
+                  for (let i = 0; i < len; i++) {
+                    arr[i] = binStr.charCodeAt(i);
+                  }
+
+                  callback(new Blob([arr], { type: type || 'image/png' }));
+                })
+              }
+            }
+          )
+        }
+
+
         var canvas = document.createElement("canvas")
         canvas.width = finalW
         canvas.height = (naturalH * ratio) * .8
@@ -30,12 +53,10 @@ export const compressImage = (blob: Blob): Promise<{ url: string; blob: Blob; }>
           canvas.width, canvas.height
         )
 
-        if (canvas.toBlob) {
-          const newImgUrl = context?.canvas.toDataURL("image/webp", .7) as string
-          context?.canvas.toBlob(blob => {
-            resolve({ url: newImgUrl, blob: blob as Blob })
-          }, "image/webp", .7)
-        }
+        const newImgUrl = context?.canvas.toDataURL("image/webp", .7) as string
+        context?.canvas.toBlob(blob => {
+          resolve({ url: newImgUrl, blob: blob as Blob })
+        }, "image/webp", .7)
 
       }
     }
