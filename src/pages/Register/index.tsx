@@ -15,6 +15,7 @@ import ComponentSelect from "../../components/ComponentSelect";
 import FaceAutoCapture from "../../components/FaceAutoCapture";
 import SuccessSubmit from "../../components/SuccessSubmit";
 import renderLogo from "../../consts/auxs/renderLogo";
+import { isAndroid } from "../../consts/auxs/getDeviceType";
 
 function RegisterPage() {
   const [pageError, setPageError] = useState<'token' | 'generic' | null>(null)
@@ -27,7 +28,12 @@ function RegisterPage() {
   const previewImageRef = useRef<HTMLImageElement | null>(null)
 
   function laterFunction() {
-    window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');
+    if(isAndroid()) {
+      const linkProfundo = 'com.apekbrazil.skedway://home';
+      window.location.href = linkProfundo;
+    } else {
+      window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');     
+    }     
   }
 
   const [searchParams] = useSearchParams()
@@ -77,8 +83,14 @@ function RegisterPage() {
     setStep(Step.SELECT_COMPONENT);
     setSuccededSubmit(false)
     setPhotoBlob(null)
-
-    window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');
+    
+    if(isAndroid()) {
+      const linkProfundo = 'com.apekbrazil.skedway://home';
+      window.location.href = linkProfundo;
+    } else {
+      window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');     
+    }
+    
   }
 
   const renderStep = (currentStep: Step) => {
