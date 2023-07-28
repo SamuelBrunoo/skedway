@@ -1,43 +1,40 @@
-import Cropper from "cropperjs"
-
-
-export const cropImage = (): Promise<{ url: string; blob: Blob; }> => {
+export const cropImage = (blob: Blob): Promise<{ url: string; blob: Blob; }> => {
 
   return new Promise((resolve, reject) => {
+    const finalSize = 640
 
-    const baseSize = 640
+    const reader = new FileReader
+    reader.readAsDataURL(blob)
 
-    const el = document.getElementById("previewImage") as HTMLImageElement
+    reader.onload = e => {
+      let imgUrl = e.target?.result
+      let image = document.createElement("img")
+      image.src = imgUrl as string
 
-    const c = new Cropper(el,
-      {
-        aspectRatio: 1,
-        viewMode: 3,
-        data: { y: 0 },
-        minCropBoxWidth: baseSize,
-        minCropBoxHeight: baseSize,
-        ready() { fn() },
-        cropBoxResizable: false,
-        cropBoxMovable: false,
-        autoCropArea: 1,
-        movable: false,
-        zoomable: false,
+      image.onload = async () => {
+        const naturalW = image.naturalWidth
+        const naturalH = image.naturalHeight
+        const ratio = naturalH / finalSize
+
+        let canvas = document.createElement("canvas")
+        canvas.width = finalSize
+        canvas.height = finalSize
+
+        const context = canvas.getContext("2d")
+        context?.drawImage(image,
+          ((naturalW / ratio) - finalSize), 0,
+          canvas.width * ratio, canvas.height * ratio,
+          0, 0,
+          canvas.width, canvas.height
+        )
+
+        const newImgUrl = context?.canvas.toDataURL("image/webp", .9) as string
+        const blob = await fetch(newImgUrl).then(res => res.blob())
+        alert(URL.createObjectURL(blob))
+
+        resolve({ url: newImgUrl, blob })
+
       }
-    )
-
-    const canvasProps = {
-      maxHeight: baseSize,
-      minHeight: baseSize,
-      maxWidth: baseSize,
-      minWidth: baseSize,
-    }
-
-    const fn = () => {
-      const url = c.getCroppedCanvas(canvasProps).toDataURL("image/webp", .9)
-
-      c.getCroppedCanvas(canvasProps).toBlob(blob => {
-        resolve({ url, blob: blob as Blob })
-      }, "image/webp", .9)
     }
   })
 }

@@ -28,12 +28,12 @@ function RegisterPage() {
   const previewImageRef = useRef<HTMLImageElement | null>(null)
 
   function laterFunction() {
-    if(isAndroid()) {
+    if (isAndroid()) {
       const linkProfundo = 'com.apekbrazil.skedway://home';
       window.location.href = linkProfundo;
     } else {
-      window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');     
-    }     
+      window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');
+    }
   }
 
   const [searchParams] = useSearchParams()
@@ -83,14 +83,14 @@ function RegisterPage() {
     setStep(Step.SELECT_COMPONENT);
     setSuccededSubmit(false)
     setPhotoBlob(null)
-    
-    if(isAndroid()) {
+
+    if (isAndroid()) {
       const linkProfundo = 'com.apekbrazil.skedway://home';
       window.location.href = linkProfundo;
     } else {
-      window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');     
+      window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');
     }
-    
+
   }
 
   const renderStep = (currentStep: Step) => {
