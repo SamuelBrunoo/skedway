@@ -93,15 +93,10 @@ const FaceApiCapture = ({
       let ctx = newCanvas.getContext('2d')
       ctx?.drawImage(videoEl, 0, 0, sizes.width, sizes.height)
 
-      let imgSrc = newCanvas.toDataURL('image/webp', 1)
-      let img = document.createElement('img')
-      img.src = imgSrc
-
-      fetch(imgSrc).then(async res => {
-        const blob = await res.blob()
-        handlePhotoTaken(blob)
+      ctx?.canvas.toBlob(blob => {
+        handlePhotoTaken(blob as Blob)
         setCircle(false)
-      })
+      }, "image/jpeg", 1)
     }
   }
 
