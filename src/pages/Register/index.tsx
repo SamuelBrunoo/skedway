@@ -41,14 +41,14 @@ function RegisterPage() {
 
   const Api = useApi({ token: token as string })
 
-  const handlePhotoTaken = <T,>(image: Blob, data: T) => {
+  const handlePhotoTaken = <T,>(image: Blob) => {
     const imageUrl = URL.createObjectURL(image)
     setPhotoUrl(imageUrl)
     setPhotoBlob(image)
   };
 
-  const handleFaceCapturePhotoTaken = (image: Blob, data?: any) => {
-    handlePhotoTaken(image, data);
+  const handleFaceCapturePhotoTaken = (image: Blob) => {
+    handlePhotoTaken(image);
   };
 
   const handleBackClick = () => {
@@ -62,7 +62,6 @@ function RegisterPage() {
       ControlEventInstruction.CONTINUE_DETECTION
     );
     setPhotoUrl(undefined);
-
   }
 
   const submitPhoto = async (): Promise<SendPhotoType> => {
@@ -119,7 +118,6 @@ function RegisterPage() {
         />;
     }
   };
-
   useEffect(() => {
     if (!token) {
       setPageError("token")

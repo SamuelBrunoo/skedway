@@ -11,7 +11,7 @@ import { ErrorTypes } from "../../types/error";
 import { SendPhotoType } from "../../types/api/SendPhoto";
 
 interface Props {
-  onPhotoTaken: <T>(image: Blob, data: T) => void;
+  onPhotoTaken: <T>(image: Blob) => void;
   photoUrl: undefined | string;
   nextStep: () => Promise<SendPhotoType>;
   lateronFn: () => void;
@@ -28,8 +28,11 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
   const [reloadCount, setReloadCount] = useState<number>(0)
   const [error, setError] = useState<null | ErrorTypes>(null)
 
-  const handlePhotoData = <T,>(image: Blob, data: T) => {
-    onPhotoTaken(image, data)
+  const [isCapted, setIsCapted] = useState(false)
+  const [showingCircle, setCircle] = useState(true)
+
+  const handlePhotoData = <T,>(image: Blob) => {
+    onPhotoTaken(image)
     setPhotoData(image)
   }
 
@@ -61,9 +64,11 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
   }
 
   const handleTakeAnother = () => {
+    setIsCapted(false)
     setPhotoData(null)
     setError(null)
     handleContinueDetection()
+    setCircle(true)
     setReloadCount(Number(reloadCount) + 1)
   };
 
@@ -84,6 +89,10 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
             reloadCount={reloadCount}
             error={error}
             previewImageRef={previewImageRef}
+            isCapted={isCapted}
+            setIsCapted={setIsCapted}
+            showingCircle={showingCircle}
+            setCircle={setCircle}
           />
 
           <StepContent
@@ -105,6 +114,10 @@ function FaceAutoCapture({ onPhotoTaken, photoUrl, nextStep, lateronFn, handleCo
             reloadCount={reloadCount}
             error={error}
             previewImageRef={previewImageRef}
+            isCapted={isCapted}
+            setIsCapted={setIsCapted}
+            showingCircle={showingCircle}
+            setCircle={setCircle}
           />
           <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
             <div className={`${styles.buttonsArea} ${localStyles.buttonsArea}`}>

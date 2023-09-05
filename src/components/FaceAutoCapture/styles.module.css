@@ -114,11 +114,6 @@
   top: 5px;
 }
 
-.videoCaptureArea x-dot-face-auto-capture div video {
-  width: auto;
-  height: 100%;
-}
-
 .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) {
   width: 100%;
   height: 100%;
@@ -416,26 +411,13 @@
     max-height: 50vh;
   }
 
-  .videoCaptureArea x-dot-face-auto-capture div {
-    width: 100%;
-    max-width: 75vw;
-    height: 100%;
-    max-height: unset;
-  }
-
   .videoCaptureArea::before {
     bottom: -10px;
   }
 
   .videoCaptureArea::before,
-  .finalImgContainer,
-  .videoCaptureArea x-dot-face-auto-capture div,
-  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(1) {
+  .finalImgContainer {
     transform: translate(-8vw, 48px);
-  }
-
-  .videoCaptureArea x-dot-face-auto-capture-ui div:nth-child(2) div {
-    font-size: var(--text-bigger);
   }
 
   .finalImgContainer img {
@@ -586,13 +568,8 @@
     max-height: calc(100% - 31px);
   }
 
-  .videoCaptureArea x-dot-face-auto-capture {
-    overflow: hidden;
-  }
-
-  .videoCaptureArea x-dot-face-auto-capture div video {
-    min-width: 120%;
-    min-height: 140%;
+  .videoCaptureArea div {
+    max-width: 100%;
   }
 
   .finalImgContainer {

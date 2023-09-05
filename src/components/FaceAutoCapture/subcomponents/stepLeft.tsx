@@ -1,26 +1,39 @@
 import texts from "../../../_lang"
-import { FaceComponentData } from "@innovatrics/dot-face-auto-capture/.";
 import styles from "../../../styles/index.module.css";
 import localStyles from "../styles.module.css";
-import FaceCamera from "../../_faceReconComponents/FaceCamera";
-import FaceUi from "../../_faceReconComponents/FaceUi";
 import { ReactComponent as GreenDegrade } from "../../../assets/degrades/green_degrade.svg";
 import { useEffect, useRef, useState } from "react";
 import LoadingComponent from "../../Loading";
 import { ErrorTypes } from "../../../types/error";
 import ErrorComponent from "../../ErrorComponent";
+import FaceApiCapture from "../../FaceApiCapture";
 
 
 interface Props {
   photoUrl: undefined | string;
-  handlePhotoTaken: (image: Blob, data: FaceComponentData) => void;
+  handlePhotoTaken: (image: Blob) => void;
   onError: (error: Error) => void;
   reloadCount: number;
   error: null | ErrorTypes;
   previewImageRef: React.MutableRefObject<HTMLImageElement | null>;
+  isCapted: boolean;
+  showingCircle: boolean;
+  setIsCapted: React.Dispatch<React.SetStateAction<boolean>>;
+  setCircle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error, previewImageRef }: Props) => {
+const Stepleft = ({
+  photoUrl,
+  handlePhotoTaken,
+  onError,
+  reloadCount,
+  error,
+  previewImageRef,
+  isCapted,
+  setIsCapted,
+  showingCircle,
+  setCircle,
+}: Props) => {
 
   const videoareaRef = useRef(null)
   const [showingLoading, setShowingLoading] = useState(true)
@@ -28,18 +41,15 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error, pre
   useEffect(() => {
     const el = videoareaRef.current
     if (el) {
-      const changeOpacity = () => {
-        (el as HTMLElement).classList.toggle('notShowing')
+      if (showingLoading) {
+        (el as HTMLElement).classList.add('notShowing')
       }
-      setShowingLoading(true)
-      changeOpacity()
-
-      setTimeout(() => {
-        setShowingLoading(false)
-        changeOpacity()
-      }, 3000)
+      if (!showingLoading) {
+        (el as HTMLElement).classList.remove('notShowing')
+      }
     }
-  }, [reloadCount])
+
+  }, [showingLoading])
 
 
   return (
@@ -55,42 +65,14 @@ const Stepleft = ({ photoUrl, handlePhotoTaken, onError, reloadCount, error, pre
         <div className={`${localStyles.videoCaptureArea} notShowing`} ref={videoareaRef}>
           {!photoUrl && error === null &&
             <>
-              <FaceCamera
-                imageType="png"
-                cameraFacing="user"
-                onPhotoTaken={handlePhotoTaken}
+              <FaceApiCapture
                 onError={onError}
-              />
-              <FaceUi
-                instructions={{
-                  brightness_too_high: texts.other.cameraLabels.brightness_too_high,
-                  brightness_too_low: texts.other.cameraLabels.brightness_too_low,
-                  candidate_selection: texts.other.cameraLabels.candidate_selection,
-                  face_centering: texts.other.cameraLabels.face_centering,
-                  face_not_present: texts.other.cameraLabels.face_not_present,
-                  face_too_close: texts.other.cameraLabels.face_too_close,
-                  face_too_far: texts.other.cameraLabels.face_too_far,
-                  sharpness_too_low: texts.other.cameraLabels.sharpness_too_low
-                }}
-                appStateInstructions={{
-                  loading: {
-                    text: texts.other.cameraLabels.loading,
-                    visible: false
-                  },
-                  waiting: {
-                    text: texts.other.cameraLabels.waiting,
-                    visible: false
-                  }
-                }}
-                theme={{
-                  colors: {
-                    placeholderColor: 'white',
-                    instructionTextColor: 'white',
-                    instructionColor: 'transparent',
-                    instructionColorSuccess: 'green',
-                    placeholderColorSuccess: 'green'
-                  }
-                }}
+                handlePhotoTaken={handlePhotoTaken}
+                setLoading={setShowingLoading}
+                isCapted={isCapted}
+                setIsCapted={setIsCapted}
+                showingCircle={showingCircle}
+                setCircle={setCircle}
               />
 
               {showingLoading &&
