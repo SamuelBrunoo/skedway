@@ -128,6 +128,7 @@ const FaceApiCapture = ({
     startCam()
 
     Promise.all([
+      FaceApi.nets.tinyYolov2.loadFromUri('/models'),
       FaceApi.nets.tinyFaceDetector.loadFromUri('/models'),
     ])
       .then(() => startDetection())
