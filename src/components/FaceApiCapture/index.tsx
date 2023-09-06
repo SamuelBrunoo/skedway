@@ -125,6 +125,7 @@ const FaceApiCapture = ({
   }
 
   useEffect(() => {
+    startCam()
 
     const modelsUrl = "/models"
     const initModels = async () => {
@@ -132,7 +133,6 @@ const FaceApiCapture = ({
         FaceApi.loadTinyFaceDetectorModel(modelsUrl),
         FaceApi.loadTinyYolov2Model(modelsUrl)
       ]).then(() => {
-        startCam()
         startDetection()
       })
     }
