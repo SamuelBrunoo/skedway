@@ -61,9 +61,30 @@ const FaceApiCapture = ({
         setTimeout(intervalFn, 400)
         setLoading(false)
         const displaySize = { width: videoEl.clientWidth, height: videoEl.clientHeight }
+        FaceApi.resizeResults(canvasEl, displaySize)
         setSizes(displaySize)
       }
     }
+  }
+
+  const isFaceOnCenter = (detection: FaceApi.FaceDetection) => {
+    const { imageDims, box } = detection
+
+    const tolerance = 10
+    const faceCenter = {
+      x: (box.x + (box.width / 2)),
+      y: (box.y + (box.height / 2)) - 10,
+    }
+
+    const isXFine =
+      faceCenter.x >= ((imageDims.width / 2) - tolerance) &&
+      faceCenter.x <= ((imageDims.width / 2) + tolerance)
+
+    const isYFine =
+      faceCenter.y >= ((imageDims.height / 2) - tolerance) &&
+      faceCenter.y <= ((imageDims.height / 2) + tolerance)
+
+    return (isXFine && isYFine)
   }
 
   const showingDetections = async (videoEl: HTMLVideoElement, canvasEl: HTMLCanvasElement, clear: () => void) => {
@@ -77,9 +98,12 @@ const FaceApiCapture = ({
     })
 
     const qualityFilter = isOnWeb() ? .94 : .89
+
     if (resizedDetections.some(d => d.classScore >= qualityFilter)) {
-      clear()
-      setTimeout(() => setIsCapted(true), 500)
+      if (isFaceOnCenter(resizedDetections[0])) {
+        clear()
+        setTimeout(() => setIsCapted(true), 500)
+      }
     }
   }
 
