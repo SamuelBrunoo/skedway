@@ -125,13 +125,19 @@ const FaceApiCapture = ({
   }
 
   useEffect(() => {
-    startCam()
 
-    Promise.all([
-      FaceApi.nets.tinyYolov2.loadFromUri('/models'),
-      FaceApi.nets.tinyFaceDetector.loadFromUri('/models'),
-    ])
-      .then(() => startDetection())
+    const modelsUrl = "/models"
+    const initModels = async () => {
+      Promise.all([
+        FaceApi.loadTinyFaceDetectorModel(modelsUrl),
+        FaceApi.loadTinyYolov2Model(modelsUrl)
+      ]).then(() => {
+        startCam()
+        startDetection()
+      })
+    }
+
+    initModels()
   }, [])
 
   useEffect(() => {
