@@ -57,13 +57,14 @@ const FaceApiCapture = ({
         }, 100)
       }
 
-      videoEl.onplay = () => {
-        setTimeout(intervalFn, 400)
+
+      setTimeout(() => {
+        intervalFn()
         setLoading(false)
         const displaySize = { width: videoEl.clientWidth, height: videoEl.clientHeight }
         FaceApi.resizeResults(canvasEl, displaySize)
         setSizes(displaySize)
-      }
+      }, 400)
     }
   }
 
