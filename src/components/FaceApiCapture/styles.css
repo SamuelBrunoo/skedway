@@ -46,11 +46,6 @@
     transform: translate(-13vw, 31px);
     max-height: 100%;
     background-color: orange;
-    /* padding-bottom: 10px; */
-  }
-
-  .faceApiContainer {
-    /* padding-bottom: 40px; */
   }
 
   .faceApiContainer video {

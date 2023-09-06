@@ -141,12 +141,7 @@ const FaceApiCapture = ({
   }, [])
 
   useEffect(() => {
-    if (isCapted) {
-      handlePicture()
-    } else {
-      startCam()
-      startDetection()
-    }
+    if (isCapted) handlePicture()
   }, [isCapted])
 
 
