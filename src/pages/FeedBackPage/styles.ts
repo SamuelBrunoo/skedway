@@ -49,7 +49,6 @@ export const IconArea = styled.div`
 
 export const Title = styled.h1`
   font-size: 48px;
-  font-family: 'Manrope';
   line-height: 100%;
   white-space: nowrap;
   
@@ -69,7 +68,6 @@ export const Title = styled.h1`
 `
 
 export const Text = styled.p`
-  font-family: 'Manrope';
 
   span {
     font-size: 18px;

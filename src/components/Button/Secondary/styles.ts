@@ -14,7 +14,6 @@ export const El = styled.button`
   align-self: stretch;
 
   span {
-    font-family: 'Manrope';
     font-weight: 600;
   }
 

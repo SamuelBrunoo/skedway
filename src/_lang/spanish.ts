@@ -1,52 +1,29 @@
-const stepOne = {
-  serviceDesc: {
-    others: {
-      one: 'Próximamente se utilizará el reconocimiento facial para validar los billetes en las terminales de acceso. Registra tu foto de seguridad!',
-      two: 'Es confidencial y no será compartida.'
-    },
-    mobile: {
-      one: 'Registre su foto de seguridad y use el',
-      two: 'reconocimiento facial para la validación de',
-      three: 'boletos y otros recursos del sistema.'
-    },
+const start = {
+  title: {
+    black: 'Registro de',
+    orange: 'Biometría facial'
   },
-  serviceSubDes: 'Al hacer clic en continuar, acepta el almacenamiento seguro de estos datos por parte de Skedway por motivos de seguridad.'
-}
-
-const stepTwo = {
-  description: {
-    others: 'Más practicidad en el paso de accesos. Esta foto se utilizará para identificarlo en la terminal y se tratará como un documento.',
-    mobile: 'Siga las pautas a continuación y asegúrese una buena foto.'
+  serviceDes: {
+    one: 'Próximamente se utilizará el reconocimiento facial para validar los billetes en las terminales de acceso.',
+    two: '¡Registra tu foto de seguridad! Es confidencial y no será compartido.',
+    three: 'Al hacer clic en Continuar, acepta el almacenamiento seguro de estos datos por parte de Skedway con fines de seguridad, de acuerdo con la',
+    connective: 'y',
+    identification: 'de identificación'
   },
-  tipsTitle: 'Consejos para una buena foto',
-  tips: {
-    one: 'Encuentre una ubicación clara.',
-    two: 'Asegúrate de que tu cara esté iluminada.',
-    three: 'No use lentes de sol, gorras, máscaras o cualquier accesorio que cubra la cara.',
-    four: 'No poses ni hagas muecas al tomar la foto.',
-  },
-  mobileReminder: 'Recordando que esta es una foto de seguridad, no para redes sociales.'
-}
-
-const stepThree = {
-  successMsg: {
-    one: 'Foto',
-    break: 'registrada',
-    two: 'correctamente!',
-  },
-  confirmation: 'Ya puedes validar tu rostro en los terminales de acceso',
-  instructions: {
-    one: 'Preséntate a la terminal y sigue los pasos de validación.',
-    two: 'El reconocimiento facial es una forma de validación segura y pasiva, que no requiere interacción. No obstante, si tienes algún problema, puedes validar tu acceso con tu DNI Digital (Código QR).',
-    three: 'Si el problema persiste, póngase en contacto con un administrador.',
-  },
-}
-
-const footer = {
-  register: {
+  links: {
     privacy: 'Política de privacidad',
-    terms: 'Terminos de uso',
+    data: 'y Protección de datos personales',
+    terms: 'y Términos de uso de la imagen'
   }
+}
+
+const finished = {
+  title: {
+    black: 'Foto cadastrada com',
+    orange: 'successo!'
+  },
+  resume: 'O reconhecimento facial é uma forma segura e simples e passiva de validacão.',
+  instructions: 'Apresente-se aos terminais e siga as etapas de validação. Caso encontre algum problama, entre em contato com um gestor ou acesse nosso portal de atendimento.',
 }
 
 const other = {
@@ -59,7 +36,8 @@ const other = {
     later: 'Más tarde',
     next: 'Proximo',
     refresh: 'Actualizar',
-    take_another: 'Toma otra foto'
+    take_another: 'Toma otra foto',
+    start: 'Comenzar'
   },
   cameraLabels: {
     candidate_selection: 'Mantenha a posição...',
@@ -111,11 +89,9 @@ const feedbacks = {
 const langPattern = 'es-ES'
 
 const texts = {
-  stepOne,
-  stepTwo,
-  stepThree,
+  start,
+  finished,
   other,
-  footer,
   langPattern,
   feedbacks
 }

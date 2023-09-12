@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import * as S from './styles'
 import texts from "../../_lang"
-import { PatternsNames } from "../../types/template"
+import { PatternsNames } from "../../utils/types/template"
 
 import Template from "../../components/_template"
 import LoadingDots from '../../components/LoadingDots'

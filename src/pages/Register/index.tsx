@@ -1,28 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 import * as S from './styles'
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom"
 
-import texts from "../../_lang";
-import { isAndroid } from "../../consts/auxs/getDeviceType";
-import useApi from "../../Api";
-import { UserInfo } from "../../types/api/UserInfo";
+import useApi from "../../Api"
+import { UserInfo } from "../../utils/types/api/UserInfo"
+import { isAndroid } from "../../utils/auxs/getDeviceType"
 
-import Template from "../../components/_template";
-import Button from "../../components/Button";
-
-import { ReactComponent as Logo } from '../../assets/icons/logo.svg'
-import FeedBackPage from "../FeedBackPage";
+import FeedBackPage from "../FeedBackPage"
+import Template from "../../components/_template"
+import LoadingDots from "../../components/LoadingDots"
+import { StartScreen, CaptureScreen, SuccessScreen } from "../../components/_steps"
 
 
 function RegisterPage() {
-  const [pageError, setPageError] = useState<'token' | 'generic' | null>(null)
+  const [tokenError, setTokenError] = useState<boolean>(false)
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [step, setStep] = useState<'start' | 'taking' | 'success'>('start')
 
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token')
 
   const Api = useApi({ token: token as string })
+
+  const startFlow = () => {
+    setStep("taking")
+  }
 
   const laterOn = () => {
     if (isAndroid()) {
@@ -33,9 +36,40 @@ function RegisterPage() {
     }
   }
 
+  const endFlow = () => {
+
+    if (isAndroid()) {
+      const linkProfundo = 'com.apekbrazil.skedway://home';
+      window.location.href = linkProfundo;
+    } else {
+      window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');
+    }
+
+  }
+
+  const renderStep = () => {
+
+    switch (step) {
+      case "start":
+        return <StartScreen
+          laterOn={laterOn}
+          startFlow={startFlow}
+        />
+        break;
+      case "taking":
+        return <CaptureScreen />
+        break;
+      case "success":
+        return <SuccessScreen
+          endFlow={endFlow}
+        />
+        break;
+    }
+  }
+
   useEffect(() => {
     if (!token) {
-      setPageError("token")
+      setTokenError(true)
       return
     } else {
       setLoading(true)
@@ -48,41 +82,25 @@ function RegisterPage() {
             setUserInfo(info)
             setLoading(false)
           } else {
-            setPageError("token")
+            setTokenError(true)
             setLoading(false)
           }
         })
     }
   }, [token])
 
-  return (pageError) ? (
+  return (tokenError) ? (
     <FeedBackPage isError={true} msgType="unknown" />
   ) : (loading) ? (
-    <FeedBackPage isError={false} msgType="leadingCamera" />
-  ) : (
     <Template type="greenPurple">
       <S.Content>
-        <S.Main>
-          <Logo width={40} height={'auto'} />
-          <S.Title>
-            <span>Registro da </span>
-            <span>Biometria facial</span>
-          </S.Title>
-          <S.Text>
-            <span>Em breve será utilizado o reconhecimento facial para a validação da passagem nos terminais de acesso.</span>
-            <br /> <br />
-            <span>Cadastre a sua foto de segurança! Ela é confidencial e não será compartilhada.</span>
-            <br /><br />
-            <span>Ao clicar em continuar, você concorda com o armazenamento seguro deste dado pela Skedway para fins de segurança, conforme a <a href={`https://skedway.com/${texts.langPattern}/privacy`} target="_blank">Política de Privacidade</a> e <a href="">Proteção de Dados Pessoais</a> e <a href={`https://skedway.com/${texts.langPattern}/terms`} target="_blank">Termo de Uso de Imagem</a> de Identificação.</span>
-          </S.Text>
-        </S.Main>
-        <S.ButtonsArea>
-          <Button.Secondary text="Mais tarde" action={laterOn} />
-          <Button.Primary text="Continuar" action={laterOn} />
-        </S.ButtonsArea>
+        <S.LoadingContainer>
+          <LoadingDots />
+        </S.LoadingContainer>
       </S.Content>
     </Template>
-  );
+  ) : renderStep()
 }
 
-export default RegisterPage;
+
+export default RegisterPage

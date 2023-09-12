@@ -1,7 +1,7 @@
 import { FC, ReactNode, useEffect, useState } from 'react'
 import * as S from './styles'
-import { BottomColors, PatternsNames, TopColors } from '../../types/template'
-import { patterns } from '../../consts/templatePatterns'
+import { BottomColors, PatternsNames, TopColors } from '../../utils/types/template'
+import { patterns } from '../../utils/consts/templatePatterns'
 
 import TopVector from '../Vectors/Top'
 import BottomVector from '../Vectors/Bottom'

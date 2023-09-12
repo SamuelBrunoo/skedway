@@ -7,15 +7,16 @@ import { ReactComponent as Arrow } from '../../../assets/icons/arrow.svg'
 type Props = {
   text: string;
   action: () => void;
+  noIcon?: boolean;
 }
 
-const Primary = ({ text, action }: Props) => {
+const Primary = ({ text, action, noIcon }: Props) => {
 
 
   return (
     <S.El onClick={action}>
       <span>{text}</span>
-      <Arrow />
+      {!noIcon && <Arrow />}
     </S.El>
   )
 

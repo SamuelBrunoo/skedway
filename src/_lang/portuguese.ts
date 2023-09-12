@@ -1,65 +1,39 @@
-const stepOne = {
-  serviceDesc: {
-    others: {
-      one: 'Em breve será utilizado o reconhecimento facial para a validação da passagem nos terminais de acesso. Cadastre a sua foto de segurança!',
-      two: 'Ela é confidencial e não será compartilhada.'
-    },
-    mobile: {
-      one: 'Cadastre sua foto de segurança e utilize o',
-      two: 'reconhecimento facial para a validação da',
-      three: 'passagem e outros recursos do sistema.'
-    },
+const start = {
+  title: {
+    black: 'Registro da',
+    orange: 'Biometria facial'
   },
-  serviceSubDes: 'Ao clicar em continuar, você concorda com o armazenamento seguro deste dado pela Skedway para fins de segurança.'
-}
-
-const stepTwo = {
-  description: {
-    others: 'Mais praticidade na passagem dos acessos. Essa foto será utilizada para a sua identificação no terminal e será tratada como um documento.',
-    mobile: 'Siga as orientações abaixo e garanta uma boa foto.'
+  serviceDes: {
+    one: 'Em breve será utilizado o reconhecimento facial para a validação da passagem nos terminais de acesso.',
+    two: 'Cadastre a sua foto de segurança! Ela é confidencial e não será compartilhada.',
+    three: 'Ao clicar em continuar, você concorda com o armazenamento seguro deste dado pela Skedway para fins de segurança, conforme a',
+    connective: 'e',
+    identification: 'de identificação.'
   },
-  tipsTitle: 'Dicas para uma boa foto',
-  tips: {
-    one: 'Encontre um local claro.',
-    two: 'Certifique-se que seu rosto esteja iluminado.',
-    three: 'Não use óculos de sol, bonés, mascaras ou qualquer acessório que cubra o rosto.',
-    four: 'Não faça poses nem caretas ao bater a foto.',
-  },
-  mobileReminder: 'Lembrando que essa é uma foto de segurança, não para as mídias sociais.'
-}
-
-const stepThree = {
-  successMsg: {
-    one: 'Foto cadastrada',
-    break: 'com',
-    two: 'sucesso!',
-  },
-  confirmation: 'Você já pode fazer sua validação nos  terminais de acesso com seu rosto',
-  instructions: {
-    one: 'Apresente-se ao terminal e siga as etapas de validação.',
-    two: 'O reconhecimento facial é uma forma segura e passiva de validacão, sem necessitar de interação. Contudo, caso tenha algum problama você poderá validar seu acesso com seu ID Digital (QR Code).',
-    three: 'Caso o problema persista, por gentileza contato um administrador.',
+  links: {
+    privacy: 'Política de Privacidade',
+    data: 'Proteção de Dados Pessoais',
+    terms: 'Termos de Uso de Imagem',
   },
 }
 
-const footer = {
-  register: {
-    privacy: 'Política de privacidade',
-    terms: 'Termos de uso',
-  }
+const finished = {
+  title: {
+    black: 'Foto cadastrada com',
+    orange: 'successo!'
+  },
+  resume: 'O reconhecimento facial é uma forma segura e simples e passiva de validacão.',
+  instructions: 'Apresente-se aos terminais e siga as etapas de validação. Caso encontre algum problama, entre em contato com um gestor ou acesse nosso portal de atendimento.',
 }
 
 const other = {
-  systemTitle: {
-    spanOne: 'Reconhecimento',
-    spanTwo: 'facial'
-  },
   buttons: {
     close: 'Fechar',
     later: 'Mais tarde',
     next: 'Próximo',
     refresh: 'Atualizar',
-    take_another: 'Tirar outra foto'
+    take_another: 'Tirar outra foto',
+    start: 'Continuar'
   },
   cameraLabels: {
     candidate_selection: 'Mantenha a posição...',
@@ -72,20 +46,6 @@ const other = {
     brightness_too_high: 'Menos luz necessária',
     loading: 'Carregando. Por favor, espere.',
     waiting: 'Aguardando câmera'
-  },
-  errors: {
-    accessDenied: {
-      description: "Usuário não autorizado",
-      instructions: "Se o erro persistir, por gentileza contate nosso suporte."
-    },
-    generic: {
-      description: "Foi encontrado um erro",
-      instructions: "Se o erro persistir, por gentileza contate nosso suporte"
-    },
-    cameraDenied: {
-      description: "Acesso a câmera negado",
-      instructions: "Permita que seu navegador tenha acesso a câmera para registrar sua face."
-    }
   },
 }
 
@@ -111,11 +71,9 @@ const feedbacks = {
 const langPattern = 'pt-BR'
 
 const texts = {
-  stepOne,
-  stepTwo,
-  stepThree,
+  start,
+  finished,
   other,
-  footer,
   langPattern,
   feedbacks
 }

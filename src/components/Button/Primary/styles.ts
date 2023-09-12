@@ -9,12 +9,13 @@ export const El = styled.button`
   background-color: #FA9233;
   color: #FFF;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 8px;
-  max-height: 50px;
+  min-width: 76px;
+  height: 50px;
 
   span {
-    font-family: 'Manrope';
     font-weight: 600;
   }
 

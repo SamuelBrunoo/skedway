@@ -1,63 +1,29 @@
-const stepOne = {
-  serviceDesc: {
-    others: {
-      one: 'Facial recognition will soon be used to validate tickets at access terminals. Register your security photo!',
-      two: 'It is confidential and will not be shared.'
-    },
-    mobile: {
-      one: 'Register your security photo and use the',
-      two: 'facial recognition for validation of',
-      three: 'passthrough and other system resources.'
-    },
+const start = {
+  title: {
+    black: 'Registration of',
+    orange: 'Facial biometrics'
   },
-  serviceSubDes: "By clicking continue, you agree to Skedway's secure storage of this data for security purposes."
-}
-
-const stepTwo = {
-  description: {
-    others: 'More practicality in the passage of accesses. This photo will be used to identify you at the terminal and will be treated as a document.',
-    mobile: 'Follow the guidelines below and ensure a good photo.'
+  serviceDes: {
+    one: 'Facial recognition will soon be used to validate tickets at access terminals.',
+    two: 'Register your security photo! It is confidential and will not be shared.',
+    three: 'By clicking continue, you agree to the secure storage of this data by Skedway for security purposes, in accordance with the',
+    connective: 'and',
+    identification: ''
   },
-  tipsTitle: 'Tips for a good photo',
-  tips: {
-    one: 'Find a clear location.',
-    two: 'Make sure your face is lit.',
-    three: 'Do not wear sunglasses, caps, masks or any accessory that covers the face.',
-    four: 'Do not pose or grimace when taking the photo.',
-  },
-  mobileReminder: 'Remembering that this is a security photo, not for social media.'
-}
-
-const stepThree: {
-  successMsg: {
-    one: string;
-    break?: string;
-    two: string;
-  };
-  confirmation: string,
-  instructions: {
-    one: string;
-    two: string;
-    three: string;
-  }
-} = {
-  successMsg: {
-    one: 'Photo successfully',
-    two: 'registered!',
-  },
-  confirmation: 'You can now validate your face at access terminals',
-  instructions: {
-    one: 'Introduce yourself to the terminal and follow the validation steps.',
-    two: 'Facial recognition is a safe and passive form of validation, without the need for interaction. However, if you have any problems, you can validate your access with your Digital ID (QR Code).',
-    three: 'If the problem persists, please contact an administrator.',
-  },
-}
-
-const footer = {
-  register: {
+  links: {
     privacy: 'Privacy Policy',
-    terms: 'Terms of use',
-  }
+    data: 'and Personal Data Protection',
+    terms: 'Identification Image Terms of use',
+  },
+}
+
+const finished = {
+  title: {
+    black: 'Foto cadastrada com',
+    orange: 'successo!'
+  },
+  resume: 'O reconhecimento facial é uma forma segura e simples e passiva de validacão.',
+  instructions: 'Apresente-se aos terminais e siga as etapas de validação. Caso encontre algum problama, entre em contato com um gestor ou acesse nosso portal de atendimento.',
 }
 
 const other = {
@@ -70,7 +36,8 @@ const other = {
     later: 'Later',
     next: 'Next',
     refresh: 'Refresh',
-    take_another: 'Take another picture'
+    take_another: 'Take another picture',
+    start: 'Start'
   },
   cameraLabels: {
     candidate_selection: 'Mantenha a posição...',
@@ -83,20 +50,6 @@ const other = {
     brightness_too_high: 'Menos luz necessária',
     loading: 'Loading. Please wait.',
     waiting: 'Waiting for input'
-  },
-  errors: {
-    accessDenied: {
-      description: "Unauthorized user",
-      instructions: "If the error persists, please contact our support."
-    },
-    "generic": {
-      description: "An error was found",
-      instructions: "If the error persists, please contact our support."
-    },
-    cameraDenied: {
-      description: "Camera access denied",
-      instructions: "Allow your browser access to the camera to record your face."
-    }
   },
 }
 
@@ -122,11 +75,9 @@ const feedbacks = {
 const langPattern = 'en-US'
 
 const texts = {
-  stepOne,
-  stepTwo,
-  stepThree,
+  start,
+  finished,
   other,
-  footer,
   langPattern,
   feedbacks
 }

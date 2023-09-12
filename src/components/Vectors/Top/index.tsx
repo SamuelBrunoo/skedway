@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { VectorArea } from './styles'
-import { TopColors } from '../../../types/template'
+import { TopColors } from '../../../utils/types/template'
 
 import { ReactComponent as Vector } from '../../../assets/vectors/top.svg'
 

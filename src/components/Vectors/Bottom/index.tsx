@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { VectorArea } from './styles'
-import { BottomColors } from '../../../types/template'
+import { BottomColors } from '../../../utils/types/template'
 
 import { ReactComponent as Vector } from '../../../assets/vectors/bottom.svg'
 

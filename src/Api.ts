@@ -1,9 +1,9 @@
-import a from 'axios';
-import { getCroppedImage } from './consts/auxs/getCroppedImage';
-import { isAndroid } from './consts/auxs/getDeviceType';
-import { SendPhotoType } from './types/api/SendPhoto';
-import { GetUserInfoRes, UserInfo } from './types/api/UserInfo';
-import { ErrorTypes } from './types/error';
+import a from 'axios'
+import { getCroppedImage } from './utils/auxs/getCroppedImage'
+import { isAndroid } from './utils/auxs/getDeviceType'
+import { SendPhotoType } from './utils/types/api/SendPhoto'
+import { GetUserInfoRes, UserInfo } from './utils/types/api/UserInfo'
+import { ErrorTypes } from './utils/types/error'
 
 type Props = {
   token: string;
