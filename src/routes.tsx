@@ -1,7 +1,7 @@
 import { Navigate, RouteObject, createBrowserRouter } from "react-router-dom"
 
 import RegisterPage from "./pages/Register"
-import ErrorPage from "./pages/ErrorPage"
+import FeedBackPage from "./pages/FeedBackPage"
 
 const routes: RouteObject[] = [
   {
@@ -14,7 +14,10 @@ const routes: RouteObject[] = [
   },
   {
     path: '*',
-    element: <ErrorPage error={'generic'} />
+    element: <FeedBackPage
+      isError={true}
+      msgType="unknown"
+    />
   }
 ]
 

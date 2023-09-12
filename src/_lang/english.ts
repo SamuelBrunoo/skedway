@@ -100,6 +100,25 @@ const other = {
   },
 }
 
+const feedbacks = {
+  leadingCamera: {
+    description: 'Preparing the camera',
+    instructions: 'Wait a minute'
+  },
+  cameraDenied: {
+    description: 'Camera access denied',
+    instructions: "Release your camera's access permissions to record your face"
+  },
+  uploading: {
+    description: 'Sending biometric data',
+    instructions: ''
+  },
+  unknown: {
+    description: 'Unknown error',
+    instructions: 'If the error persists, please contact our support'
+  },
+}
+
 const langPattern = 'en-US'
 
 const texts = {
@@ -109,6 +128,7 @@ const texts = {
   other,
   footer,
   langPattern,
+  feedbacks
 }
 
 

@@ -89,6 +89,25 @@ const other = {
   },
 }
 
+const feedbacks = {
+  leadingCamera: {
+    description: 'Preparando câmera',
+    instructions: 'Aguarde um instante'
+  },
+  cameraDenied: {
+    description: 'Acesso a câmera negado',
+    instructions: 'Libere as permissões de acesso da sua câmera para registrar sua face'
+  },
+  uploading: {
+    description: 'Enviando dados biometricos',
+    instructions: ''
+  },
+  unknown: {
+    description: 'Erro desconhecido',
+    instructions: 'Se o erro persistir, por gentileza contate nosso suporte'
+  },
+}
+
 const langPattern = 'pt-BR'
 
 const texts = {
@@ -98,6 +117,7 @@ const texts = {
   other,
   footer,
   langPattern,
+  feedbacks
 }
 
 
