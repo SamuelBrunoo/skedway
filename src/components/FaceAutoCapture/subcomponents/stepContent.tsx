@@ -1,13 +1,13 @@
-import texts from "../../../_lang";
-import styles from "../../../styles/index.module.css";
-import localStyles from ".././styles.module.css";
-import buttonStyles from "../../../styles/button.module.css";
-import { ReactComponent as OrangeDegrade } from "../../../assets/degrades/orange_degrade.svg";
-import { ReactComponent as Lamp } from "../../../assets/icons/lamp.svg";
-import { ReactComponent as Face } from "../../../assets/icons/face.svg";
-import { ReactComponent as Block } from "../../../assets/icons/block.svg";
-import { ReactComponent as FaceSkewed } from "../../../assets/icons/face_skewed.svg";
-import { ReactComponent as Arrow } from "../../../assets/icons/Arrow_right_1.svg";
+import texts from '../../../_lang';
+import { ReactComponent as OrangeDegrade } from '../../../assets/degrades/orange_degrade.svg';
+import { ReactComponent as Arrow } from '../../../assets/icons/Arrow_right_1.svg';
+import { ReactComponent as Block } from '../../../assets/icons/block.svg';
+import { ReactComponent as Face } from '../../../assets/icons/face.svg';
+import { ReactComponent as FaceSkewed } from '../../../assets/icons/face_skewed.svg';
+import { ReactComponent as Lamp } from '../../../assets/icons/lamp.svg';
+import buttonStyles from '../../../styles/button.module.css';
+import styles from '../../../styles/index.module.css';
+import localStyles from '.././styles.module.css';
 
 interface Props {
   handleNextStep: () => void;
@@ -17,7 +17,13 @@ interface Props {
   theresAnError?: boolean;
 }
 
-const StepContent = ({ handleNextStep, lateronFn, isAlreadyTaked, handleTakeAnother, theresAnError }: Props) => {
+const StepContent = ({
+  handleNextStep,
+  lateronFn,
+  isAlreadyTaked,
+  handleTakeAnother,
+  theresAnError,
+}: Props) => {
   return (
     <div className={`${styles.stepContent} ${localStyles.stepContent}`}>
       <div className={localStyles.backColors}>
@@ -31,15 +37,13 @@ const StepContent = ({ handleNextStep, lateronFn, isAlreadyTaked, handleTakeAnot
         </h2>
         <p className={localStyles.description}>
           {window.document.body.clientWidth > 840 &&
-            texts.stepTwo.description.others
-          }
+            texts.stepTwo.description.others}
           {window.document.body.clientWidth <= 840 &&
-            texts.stepTwo.description.mobile
-          }
+            texts.stepTwo.description.mobile}
         </p>
-        {window.document.body.clientWidth > 840 &&
+        {window.document.body.clientWidth > 840 && (
           <h3>{texts.stepTwo.tipsTitle}</h3>
-        }
+        )}
         <ul className={localStyles.tipsList}>
           <li>
             <Lamp />
@@ -58,35 +62,43 @@ const StepContent = ({ handleNextStep, lateronFn, isAlreadyTaked, handleTakeAnot
             <span>{texts.stepTwo.tips.four}</span>
           </li>
         </ul>
-        {window.document.body.clientWidth <= 840 &&
+        {window.document.body.clientWidth <= 840 && (
           <p className={localStyles.reminderMessage}>
             {texts.stepTwo.mobileReminder}
           </p>
-        }
+        )}
       </div>
       <div className={styles.buttonsArea}>
-        {isAlreadyTaked !== undefined && isAlreadyTaked === false && !theresAnError &&
-          <button className={buttonStyles.secondary} onClick={lateronFn}>
-            {texts.other.buttons.later}
-          </button>
-        }
-        {isAlreadyTaked === true &&
-          <button className={buttonStyles.secondary} onClick={handleTakeAnother}>
+        {isAlreadyTaked !== undefined &&
+          isAlreadyTaked === false &&
+          !theresAnError && (
+            <button className={buttonStyles.secondary} onClick={lateronFn}>
+              {texts.other.buttons.later}
+            </button>
+          )}
+        {isAlreadyTaked === true && (
+          <button
+            className={buttonStyles.secondary}
+            onClick={handleTakeAnother}
+          >
             {texts.other.buttons.take_another}
           </button>
-        }
-        {theresAnError === true &&
-          <button className={buttonStyles.secondary} onClick={handleTakeAnother}>
+        )}
+        {theresAnError === true && (
+          <button
+            className={buttonStyles.secondary}
+            onClick={handleTakeAnother}
+          >
             {texts.other.buttons.take_another}
           </button>
-        }
+        )}
         <button className={buttonStyles.primary} onClick={handleNextStep}>
           <span>{texts.other.buttons.next.toUpperCase()}</span>
           <Arrow width={24} />
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default StepContent
+export default StepContent;
