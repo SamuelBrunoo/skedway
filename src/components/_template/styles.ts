@@ -6,7 +6,7 @@ export const Page = styled.div`
 
   #topVector,
   #bottomVector {
-    position: absolute;
+    position: fixed;
     right: 0;
     z-index: -1;
   }
