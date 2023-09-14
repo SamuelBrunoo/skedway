@@ -6,17 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Skedway" />
+    <meta http-equiv="Content-Security-Policy" content="connect-src *" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://assets.onfido.com/web-sdk-releases/13.3.1/style.css"
+    />
     <title>Skedway</title>
+    <script src="https://assets.onfido.com/web-sdk-releases/13.3.1/onfido.min.js"></script>
   </head>
 
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script nonce="">
+      const loadUI = (token, wId, completeFn) => {
+        var Onfido = window.Onfido;
+        window.OnfidoIntegration = { name: "smart-capture-link-generic" };
+
+        if (Onfido) {
+          window.onfido = Onfido.init(
+            Object.assign(
+              {
+                customUI: { colorContentButtonPrimaryText: "#faf7f8" },
+                enterpriseFeatures: {
+                  cobrand: { text: "Skedway" },
+                  hideOnfidoLogo: true,
+                  logoCobrand: null,
+                },
+                token: token,
+                workflowRunId: wId,
+              },
+              {
+                onComplete: completeFn,
+              }
+            )
+          );
+        }
+      };
+    </script>
   </body>
 </html>

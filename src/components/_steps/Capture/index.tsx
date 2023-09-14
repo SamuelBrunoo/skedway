@@ -1,19 +1,29 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import * as S from './styles'
+
+import useApi from '../../../Api'
 
 
 const Capture = () => {
 
-  const handleCapture = () => {
-    alert('capted')
+  const Api = useApi({})
+
+  const completeFn = async () => {
+    const motionId = await Api.getMotionCaptureId()
+    const imageBlob = await Api.getVideoFrame(motionId)
+    console.log(imageBlob)
   }
 
-  const renderUI = () => {
-    // init config
+  const renderCapture = async () => {
+    const sdkToken = await Api.getOnfidoSDKToken()
+    const worflowRunId = await Api.getWorkflowRunId()
+
+    // @ts-ignore
+    loadUI(sdkToken, worflowRunId, completeFn)
   }
 
   useEffect(() => {
-    renderUI()
+    renderCapture()
   }, [])
 
 

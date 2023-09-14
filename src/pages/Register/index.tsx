@@ -16,7 +16,7 @@ function RegisterPage() {
   const [tokenError, setTokenError] = useState<boolean>(false)
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
   const [loading, setLoading] = useState<boolean>(false)
-  const [step, setStep] = useState<'start' | 'taking' | 'success'>('start')
+  const [step, setStep] = useState<'start' | 'taking' | 'success'>('taking')
 
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token')

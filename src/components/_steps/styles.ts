@@ -2,8 +2,8 @@ import styled from "styled-components"
 
 
 export const Content = styled.div`
-  padding: 10.2vw;
-  min-height: 100svh;
+  padding: 10.2vw 10.2vw 0;
+  max-height: 100svh;
   display: flex;
   flex-direction: column;
   gap: 32px;
