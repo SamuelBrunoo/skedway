@@ -67,29 +67,29 @@ function RegisterPage() {
     }
   }
 
-  useEffect(() => {
-    if (!token) {
-      setTokenError(true)
-      return
-    } else {
-      setLoading(true)
+  // useEffect(() => {
+  //   if (!token) {
+  //     setTokenError(true)
+  //     return
+  //   } else {
+  //     setLoading(true)
 
-      Api.getUserInfo()
-        .then((req) => {
-          if (req.success) {
-            const info = req.info
+  //     Api.getUserInfo()
+  //       .then((req) => {
+  //         if (req.success) {
+  //           const info = req.info
 
-            setUserInfo(info)
-            setLoading(false)
-          } else {
-            setTokenError(true)
-            setLoading(false)
-          }
-        })
-    }
-  }, [token])
+  //           setUserInfo(info)
+  //           setLoading(false)
+  //         } else {
+  //           setTokenError(true)
+  //           setLoading(false)
+  //         }
+  //       })
+  //   }
+  // }, [token])
 
-  return (tokenError) ? (
+  return renderStep() /*(tokenError) ? (
     <FeedBackPage isError={true} msgType="unknown" />
   ) : (loading) ? (
     <Template type="greenPurple">
@@ -99,7 +99,7 @@ function RegisterPage() {
         </S.LoadingContainer>
       </S.Content>
     </Template>
-  ) : renderStep()
+  ) : renderStep() */
 }
 
 
