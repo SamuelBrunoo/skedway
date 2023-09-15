@@ -1,26 +1,68 @@
-import React, { useEffect, useRef } from 'react'
-import * as S from './styles'
+import { useEffect } from 'react'
 
+import * as Onfido from 'onfido-sdk-ui'
 import useApi from '../../../Api'
 
 
-const Capture = () => {
+type Props = {
+  setError: () => void;
+  sendFn: (blob: Blob) => void;
+}
+
+const Capture = ({ setError, sendFn }: Props) => {
 
   const Api = useApi({})
 
-  const completeFn = async () => {
-    const motionId = await Api.getMotionCaptureId()
-    const imageBlob = await Api.getVideoFrame(motionId)
-    console.log(imageBlob)
+  const completeFn = async (blob: Blob) => {
+    sendFn(blob)
+  }
+
+  const setClickListener = async () => {
+    const onfidoDiv = document.getElementById('onfido-mount')
+    const confirmBtn = onfidoDiv?.querySelector('button[data-onfido-qa="confirm-action-btn"]') as HTMLButtonElement | null
+
+    if (confirmBtn) {
+      confirmBtn.removeAttribute('onclick')
+
+      const image = (document.querySelector('.onfido-sdk-ui-CaptureViewer-image') as HTMLImageElement).src
+      const blob = await fetch(image).then(res => res.blob())
+
+      confirmBtn.addEventListener('click', () => completeFn(blob))
+    }
+  }
+
+  const runWorkflow = async (token: string, wId: string) => {
+
+    Onfido.init(
+      {
+        useWorkflow: true,
+        customUI: { colorContentButtonPrimaryText: "#faf7f8" },
+        enterpriseFeatures: {
+          cobrand: { text: "Skedway" },
+          hideOnfidoLogo: true,
+          logoCobrand: undefined,
+        },
+        containerId: 'onfido-mount',
+        token: token,
+        workflowRunId: wId,
+      }
+    )
+
+    const targetNode = document.getElementById('onfido-mount') as HTMLDivElement
+    const config = { childList: true, subtree: true }
+    const observer = new MutationObserver(setClickListener)
+    observer.observe(targetNode, config);
   }
 
   const renderCapture = async () => {
-    const sdkToken = await Api.getVideoFrame('e1e551d6-3e6a-4144-9ef9-2a1dc9190490')
-    // const sdkToken = await Api.getOnfidoSDKToken()
-    // const worflowRunId = await Api.getWorkflowRunId()
+    const token = await Api.getOnfidoSDKToken() as string
 
-    // @ts-ignore
-    loadUI(sdkToken, worflowRunId, completeFn)
+    if (token) {
+      const workflowRunId = await Api.getWorkflowRunId() as string
+      if (workflowRunId) runWorkflow(token, workflowRunId)
+      else setError()
+    } else setError()
+
   }
 
   useEffect(() => {
@@ -28,9 +70,7 @@ const Capture = () => {
   }, [])
 
 
-  return (
-    <div id="onfido-mount"></div>
-  )
+  return <div id="onfido-mount"></div>
 
 }
 

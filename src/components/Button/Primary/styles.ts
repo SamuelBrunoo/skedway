@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 
 export const El = styled.button`
+  cursor: pointer;
   font-size: 20px;
   padding: .3em 1.2em;
   border-radius: 50px;
