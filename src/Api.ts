@@ -2,11 +2,14 @@ import a, { Axios } from 'axios'
 import { SendPhotoType } from './utils/types/api/SendPhoto'
 import { GetUserInfoRes, UserInfo } from './utils/types/api/UserInfo'
 import { ErrorTypes } from './utils/types/error'
+import { Buffer } from 'buffer'
+import { parseBlob } from './utils/auxs/parseUrl'
 
 
 type Props = {
   token?: string;
-};
+}
+
 
 const useApi = ({ token }: Props) => {
   const baseUrl = process.env.REACT_APP_API_BASE_URL
@@ -100,13 +103,15 @@ const useApi = ({ token }: Props) => {
 
       return id
     },
-    getMotionCaptureId: async () => {
-      const applicantCaptures = await local.get(`/getMotionCaptureId?applicant_id=${joeDoeId}`)
-      return applicantCaptures.data.motion_captures[applicantCaptures.data.motion_captures.length]
-    },
-    getVideoFrame: async (motionId: string) => {
-      const req = await local.get(`/getFrame/${motionId}/frame`)
-      console.log(req.data.frame)
+    getMotionFrame: async () => {
+      const url = await local.get(`/getMotionFrame?applicant_id=${joeDoeId}`)
+        .then(response => {
+          const data = JSON.parse(response.data)
+          const str64 = Buffer.from(data.buffer).toString('base64')
+          return `data:image/jpeg;base64,${str64}`
+        })
+
+      return ({ blob: await parseBlob(url) })
     }
   };
 };

@@ -1,13 +1,18 @@
 import React from "react"
-import localStyles from "./styles.module.css"
+import * as S from './styles'
 import LoadingDots from "../LoadingDots"
+import Template from "../_template"
 
 function LoadingComponent() {
 
   return (
-    <div className={localStyles.main} id="loadingComponent">
-      <LoadingDots />
-    </div>
+    <Template type="greenPurple">
+      <S.Content>
+        <S.LoadingContainer>
+          <LoadingDots />
+        </S.LoadingContainer>
+      </S.Content>
+    </Template>
   )
 }
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Skedway" />
-    <meta http-equiv="Content-Security-Policy" content="connect-src * blob:" />
+    <meta http-equiv="Content-Security-Policy" content="connect-src * blob: data:" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -24,5 +24,29 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script nonce="">
+      const loadUI = (token, wId) => {
+        var Onfido = window.Onfido;
+        window.OnfidoIntegration = { name: "smart-capture-link-generic" };
+
+        if (Onfido) {
+          window.onfido = Onfido.init(
+            Object.assign({
+              customUI: { colorContentButtonPrimaryText: "#faf7f8" },
+              enterpriseFeatures: {
+                cobrand: { text: "Skedway" },
+                hideOnfidoLogo: true,
+                logoCobrand: null,
+              },
+              token: token,
+              workflowRunId: wId,
+            })
+          );
+        } else {
+        }
+      };
+
+      window.onloadeddata = loadUI;
+    </script>
   </body>
 </html>

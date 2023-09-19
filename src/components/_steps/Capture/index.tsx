@@ -1,7 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import * as S from './styles'
 
-import * as Onfido from 'onfido-sdk-ui'
 import useApi from '../../../Api'
+import LoadingComponent from '../../Loading';
+import FeedBackPage from '../../../pages/FeedBackPage';
 
 
 type Props = {
@@ -12,41 +14,38 @@ type Props = {
 const Capture = ({ setError, sendFn }: Props) => {
 
   const Api = useApi({})
+  const [flowStatus, setFlowStatus] = useState<'leadingCamera' | 'capturing' | 'capted'>('leadingCamera')
 
-  const completeFn = async (blob: Blob) => {
+  const completeFn = async () => {
+    const { blob } = await Api.getMotionFrame()
     sendFn(blob)
   }
 
   const setClickListener = async () => {
     const onfidoDiv = document.getElementById('onfido-mount')
-    const confirmBtn = onfidoDiv?.querySelector('button[data-onfido-qa="confirm-action-btn"]') as HTMLButtonElement | null
 
-    if (confirmBtn) {
-      confirmBtn.removeAttribute('onclick')
+    const startBtn = document.querySelector('button[data-onfido-qa="welcome-next-btn"]') as HTMLButtonElement | null
+    const recordBtn = document.querySelector('button[data-onfido-qa="motion-continue-btn"]') as HTMLButtonElement | null
+    const activeCapture = document.querySelector('div[data-page-id="ActiveVideoCapture"]') !== null
 
-      const image = (document.querySelector('.onfido-sdk-ui-CaptureViewer-image') as HTMLImageElement).src
-      const blob = await fetch(image).then(res => res.blob())
+    const isRecordComplete = document.querySelector('div[data-page-id="RecordingComplete"]') as HTMLDivElement | null
+    const confirmBtn = onfidoDiv?.querySelector('button.ods-button.-action--primary.onfido-sdk-ui-Theme-button-centered.onfido-sdk-ui-Theme-button-lg') as HTMLButtonElement | null
 
-      confirmBtn.addEventListener('click', () => completeFn(blob))
+    if (startBtn) startBtn.click()
+    if (recordBtn) recordBtn.click()
+
+    if (activeCapture) setFlowStatus('capturing')
+    else if (isRecordComplete && confirmBtn) {
+      setFlowStatus('capted')
+      confirmBtn.addEventListener('click', completeFn)
+      confirmBtn.click()
     }
   }
 
   const runWorkflow = async (token: string, wId: string) => {
 
-    Onfido.init(
-      {
-        useWorkflow: true,
-        customUI: { colorContentButtonPrimaryText: "#faf7f8" },
-        enterpriseFeatures: {
-          cobrand: { text: "Skedway" },
-          hideOnfidoLogo: true,
-          logoCobrand: undefined,
-        },
-        containerId: 'onfido-mount',
-        token: token,
-        workflowRunId: wId,
-      }
-    )
+    // @ts-ignore
+    loadUI(token, wId)
 
     const targetNode = document.getElementById('onfido-mount') as HTMLDivElement
     const config = { childList: true, subtree: true }
@@ -70,7 +69,13 @@ const Capture = ({ setError, sendFn }: Props) => {
   }, [])
 
 
-  return <div id="onfido-mount"></div>
+  return (
+    <>
+      <S.CaptureArea id="onfido-mount" showing={flowStatus === 'capturing'}></S.CaptureArea>
+      {flowStatus === 'leadingCamera' && <FeedBackPage isError={false} msgType='leadingCamera' />}
+      {flowStatus === 'capted' && <LoadingComponent />}
+    </>
+  )
 
 }
 

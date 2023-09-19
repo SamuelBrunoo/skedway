@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import * as S from './styles'
 import { useSearchParams } from "react-router-dom"
 
 import useApi from "../../Api"
@@ -7,9 +6,8 @@ import { UserInfo } from "../../utils/types/api/UserInfo"
 import { isAndroid, isOnWeb } from "../../utils/auxs/getDeviceType"
 
 import FeedBackPage from "../FeedBackPage"
-import Template from "../../components/_template"
-import LoadingDots from "../../components/LoadingDots"
 import { StartScreen, CaptureScreen, SuccessScreen } from "../../components/_steps"
+import LoadingComponent from "../../components/Loading"
 
 
 function RegisterPage() {
@@ -27,28 +25,19 @@ function RegisterPage() {
     setStep("taking")
   }
 
-  const laterOn = () => {
+  const returnToApp = () => {
     if (isAndroid()) {
       const linkProfundo = 'com.apekbrazil.skedway://home';
       window.location.href = linkProfundo;
     } else {
+      // @ts-ignore
       window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');
     }
   }
 
   const endFlow = () => {
-
-    if (isOnWeb()) {
-      window.location.href = window.location.href
-    } else {
-      if (isAndroid()) {
-        const linkProfundo = 'com.apekbrazil.skedway://home';
-        window.location.href = linkProfundo;
-      } else {
-        window.webkit.messageHandlers.closeWebView.postMessage('closeWebView');
-      }
-    }
-
+    if (isOnWeb()) window.location.href = window.location.href
+    else returnToApp()
   }
 
   const sendFn = async (blob: Blob) => {
@@ -58,45 +47,25 @@ function RegisterPage() {
 
       if (send.success) setStep('success')
       else setStep('sendError')
-    } else {
-      setStep('sendError')
-    }
+    } else setStep('sendError')
   }
 
   const renderStep = () => {
 
     switch (step) {
       case "start":
-        return <StartScreen
-          laterOn={laterOn}
-          startFlow={startFlow}
-        />
-        break;
+        return <StartScreen laterOn={returnToApp} startFlow={startFlow} />
       case "taking":
-        return <CaptureScreen
-          setError={() => setTokenError(true)}
-          sendFn={sendFn}
-        />
-        break;
+        return <CaptureScreen setError={() => setTokenError(true)} sendFn={sendFn} />
       case "sending":
-        return <FeedBackPage
-          isError={false}
-          msgType="uploading"
-        />
-        break;
+        return <FeedBackPage isError={false} msgType="uploading" />
       case "sendError":
-        return <FeedBackPage
-          isError={true}
-          msgType="unknown"
-        />
-        break;
+        return <FeedBackPage isError={true} msgType="unknown" />
       case "success":
-        return <SuccessScreen
-          endFlow={endFlow}
-        />
-        break;
+        return <SuccessScreen endFlow={endFlow} />
     }
   }
+
 
   useEffect(() => {
     if (!token) {
@@ -120,17 +89,8 @@ function RegisterPage() {
     }
   }, [token])
 
-  return (tokenError) ? (
-    <FeedBackPage isError={true} msgType="unknown" />
-  ) : (loading) ? (
-    <Template type="greenPurple">
-      <S.Content>
-        <S.LoadingContainer>
-          <LoadingDots />
-        </S.LoadingContainer>
-      </S.Content>
-    </Template>
-  ) : renderStep()
+  return tokenError ? <FeedBackPage isError={true} msgType="unknown" /> :
+    loading ? <LoadingComponent /> : renderStep()
 }
 
 
