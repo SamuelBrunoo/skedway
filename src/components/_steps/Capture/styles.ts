@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 
-export const CaptureArea = styled.div<{ showing: boolean; }>`
+export const CaptureArea = styled.div<{ showing: boolean | undefined; }>`
   height: ${({ showing }) => showing ? 100 : 0}dvh;
   display: grid;
   place-items: center;
