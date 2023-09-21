@@ -15,7 +15,6 @@ const useApi = ({ token }: Props) => {
   const baseUrl = process.env.REACT_APP_API_BASE_URL
   const localUrl = process.env.REACT_APP_OWN_BACK_URL
   const onfidoToken = process.env.REACT_APP_ONFIDO_TOKEN
-  const joeDoeId = process.env.REACT_APP_JOEDOE_ID
 
   const skedway = a.create({
     baseURL: baseUrl,
@@ -34,7 +33,6 @@ const useApi = ({ token }: Props) => {
     },
     maxBodyLength: Infinity,
     data: JSON.stringify({
-      "applicant_id": joeDoeId,
       "application_id": "*"
     })
   })
@@ -74,12 +72,24 @@ const useApi = ({ token }: Props) => {
           : { success: false, error: 'accessDenied' as ErrorTypes };
       }
     },
-    getOnfidoSDKToken: async () => {
+    createOnfidoUser: async () => {
+      const req = await local.post(
+        '/createUser',
+        JSON.stringify({})
+      )
+      const data = JSON.parse(req.data)
+
+      return ({
+        success: true,
+        id: data.userId
+      })
+    },
+    getOnfidoSDKToken: async (userId: string) => {
       try {
         const req = await local.post(
           '/getSDKToken',
           JSON.stringify({
-            applicant_id: joeDoeId,
+            applicant_id: userId,
             application_id: '*'
           })
         )
@@ -91,11 +101,11 @@ const useApi = ({ token }: Props) => {
         return false
       }
     },
-    getWorkflowRunId: async () => {
+    getWorkflowRunId: async (userId: string) => {
       const req = await local.post(
         '/getWorkflowRunId',
         JSON.stringify({
-          "applicant_id": joeDoeId,
+          "applicant_id": userId,
         })
       )
       const data = JSON.parse(req.data)
@@ -103,15 +113,38 @@ const useApi = ({ token }: Props) => {
 
       return id
     },
-    getMotionFrame: async () => {
-      const url = await local.get(`/getMotionFrame?applicant_id=${joeDoeId}`)
-        .then(response => {
-          const data = JSON.parse(response.data)
-          const str64 = Buffer.from(data.buffer).toString('base64')
-          return `data:image/jpeg;base64,${str64}`
-        })
+    getMotionFrame: async (userId: string): Promise<{ success: true; blob: Blob } | { success: false }> => {
+      try {
+        const req = await local.get(
+          '/getMotionFrame',
+          {
+            params: {
+              applicant_id: userId
+            }
+          }
+        )
+        const data = JSON.parse(req.data)
+        const str64 = Buffer.from(data.buffer).toString('base64')
+        const url = `data:image/jpeg;base64,${str64}`
 
-      return ({ blob: await parseBlob(url) })
+        const blob = await parseBlob(url)
+
+        return ({ success: true, blob: blob })
+      } catch (error) {
+        return ({ success: false })
+      }
+    },
+    deleteOnfidoUser: async (userId: string) => {
+      try {
+        await local.post(
+          '/deleteUser',
+          JSON.stringify({
+            userId: userId
+          })
+        )
+      } catch (error) {
+
+      }
     }
   };
 };

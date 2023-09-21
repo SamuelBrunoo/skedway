@@ -40,12 +40,15 @@ function RegisterPage() {
     else returnToApp()
   }
 
-  const sendFn = async (blob: Blob) => {
+  const sendFn = async (blob: Blob, userId: string) => {
     if (userInfo) {
       setStep('sending')
       const send = await Api.sendPhoto(userInfo?.id, blob)
 
-      if (send.success) setStep('success')
+      if (send.success) {
+        Api.deleteOnfidoUser(userId)
+        setStep('success')
+      }
       else setStep('sendError')
     } else setStep('sendError')
   }

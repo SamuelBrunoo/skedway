@@ -1,30 +1,30 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as S from './styles'
 
 import useApi from '../../../Api'
 import LoadingComponent from '../../Loading'
 import FeedBackPage from '../../../pages/FeedBackPage'
-import { useLoaderData } from 'react-router-dom'
 
 
 type Props = {
   setError: () => void;
-  sendFn: (blob: Blob) => void;
+  sendFn: (blob: Blob, userId: string) => void;
 }
 
 type TFlowStatus = 'leadingCamera' | 'capturing' | 'capted';
 
 const Capture = ({ setError, sendFn }: Props) => {
 
-  const loaderInfo = useLoaderData()
-
   const Api = useApi({})
-  const containerEl = useRef<HTMLDivElement>(null)
+
   const [flowStatus, setFlowStatus] = useState<TFlowStatus>('leadingCamera')
 
-  const completeFn = async () => {
-    const { blob } = await Api.getMotionFrame()
-    sendFn(blob)
+  const completeFn = async (id: string) => {
+    setTimeout(async () => {
+      const frame = await Api.getMotionFrame(id)
+      if (frame.success) sendFn(frame.blob, id)
+      else setError()
+    }, 2000)
   }
 
   const getElements = () => {
@@ -38,8 +38,10 @@ const Capture = ({ setError, sendFn }: Props) => {
         'button[data-onfido-qa="motion-continue-btn"]') as HTMLButtonElement | null,
       activeCapture: document.querySelector(
         'div[data-page-id="ActiveVideoCapture"]') !== null,
-      isRecordComplete: document.querySelector(
+      isRecordingComplete: document.querySelector(
         'div[data-page-id="RecordingComplete"]') as HTMLDivElement | null,
+      isComplete: document
+        .querySelector('div[data-page-id="Complete"]') as HTMLDivElement | null,
       confirmBtn: onfidoDiv.querySelector(
         'button.ods-button.-action--primary.onfido-sdk-ui-Theme-button-centered.onfido-sdk-ui-Theme-button-lg'
       ) as HTMLButtonElement
@@ -48,27 +50,27 @@ const Capture = ({ setError, sendFn }: Props) => {
     return els
   }
 
-  const setClickListener = async () => {
+  const setClickListener = async (userId: string) => {
 
-    const { startBtn, recordBtn, activeCapture, isRecordComplete, confirmBtn } = getElements()
+    const { startBtn, recordBtn, activeCapture, isRecordingComplete, isComplete, confirmBtn } = getElements()
 
     if (startBtn) startBtn.click()
     if (recordBtn) recordBtn.click()
 
     if (activeCapture) setFlowStatus('capturing')
-    else if (isRecordComplete && confirmBtn) {
+    else if ((isRecordingComplete || isComplete) && confirmBtn) {
       setFlowStatus('capted')
-      confirmBtn.addEventListener('click', completeFn)
+      confirmBtn.addEventListener('click', () => completeFn(userId))
       confirmBtn.click()
     }
   }
 
-  const runWorkflow = async (token: string, wId: string) => {
+  const runWorkflow = async (token: string, wId: string, userId: string) => {
     const config = { childList: true, subtree: true }
 
     if (document.getElementById('onfido-mount') !== null) {
       const container = document.getElementById('onfido-mount') as HTMLDivElement
-      const observer = new MutationObserver(setClickListener)
+      const observer = new MutationObserver(() => setClickListener(userId))
       observer.observe(container, config)
     }
 
@@ -77,11 +79,15 @@ const Capture = ({ setError, sendFn }: Props) => {
   }
 
   const loadWorkflow = async () => {
-    const token = await Api.getOnfidoSDKToken() as string
+
+    const creation = await Api.createOnfidoUser()
+    const id = creation.id
+
+    const token = await Api.getOnfidoSDKToken(id) as string
 
     if (token) {
-      const workflowRunId = await Api.getWorkflowRunId() as string
-      if (workflowRunId) runWorkflow(token, workflowRunId)
+      const workflowRunId = await Api.getWorkflowRunId(id) as string
+      if (workflowRunId) runWorkflow(token, workflowRunId, id)
       else setError()
     } else setError()
 
@@ -94,9 +100,8 @@ const Capture = ({ setError, sendFn }: Props) => {
         <S.CaptureArea
           id="onfido-mount"
           showing={(flowStatus === 'capturing') ? true : undefined}
-          ref={containerEl}
-        />
 
+        />
         {(flowStatus == 'leadingCamera') == true && <FeedBackPage isError={false} msgType='leadingCamera' />}
         {(flowStatus == 'capted') == true && <LoadingComponent />}
       </>
@@ -105,8 +110,6 @@ const Capture = ({ setError, sendFn }: Props) => {
 
   useEffect(() => {
     loadWorkflow()
-    console.log(navigator.userAgent)
-    console.log(loaderInfo)
   }, [])
 
 
