@@ -2,20 +2,28 @@ import { Navigate, RouteObject, createBrowserRouter } from "react-router-dom"
 
 import RegisterPage from "./pages/Register"
 import FeedBackPage from "./pages/FeedBackPage"
-import { isOnWeb } from "./utils/auxs/getDeviceType"
+import { isAndroid, isOnWeb } from "./utils/auxs/getDeviceType"
 
 const routes: RouteObject[] = [
   {
     path: '/face-wizard',
     loader: async () => {
+      const native = isOnWeb() ? 'web' :
+        isAndroid() ? 'Android' : 'iOS'
       if (!isOnWeb()) {
-        const newUA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.75"
+        const newUA = (isAndroid()) ?
+          "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.75" :
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebkit/605.1.15 (KHTML, like Gecko) CriOS/117 Version/11.1.1 Safari/605.1.15"
+
         Object.defineProperty(navigator, 'userAgent', {
           value: newUA,
           writable: true
         })
       }
-      return null
+      return ({
+        isNativeMobile: !isOnWeb(),
+        native: native
+      })
     },
     element: <RegisterPage />,
 

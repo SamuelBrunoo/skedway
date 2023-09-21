@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useLoaderData, useSearchParams } from "react-router-dom"
 
 import useApi from "../../Api"
 import { UserInfo } from "../../utils/types/api/UserInfo"
-import { isAndroid, isOnWeb } from "../../utils/auxs/getDeviceType"
 
 import FeedBackPage from "../FeedBackPage"
 import { StartScreen, CaptureScreen, SuccessScreen } from "../../components/_steps"
@@ -11,6 +10,9 @@ import LoadingComponent from "../../components/Loading"
 
 
 function RegisterPage() {
+
+  const loaderInfo = useLoaderData()
+
   const [tokenError, setTokenError] = useState<boolean>(false)
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
   const [loading, setLoading] = useState<boolean>(false)
@@ -26,7 +28,8 @@ function RegisterPage() {
   }
 
   const returnToApp = () => {
-    if (isAndroid()) {
+    // @ts-ignore
+    if (loaderInfo.native === 'Android') {
       const linkProfundo = 'com.apekbrazil.skedway://home';
       window.location.href = linkProfundo;
     } else {
@@ -36,7 +39,8 @@ function RegisterPage() {
   }
 
   const endFlow = () => {
-    if (isOnWeb()) window.location.href = window.location.href
+    // @ts-ignore
+    if (!loaderInfo.isNativeMobile) window.location.href = window.location.href
     else returnToApp()
   }
 

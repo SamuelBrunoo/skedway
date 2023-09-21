@@ -19,3 +19,9 @@ export const isAndroid = () => {
   const isAndroid = /Android/i.test(userAgent);
   return isAndroid;
 };
+
+export const isIOS = () => {
+  const userAgent = navigator.userAgent;
+  const isIOS = /iPhone/i.test(userAgent);
+  return isIOS;
+};
