@@ -12,20 +12,20 @@ type Props = {
 
 
 const useApi = ({ token }: Props) => {
-  const baseUrl = process.env.REACT_APP_API_BASE_URL
-  const localUrl = process.env.REACT_APP_OWN_BACK_URL
+  const skedwayUrl = process.env.REACT_APP_API_BASE_URL
+  const backUrl = process.env.REACT_APP_OWN_BACK_URL
   const onfidoToken = process.env.REACT_APP_ONFIDO_TOKEN
 
   const skedway = a.create({
-    baseURL: baseUrl,
+    baseURL: skedwayUrl,
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: 'application/json',
     },
   })
 
-  const local = new Axios({
-    baseURL: localUrl,
+  const back = new Axios({
+    baseURL: backUrl,
     headers: {
       Authorization: onfidoToken,
       "Content-Type": 'application/json',
@@ -73,7 +73,7 @@ const useApi = ({ token }: Props) => {
       }
     },
     createOnfidoUser: async () => {
-      const req = await local.post(
+      const req = await back.post(
         '/createUser',
         JSON.stringify({})
       )
@@ -86,7 +86,7 @@ const useApi = ({ token }: Props) => {
     },
     getOnfidoSDKToken: async (userId: string) => {
       try {
-        const req = await local.post(
+        const req = await back.post(
           '/getSDKToken',
           JSON.stringify({
             applicant_id: userId,
@@ -102,7 +102,7 @@ const useApi = ({ token }: Props) => {
       }
     },
     getWorkflowRunId: async (userId: string) => {
-      const req = await local.post(
+      const req = await back.post(
         '/getWorkflowRunId',
         JSON.stringify({
           "applicant_id": userId,
@@ -115,7 +115,7 @@ const useApi = ({ token }: Props) => {
     },
     getMotionFrame: async (userId: string): Promise<{ success: true; blob: Blob } | { success: false }> => {
       try {
-        const req = await local.get(
+        const req = await back.get(
           '/getMotionFrame',
           {
             params: {
@@ -136,7 +136,7 @@ const useApi = ({ token }: Props) => {
     },
     deleteOnfidoUser: async (userId: string) => {
       try {
-        await local.post(
+        await back.post(
           '/deleteUser',
           JSON.stringify({
             userId: userId

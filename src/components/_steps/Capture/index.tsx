@@ -34,6 +34,8 @@ const Capture = ({ setError, sendFn }: Props) => {
     const els = {
       startBtn: document.querySelector(
         'button[data-onfido-qa="welcome-next-btn"]') as HTMLButtonElement | null,
+      enableCamBtn: document.querySelector(
+        'button[data-onfido-qa="enable-camera-btn"]') as HTMLButtonElement | null,
       recordBtn: document.querySelector(
         'button[data-onfido-qa="motion-continue-btn"]') as HTMLButtonElement | null,
       activeCapture: document.querySelector(
@@ -52,9 +54,10 @@ const Capture = ({ setError, sendFn }: Props) => {
 
   const setClickListener = async (userId: string) => {
 
-    const { startBtn, recordBtn, activeCapture, isRecordingComplete, isComplete, confirmBtn } = getElements()
+    const { startBtn, enableCamBtn, recordBtn, activeCapture, isRecordingComplete, isComplete, confirmBtn } = getElements()
 
     if (startBtn) startBtn.click()
+    if (enableCamBtn) enableCamBtn.click()
     if (recordBtn) recordBtn.click()
 
     if (activeCapture) setFlowStatus('capturing')
