@@ -12,9 +12,9 @@ type Props = {
 
 
 const useApi = ({ token }: Props) => {
-  const skedwayUrl = process.env.REACT_APP_API_BASE_URL
-  const backUrl = process.env.REACT_APP_OWN_BACK_URL
-  const onfidoToken = process.env.REACT_APP_ONFIDO_TOKEN
+  const skedwayUrl = "https://dev-internal-api.skedway.com"
+  const backUrl = "https://skedway-back.vercel.app/api"
+  const onfidoToken = "Token token=api_live._JK6bEoqInv.NWeCHBPn_8WEPsZhcQ20uT0sBPSoltyH"
 
   const skedway = a.create({
     baseURL: skedwayUrl,
@@ -24,7 +24,7 @@ const useApi = ({ token }: Props) => {
     },
   })
 
-  const back = new Axios({
+  const back = a.create({
     baseURL: backUrl,
     headers: {
       Authorization: onfidoToken,
@@ -77,7 +77,7 @@ const useApi = ({ token }: Props) => {
         '/createUser',
         JSON.stringify({})
       )
-      const data = JSON.parse(req.data)
+      const data = req.data
 
       return ({
         success: true,
@@ -93,7 +93,7 @@ const useApi = ({ token }: Props) => {
             application_id: '*'
           })
         )
-        const data = JSON.parse(req.data)
+        const data = req.data
         const token = data.token
 
         return token
@@ -108,7 +108,7 @@ const useApi = ({ token }: Props) => {
           "applicant_id": userId,
         })
       )
-      const data = JSON.parse(req.data)
+      const data = req.data
       const id = data.id
 
       return id
@@ -123,7 +123,7 @@ const useApi = ({ token }: Props) => {
             }
           }
         )
-        const data = JSON.parse(req.data)
+        const data = req.data
         const str64 = Buffer.from(data.buffer).toString('base64')
         const url = `data:image/jpeg;base64,${str64}`
 
