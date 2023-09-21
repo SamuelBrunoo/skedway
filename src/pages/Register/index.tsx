@@ -15,7 +15,7 @@ function RegisterPage() {
 
   const [tokenError, setTokenError] = useState<boolean>(false)
   const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
   const [step, setStep] = useState<'start' | 'taking' | 'sending' | 'sendError' | 'success'>('start')
 
   const [searchParams] = useSearchParams()
@@ -79,7 +79,6 @@ function RegisterPage() {
       setTokenError(true)
       return
     } else {
-      setLoading(true)
 
       Api.getUserInfo()
         .then((req) => {
@@ -92,6 +91,9 @@ function RegisterPage() {
             setTokenError(true)
             setLoading(false)
           }
+        })
+        .catch(() => {
+          setTokenError(true)
         })
     }
   }, [token])
