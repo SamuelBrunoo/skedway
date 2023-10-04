@@ -37,7 +37,8 @@ const other = {
     next: 'Next',
     refresh: 'Refresh',
     take_another: 'Take another picture',
-    start: 'Start'
+    start: 'Start',
+    retry: 'Try again'
   },
   cameraLabels: {
     candidate_selection: 'Mantenha a posição...',
@@ -67,6 +68,10 @@ const feedbacks = {
     instructions: ''
   },
   unknown: {
+    description: 'Unknown error',
+    instructions: 'If the error persists, please contact our support'
+  },
+  sendError: {
     description: 'Unknown error',
     instructions: 'If the error persists, please contact our support'
   },

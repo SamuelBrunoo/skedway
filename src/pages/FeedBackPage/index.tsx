@@ -10,11 +10,13 @@ import { ReactComponent as CameraIcon } from '../../assets/icons/camera.svg'
 import { ReactComponent as CameraDenIcon } from '../../assets/icons/camera_denied.svg'
 import { ReactComponent as UploadIcon } from '../../assets/icons/upload.svg'
 import { ReactComponent as AlertIcon } from '../../assets/icons/alert.svg'
+import Button from '../../components/Button'
 
 
 type Props = {
   isError: boolean;
-  msgType: 'leadingCamera' | 'cameraDenied' | 'uploading' | 'unknown';
+  msgType: 'leadingCamera' | 'cameraDenied' | 'uploading' | 'unknown' | 'sendError';
+  startFlow?: () => void;
 }
 
 function FeedBackPage(p: Props) {
@@ -40,6 +42,10 @@ function FeedBackPage(p: Props) {
         setIcon(<AlertIcon />)
         setCombination("darkGrey")
         break;
+      case "sendError":
+        setIcon(<AlertIcon />)
+        setCombination("darkGrey")
+        break;
     }
   }, [(p.isError && p.msgType)])
 
@@ -62,6 +68,18 @@ function FeedBackPage(p: Props) {
           {!p.isError && <LoadingDots />}
         </S.Main>
       </S.Content>
+      {p.msgType === 'sendError' &&
+        <div style={{
+          position: 'absolute',
+          bottom: 60,
+          display: 'flex',
+          justifyContent: 'center',
+          left: '50%',
+          transform: 'translateX(-50%)'
+        }}>
+          <Button.Primary noIcon={true} text={texts.other.buttons.retry} action={p.startFlow as () => void} />
+        </div>
+      }
     </Template>
   )
 

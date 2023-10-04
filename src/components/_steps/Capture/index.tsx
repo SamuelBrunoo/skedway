@@ -7,7 +7,7 @@ import FeedBackPage from '../../../pages/FeedBackPage'
 
 
 type Props = {
-  setError: () => void;
+  setError: (type?:string) => void;
   sendFn: (blob: Blob, userId: string) => void;
 }
 
@@ -23,7 +23,7 @@ const Capture = ({ setError, sendFn }: Props) => {
     setTimeout(async () => {
       const frame = await Api.getMotionFrame(id)
       if (frame.success) sendFn(frame.blob, id)
-      else setError()
+      else setError('sendError')
     }, 2000)
   }
 
@@ -103,7 +103,6 @@ const Capture = ({ setError, sendFn }: Props) => {
         <S.CaptureArea
           id="onfido-mount"
           showing={(flowStatus === 'capturing') ? true : undefined}
-
         />
         {(flowStatus == 'leadingCamera') == true && <FeedBackPage isError={false} msgType='leadingCamera' />}
         {(flowStatus == 'capted') == true && <LoadingComponent />}

@@ -57,17 +57,22 @@ function RegisterPage() {
     } else setStep('sendError')
   }
 
+  const setError = (type?: string) => {
+    if (type === 'sendError') setStep('sendError')
+    else setTokenError(true)
+  }
+
   const renderStep = () => {
 
     switch (step) {
       case "start":
         return <StartScreen laterOn={returnToApp} startFlow={startFlow} />
       case "taking":
-        return <CaptureScreen setError={() => setTokenError(true)} sendFn={sendFn} />
+        return <CaptureScreen setError={setError} sendFn={sendFn} />
       case "sending":
         return <FeedBackPage isError={false} msgType="uploading" />
       case "sendError":
-        return <FeedBackPage isError={true} msgType="unknown" />
+        return <FeedBackPage isError={true} msgType="sendError" startFlow={startFlow} />
       case "success":
         return <SuccessScreen endFlow={endFlow} />
     }

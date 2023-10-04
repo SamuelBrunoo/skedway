@@ -33,7 +33,8 @@ const other = {
     next: 'Próximo',
     refresh: 'Atualizar',
     take_another: 'Tirar outra foto',
-    start: 'Continuar'
+    start: 'Continuar',
+    retry: 'Tentar novamente'
   },
   cameraLabels: {
     candidate_selection: 'Mantenha a posição...',
@@ -63,6 +64,10 @@ const feedbacks = {
     instructions: ''
   },
   unknown: {
+    description: 'Erro desconhecido',
+    instructions: 'Se o erro persistir, por gentileza contate nosso suporte'
+  },
+  sendError: {
     description: 'Erro desconhecido',
     instructions: 'Se o erro persistir, por gentileza contate nosso suporte'
   },
