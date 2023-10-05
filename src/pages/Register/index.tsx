@@ -39,10 +39,11 @@ function RegisterPage() {
   }
 
   const endFlow = () => {
+    const referrer = document.referrer
+
     // @ts-ignore
     if (loaderInfo.isNativeMobile) returnToApp()
-
-    window.location.href = window.location.href
+    else window.location.href = referrer
   }
 
   const sendFn = async (blob: Blob, userId: string) => {
