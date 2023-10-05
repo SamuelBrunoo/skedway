@@ -19,11 +19,11 @@ const start = {
 
 const finished = {
   title: {
-    black: 'Foto cadastrada com',
-    orange: 'successo!'
+    black: 'Foto registrada',
+    orange: 'exitosamente!'
   },
-  resume: 'O reconhecimento facial é uma forma segura e simples e passiva de validacão.',
-  instructions: 'Apresente-se aos terminais e siga as etapas de validação. Caso encontre algum problama, entre em contato com um gestor ou acesse nosso portal de atendimento.',
+  resume: 'El reconocimiento facial es una forma de validación segura, sencilla y pasiva.',
+  instructions: 'Preséntate en los terminales y sigue los pasos de validación. Si tiene algún problema, comuníquese con un gerente o acceda a nuestro portal de soporte.',
 }
 
 const other = {
@@ -41,14 +41,14 @@ const other = {
     retry: 'Intentar otra vez'
   },
   cameraLabels: {
-    candidate_selection: 'Mantenha a posição...',
-    face_too_close: 'Afaste-se',
-    face_too_far: 'Aproxime-se',
-    face_centering: 'Centralize seu rosto',
-    face_not_present: 'Posicione seu rosto no círculo',
-    sharpness_too_low: 'Vire seu rosto contra a luz',
-    brightness_too_low: 'Vire seu rosto contra a luz',
-    brightness_too_high: 'Menos luz necessária',
+    candidate_selection: 'Mantén la posición...',
+    face_too_close: 'Apártate',
+    face_too_far: 'Acércate',
+    face_centering: 'Centra tu rostro',
+    face_not_present: 'Coloca tu rostro en el círculo',
+    sharpness_too_low: 'Vuelve tu rostro hacia la luz',
+    brightness_too_low: 'Vuelve tu rostro hacia la luz',
+    brightness_too_high: 'Se necesita menos luz',
     loading: 'Cargando. Por favor espere.',
     waiting: 'Esperando la cámara'
   },

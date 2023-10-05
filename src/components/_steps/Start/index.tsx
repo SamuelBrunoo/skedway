@@ -1,26 +1,23 @@
-import React from 'react'
-import texts from '../../../_lang'
-import * as S from '../styles'
+import React from "react"
+import texts from "../../../_lang"
+import * as S from "../styles"
 
-import Template from '../../_template'
-import Button from '../../Button'
+import Template from "../../_template"
+import Button from "../../Button"
 
-import { Logo } from '../../../utils/imports/icons'
-
+import { Logo } from "../../../utils/imports/icons"
 
 type Props = {
-  laterOn: () => void;
-  startFlow: () => void;
+  laterOn: () => void
+  startFlow: () => void
 }
 
 const StartPage = ({ laterOn, startFlow }: Props) => {
-
-
   return (
     <Template type="greenPurple">
       <S.Content>
         <S.Main>
-          <Logo width={40} height={'auto'} />
+          <Logo width={40} height={"auto"} />
           <S.Title>
             <span>{texts.start.title.black} </span>
             <span>{texts.start.title.orange}</span>
@@ -29,8 +26,25 @@ const StartPage = ({ laterOn, startFlow }: Props) => {
             <span>{texts.start.serviceDes.one}</span>
             <br /> <br />
             <span>{texts.start.serviceDes.two}</span>
-            <br /><br />
-            <span>{texts.start.serviceDes.three} <a href={`https://skedway.com/${texts.langPattern}/privacy`} target="_blank">{texts.start.links.privacy}</a> {texts.start.serviceDes.connective} <a href="">{texts.start.links.data}</a> {texts.start.serviceDes.connective} <a href={`https://skedway.com/${texts.langPattern}/terms`} target="_blank">{texts.start.links.terms}</a> {texts.start.serviceDes.identification}</span>
+            <br />
+            <br />
+            <span>
+              {texts.start.serviceDes.three}{" "}
+              <a
+                href={`https://skedway.com/${texts.langPattern}/privacy`}
+                target="_blank"
+              >
+                {texts.start.links.privacy}
+              </a>{" "}
+              {texts.start.serviceDes.connective}{" "}
+              <a
+                href={`https://skedway.com/${texts.langPattern}/terms`}
+                target="_blank"
+              >
+                {texts.start.links.terms}
+              </a>{" "}
+              {texts.start.serviceDes.identification}
+            </span>
           </S.Text>
         </S.Main>
         <S.ButtonsArea>
@@ -40,8 +54,6 @@ const StartPage = ({ laterOn, startFlow }: Props) => {
       </S.Content>
     </Template>
   )
-
 }
-
 
 export default StartPage
