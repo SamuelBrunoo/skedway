@@ -68,7 +68,7 @@ function RegisterPage() {
 
     switch (step) {
       case "start":
-        return <StartScreen laterOn={returnToApp} startFlow={startFlow} />
+        return <StartScreen laterOn={endFlow} startFlow={startFlow} />
       case "taking":
         return <CaptureScreen setError={setError} sendFn={sendFn} />
       case "sending":

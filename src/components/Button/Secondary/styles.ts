@@ -12,6 +12,7 @@ export const El = styled.button`
   align-items: center;
   gap: 8px;
   align-self: stretch;
+  cursor: pointer;
 
   span {
     font-weight: 600;
