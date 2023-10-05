@@ -40,8 +40,9 @@ function RegisterPage() {
 
   const endFlow = () => {
     // @ts-ignore
-    if (!loaderInfo.isNativeMobile) window.location.href = window.location.href
-    else returnToApp()
+    if (loaderInfo.isNativeMobile) returnToApp()
+
+    window.location.href = window.location.href
   }
 
   const sendFn = async (blob: Blob, userId: string) => {
@@ -77,7 +78,6 @@ function RegisterPage() {
         return <SuccessScreen endFlow={endFlow} />
     }
   }
-
 
   useEffect(() => {
     if (!token) {

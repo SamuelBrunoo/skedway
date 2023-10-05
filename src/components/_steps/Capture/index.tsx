@@ -7,7 +7,7 @@ import FeedBackPage from '../../../pages/FeedBackPage'
 
 
 type Props = {
-  setError: (type?:string) => void;
+  setError: (type?: string) => void;
   sendFn: (blob: Blob, userId: string) => void;
 }
 
@@ -17,6 +17,7 @@ const Capture = ({ setError, sendFn }: Props) => {
 
   const Api = useApi({})
 
+  const [isLoading, setIsLoading] = useState(true)
   const [flowStatus, setFlowStatus] = useState<TFlowStatus>('leadingCamera')
 
   const completeFn = async (id: string) => {
@@ -75,10 +76,11 @@ const Capture = ({ setError, sendFn }: Props) => {
       const container = document.getElementById('onfido-mount') as HTMLDivElement
       const observer = new MutationObserver(() => setClickListener(userId))
       observer.observe(container, config)
-    }
 
-    // @ts-ignore
-    loadUI(token, wId)
+      // @ts-ignore
+      loadUI(token, wId)
+
+    } else setTimeout(() => runWorkflow(token, wId, userId), 100)
   }
 
   const loadWorkflow = async () => {
@@ -90,7 +92,11 @@ const Capture = ({ setError, sendFn }: Props) => {
 
     if (token) {
       const workflowRunId = await Api.getWorkflowRunId(id) as string
-      if (workflowRunId) runWorkflow(token, workflowRunId, id)
+      if (workflowRunId) {
+        setIsLoading(false)
+        runWorkflow(token, workflowRunId, id)
+        console.log('then')
+      }
       else setError()
     } else setError()
 
@@ -98,13 +104,14 @@ const Capture = ({ setError, sendFn }: Props) => {
 
   const renderCapture = () => {
 
-    return (
+    return isLoading ? (
+      <FeedBackPage isError={false} msgType='leadingCamera' />
+    ) : (
       <>
         <S.CaptureArea
           id="onfido-mount"
           showing={(flowStatus === 'capturing') ? true : undefined}
         />
-        {(flowStatus == 'leadingCamera') == true && <FeedBackPage isError={false} msgType='leadingCamera' />}
         {(flowStatus == 'capted') == true && <LoadingComponent />}
       </>
     )
