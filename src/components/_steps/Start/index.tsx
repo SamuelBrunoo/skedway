@@ -17,7 +17,7 @@ const StartPage = ({ laterOn, startFlow }: Props) => {
     <Template type="greenPurple">
       <S.Content>
         <S.Main>
-          <Logo width={40} height={"auto"} />
+          <Logo width={40} height={60} />
           <S.Title>
             <span>{texts.start.title.black} </span>
             <span>{texts.start.title.orange}</span>

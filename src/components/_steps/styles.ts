@@ -6,10 +6,16 @@ export const Content = styled.div`
   max-height: 100svh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 32px;
 
+  @media (max-height: 640px) AND (min-width: 900px) {
+    padding: 0 10.2vw;
+    height: 100svh;
+  }
+
   @media (max-width: 420px) {
-   padding: 7vw; 
+    padding: 7vw; 
   }
 `
 
@@ -18,7 +24,7 @@ export const Main = styled.div`
   display:flex;
   flex-direction: column;
   gap: 32px;
-  padding-top: 54px;
+  padding-top: 24px;
 
   @media (max-width: 420px) {
 
@@ -26,6 +32,17 @@ export const Main = styled.div`
     
     svg {
       width: 32px;
+      height: 60px;
+    }
+  }
+
+  @media (max-height: 640px) AND (min-width: 900px) {
+
+    flex: unset;
+    
+    h1 {
+      margin-top: -24px;
+      margin-bottom: -12px;
     }
   }
 `

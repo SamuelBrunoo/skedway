@@ -20,7 +20,7 @@ function RegisterPage() {
   const [loading, setLoading] = useState<boolean>(true)
   const [step, setStep] = useState<
     "start" | "taking" | "sending" | "sendError" | "success"
-  >("start")
+  >("taking")
 
   const [searchParams] = useSearchParams()
   const token = searchParams.get("token")
@@ -91,7 +91,7 @@ function RegisterPage() {
         return <SuccessScreen endFlow={endFlow} />
     }
   }
-
+/*
   useEffect(() => {
     if (!token) {
       setTokenError(true)
@@ -119,7 +119,7 @@ function RegisterPage() {
     <FeedBackPage isError={true} msgType="unknown" startFlow={refreshPage} />
   ) : loading ? (
     <LoadingComponent />
-  ) : (
+  ) :*/ return (
     renderStep()
   )
 }
