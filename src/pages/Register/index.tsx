@@ -54,6 +54,10 @@ function RegisterPage() {
     else window.location.href = referrer
   }
 
+  const restartFlow = () => {
+    startFlow()
+  }
+
   const sendFn = async (blob: Blob, userId: string) => {
     if (userInfo) {
       setStep("sending")
@@ -76,7 +80,7 @@ function RegisterPage() {
       case "start":
         return <StartScreen laterOn={endFlow} startFlow={startFlow} />
       case "taking":
-        return <CaptureScreen setError={setError} sendFn={sendFn} />
+        return <CaptureScreen setError={setError} sendFn={sendFn} restartFlow={restartFlow} />
       case "sending":
         return <FeedBackPage isError={false} msgType="uploading" />
       case "sendError":

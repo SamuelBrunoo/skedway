@@ -9,7 +9,7 @@ export const Content = styled.div`
   justify-content: center;
   gap: 32px;
 
-  @media (max-height: 640px) AND (min-width: 900px) {
+  @media (orientation: landscape) AND (max-height: 950px) {
     padding: 0 10.2vw;
     height: 100svh;
   }
@@ -36,13 +36,29 @@ export const Main = styled.div`
     }
   }
 
-  @media (max-height: 640px) AND (min-width: 900px) {
+  @media (orientation: landscape) AND (max-height: 950px) {
 
     flex: unset;
     
     h1 {
       margin-top: -24px;
       margin-bottom: -12px;
+    }
+    
+    svg {
+      width: 32px;
+      height: 60px;
+    }
+  }
+
+  @media (orientation: landscape) AND (max-height: 950px) {
+
+    h1 {
+      font-size: 42px;
+    }
+
+    p {
+      font-size: 16px;
     }
   }
 `
@@ -105,4 +121,17 @@ export const ButtonsArea = styled.div`
   align-items: center;
   justify-content: space-evenly;
   padding-bottom: 20px;
+
+  @media (orientation: landscape) AND (max-height: 950px) {
+    button {
+      font-size: 16px;
+      padding: 0.3em 1em;
+      min-width: unset;
+      height: unset;
+
+      svg {
+        height: 30px;
+      }
+    }
+  }
 `

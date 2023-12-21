@@ -10,4 +10,13 @@ export const CaptureArea = styled.div<{ showing: boolean | undefined; }>`
   .onfido-sdk-ui-Theme-footer {
     display: none;
   }
+
+  @media (orientation: landscape) AND (max-height: 950px) {
+
+    padding: 5vh 0;
+
+    & div.onfido-sdk-ui-Theme-root.onfido-sdk-ui-Modal-inner {
+      height: 100%;
+    }
+  }
 `

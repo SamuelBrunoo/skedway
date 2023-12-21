@@ -23,6 +23,18 @@ body {
   animation: op .6s forwards;
 }
 
+.onfido-sdk-ui-ActiveVideo-Header-header svg {
+  display: none;
+}
+
+.onfido-sdk-ui-ActiveVideo-Header-header h3.onfido-sdk-ui-ActiveVideo-Header-title {
+  margin: 12px 0;
+}
+
+div.onfido-sdk-ui-Theme-scrollableContent[data-page-id="FaceNotDetected"] ul.onfido-sdk-ui-ActiveVideo-FaceNotDetected-list {
+  gap: 12px;
+}
+
 @keyframes op {
   from {
     opacity: 0;

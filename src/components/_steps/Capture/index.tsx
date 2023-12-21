@@ -9,11 +9,12 @@ import FeedBackPage from '../../../pages/FeedBackPage'
 type Props = {
   setError: (type?: string) => void;
   sendFn: (blob: Blob, userId: string) => void;
+  restartFlow: () => void;
 }
 
 type TFlowStatus = 'leadingCamera' | 'capturing' | 'capted';
 
-const Capture = ({ setError, sendFn }: Props) => {
+const Capture = ({ setError, sendFn, restartFlow }: Props) => {
 
   const Api = useApi({})
 
@@ -69,6 +70,18 @@ const Capture = ({ setError, sendFn }: Props) => {
     }
   }
 
+  const setNewBack = (token: string, wId: string, userId: string) => {
+
+    if (document.querySelector('.onfido-sdk-ui-Theme-actionsContainer.ods-button.-action--primary.onfido-sdk-ui-Theme-button-centered.onfido-sdk-ui-Theme-button-lg') !== null) {
+      const container = document.querySelector('.onfido-sdk-ui-Theme-actionsContainer.ods-button.-action--primary.onfido-sdk-ui-Theme-button-centered.onfido-sdk-ui-Theme-button-lg') as HTMLDivElement
+
+      container.removeEventListener('click', () => {})
+      
+      container.addEventListener('click', restartFlow)
+      
+    } else setTimeout(() => setNewBack(token, wId, userId), 100)
+  }
+
   const runWorkflow = async (token: string, wId: string, userId: string) => {
     const config = { childList: true, subtree: true }
 
@@ -81,6 +94,8 @@ const Capture = ({ setError, sendFn }: Props) => {
       loadUI(token, wId)
 
     } else setTimeout(() => runWorkflow(token, wId, userId), 100)
+
+    setNewBack(token, wId, userId)
   }
 
   const loadWorkflow = async () => {
